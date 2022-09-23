@@ -2,6 +2,8 @@ UTSC Hub is a web app for UTSC students to connect and buy/sell items.
 
 
 ## Development
+![image](https://user-images.githubusercontent.com/69706702/192059342-46625606-4a4a-472b-a760-3c4d68d7cfc3.png)
+
 
 ### Requirements
 
