@@ -12,6 +12,8 @@ router.get('/', (request, response) => { // note: it is just a slash since we de
     response.send('Fetch logged in user');
 }); 
 
+//test
+
 /*
     ROUTE: POST api/auth
     DESC: Authenticate and get token (so that we can access private routes)
