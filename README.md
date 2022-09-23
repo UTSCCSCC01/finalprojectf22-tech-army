@@ -18,6 +18,7 @@ If developing for the server, run `npm install` in the `server` directory.
 If developing for the client, run `npm install` in the `client` directory.
 
 How it should look like after running `npm run server`:
+
 ![image](https://user-images.githubusercontent.com/69706702/192059643-aab9938c-783b-497e-b19f-4291653a4cec.png)
 
 
