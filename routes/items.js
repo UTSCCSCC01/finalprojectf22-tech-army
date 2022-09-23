@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 //http://localhost:8000/api/items
-// Note: uuid = user id, iid = item id
+// Note: uid = user id, iid = item id
 
 /*
     ROUTE: GET api/items
