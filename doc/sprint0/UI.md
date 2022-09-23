@@ -1,2 +1,2 @@
-Below is the link to the UI and UX design of UTSC HUB.
+Below is the link to the UI and UX design of UTSC HUB.\n
 https://www.figma.com/file/y8m2KVr1VExWlDrdJS5QlU/UI%2FUX?node-id=0%3A1
