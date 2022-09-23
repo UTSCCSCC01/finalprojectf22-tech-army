@@ -15,7 +15,7 @@ Clone the project with Git.
 
 If developing for the server, run `npm install` in the `server` directory. 
 
-If developing for the client, run `npm install` in the `client` directory.
+If developing for the client, run `yarn` in the `client` directory.
 
 How it should look like after running `npm run server`:
 
@@ -24,7 +24,7 @@ How it should look like after running `npm run server`:
 
 ### Running web client server locally
 
-Switch to the `client` directory. Run `npm start` to start the web client server. The local server can be connected to by visiting `localhost:3000` in your browser.
+Switch to the `client` directory. Run `yarn start` to start the web client server. The local server can be connected to by visiting `localhost:3000` in your browser.
 
 ### Running backend API server locally
 
