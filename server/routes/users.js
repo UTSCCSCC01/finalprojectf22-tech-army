@@ -22,8 +22,8 @@ router.post('/', [
     }),
     check('password', 'Please enter a password with 5 or more characters').isLength({min: 5})
 ], async (request, response) => { 
-    const errors = validationResult(request);
-    if(!errors.isEmpty()) return response.status(400).json({errors: errors.array()});
+    const errorMessages = validationResult(request);
+    if(!errorMessages.isEmpty()) return response.status(400).json({errors: errorMessages.array()});
     const {name, email, password} = request.body;
     try{
         let user = await User.findOne({email: email});
