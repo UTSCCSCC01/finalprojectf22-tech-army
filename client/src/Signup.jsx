@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
+import './signupLogin.css';
 
 function Signup() {
 
@@ -27,10 +28,20 @@ function Signup() {
 
     const validate = (values) => {
         const errors = {};
+        const regex = /^[a-zA-Z0-9_.+-]+@mail.utoronto.ca$/;
         if(!values.username){
             errors.username = "Please enter the username";
-
         }
+        if(!values.mailAddress){
+            errors.mailAddress = "Please enter your email address";
+        }
+        else if (!regex.test(values.mailAddress)){
+            errors.mailAddress = "Please enter the valid mail address";
+        }
+        if(!values.password){
+            errors.password = "Please enter your password";
+        }
+        return errors;
     }
   return (
     <div className="formContainer">
@@ -47,6 +58,7 @@ function Signup() {
                       onChange={(e) => handleChange(e)}
                     />
                 </div>
+                <p className="errorMsg">{formErrors.username}</p>
                 <div className="formField">
                     <label>Mail Address</label>
                     <input
@@ -56,6 +68,7 @@ function Signup() {
                       onChange={(e) => handleChange(e)}
                     />
                 </div>
+                <p className="errorMsg">{formErrors.mailAddress}</p>
                 <div className="formField">
                     <label>Password</label>
                     <input type="text"
@@ -64,6 +77,7 @@ function Signup() {
                       onChange={(e) => handleChange(e)}
                     />
                 </div>
+                <p className="errorMsg">{formErrors.password}</p>
                 <button className="submitButton">Signup</button>
             </div>
         </form>
