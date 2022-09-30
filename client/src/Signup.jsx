@@ -18,7 +18,12 @@ function Signup() {
         e.preventDefault();
         setFormErrors(validate(formValues));
         const body = { name: formValues.username, email: formValues.mailAddress, password: formValues.password };
-        axios.post('http://localhost:8000/api/users',  body )
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+            }
+        };
+        axios.post('http://localhost:8000/api/users',  body, axiosConfig)
         .then(res => {
             console.log(res);
         }).catch(error => {

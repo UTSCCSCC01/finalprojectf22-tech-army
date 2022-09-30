@@ -1,7 +1,7 @@
 //Use "npm run server", to run server with nodemon
 const express = require('express'); 
 const mongoose = require('mongoose');
-var cors = require('cors')
+const cors = require('cors')
 const app = express();
 
 const uri = "mongodb+srv://UTSCHub_Admin:LGMSRdTNPrdVjEw9@cluster0.pcmxj1f.mongodb.net/?retryWrites=true&w=majority"
