@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 const cors = require('cors')
 const app = express();
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/sync');
 
 const uri = "mongodb+srv://UTSCHub_Admin:LGMSRdTNPrdVjEw9@cluster0.pcmxj1f.mongodb.net/?retryWrites=true&w=majority"
 
