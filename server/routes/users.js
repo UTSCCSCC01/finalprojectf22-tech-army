@@ -6,7 +6,7 @@ const jsonwebtoken = require('jsonwebtoken');
 const constants = require('../config/constants.json');
 const bcrypt = require('bcryptjs');
 const auth = require('../middleware/auth');
-const controller = require('../controller/controller');
+const controller = require('../controllers/controller');
 
 
 //http://localhost:8000/api/users
