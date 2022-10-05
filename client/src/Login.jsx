@@ -38,7 +38,7 @@ const Login = () => {
                     const errorList = error.response.data.errors;
                     let errorMsg = "";
                     for(let error of errorList){
-                        errorMsg = errorMsg.concat(error.msg + '; ');
+                        errorMsg = errorMsg.concat(error.msg + '\n');
                     }
                     setError(errorMsg);
                 }
@@ -72,7 +72,7 @@ const Login = () => {
                     onChange={e => setPassword(e.target.value)}
                 />
             </div><br />
-            {error && <div className="error">{error}</div>}
+            {error && <pre className="error">{error}</pre>}
             <input
                 type="button"
                 value={loading ? "Loading..." : "Log In"}
