@@ -1,18 +1,13 @@
 export const getUser =() => {
-<<<<<<< HEAD
     const userStr = sessionStorage.getItem("name");
 
     console.log("test");
    //console.log(JSON.parse(userStr));
    //JSON.parse(userStr);
-=======
-    const userStr = sessionStorage.getItem("user");
->>>>>>> 5b1f07bb73e40dfca1a6b8a99878d8ffb23e64d1
     if (userStr) return JSON.parse(userStr);
     else return null;
 }
 
-<<<<<<< HEAD
 export const getEmail =() => {
     const emailStr = sessionStorage.getItem("email");
    //console.log(JSON.parse(emailStr));
@@ -24,13 +19,10 @@ export const getEmail =() => {
 }
 
 
-=======
->>>>>>> 5b1f07bb73e40dfca1a6b8a99878d8ffb23e64d1
 export const getToken =() => {
     return sessionStorage.getItem("token") || null;
 }
 
-<<<<<<< HEAD
 export const setUserSession = (token) => {
     sessionStorage.setItem("token", token);
     
@@ -48,9 +40,4 @@ export const removeUserSession = () =>{
        
     
 
-=======
-export const setUserSession = (token, user) => {
-    sessionStorage.setItem("token", token);
-    sessionStorage.setItem("user", JSON.stringify(user));
->>>>>>> 5b1f07bb73e40dfca1a6b8a99878d8ffb23e64d1
 }
