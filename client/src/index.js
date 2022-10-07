@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Signup from './Signup';
 import './index.css';
 import Login from './Login';
-import reportWebVitals from './reportWebVitals';
 import Home from './Pages/Home';
 import Navbar from './Components/Navbar';
 import ProfileInfo from './Components/profileInfo';
