@@ -71,7 +71,7 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div style={{paddingLeft: "300px"}}>
             Login <br /><br />
             <div>
                 UofT Email<br />

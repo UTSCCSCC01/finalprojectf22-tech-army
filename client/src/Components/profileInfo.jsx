@@ -26,7 +26,6 @@ const ProfileInfo = () => {
            
         <div style={{
             backgroundColor: "#D3D3D3",
-        
             height:"134px"
         }}>
           
