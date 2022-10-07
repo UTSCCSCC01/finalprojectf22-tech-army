@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Signup from './Signup';
+import Signup from './login_pages/Signup';
 import './index.css';
-import Login from './Login';
+import Login from './login_pages/Login';
 import Dashboard from './Dashboard';
 import Navbar from './Navbar';
 import About from './pages/about';

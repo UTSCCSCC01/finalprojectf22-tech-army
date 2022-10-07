@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 import axios from 'axios';
-import './signupLogin.css';
+import './hide.css';
 import { useNavigate } from "react-router-dom";
 
 function Signup() {

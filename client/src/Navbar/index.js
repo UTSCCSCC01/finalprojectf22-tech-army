@@ -8,13 +8,11 @@ import {
   NavBtnLink,
 } from './NavbarElements';
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
     <>
-      <Nav>
-        <NavLink>
-          <img style={{ width: 160, height: 70 }} src={require('../images/logo.png')} alt="logo"/>
-        </NavLink>
+      <Nav className='Navbar'>
+        
         <Bars />
         <NavMenu>
           <NavLink to='/about' activeStyle>

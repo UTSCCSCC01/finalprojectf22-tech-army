@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setUserSession } from "./Utils/Common";
+import { setUserSession } from "../Utils/Common";
+import './hide.css';
 
 const Login = () => {
 
@@ -27,7 +28,7 @@ const Login = () => {
             console.log('response >>>', response);
             setLoading(false);
             setUserSession(response.data.token, response.data.user)
-            navigate('/dashboard');
+            navigate('/about');
         }).catch(error => {
             setLoading(false);
             console.error('error >>>', error);
@@ -38,7 +39,7 @@ const Login = () => {
                     const errorList = error.response.data.errors;
                     let errorMsg = "";
                     for(let error of errorList){
-                        errorMsg = errorMsg.concat(error.msg + '\n');
+                        errorMsg = errorMsg.concat(error.msg + '; ');
                     }
                     setError(errorMsg);
                 }
@@ -72,7 +73,7 @@ const Login = () => {
                     onChange={e => setPassword(e.target.value)}
                 />
             </div><br />
-            {error && <pre className="error">{error}</pre>}
+            {error && <div className="error">{error}</div>}
             <input
                 type="button"
                 value={loading ? "Loading..." : "Log In"}

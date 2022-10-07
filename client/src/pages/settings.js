@@ -7,7 +7,8 @@ const Settings = () => {
         display: 'flex',
         justifyContent: 'Left',
         alignItems: 'Left',
-        height: '100vh'
+        height: '100vh',
+        paddingLeft: "25%"
       }}
     >
       <h1>Welcome to Settings Page!</h1>
