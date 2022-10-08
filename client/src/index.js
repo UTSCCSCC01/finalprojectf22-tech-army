@@ -7,10 +7,10 @@ import './index.css';
 import Login from './Login';
 import Home from './Pages/Home';
 import Navbar from './Components/Navbar/Navbar';
-import ProfileInfo from './Components/profileInfo';
-import Events from './Pages/events';
-import Market from './Pages/market';
-import Message from './Pages/message';
+import ProfileInfo from './Components/ProfileInfo';
+import Events from './Pages/Events';
+import Market from './Pages/Market';
+import Message from './Pages/Message';
 
 
 
