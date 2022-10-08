@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Signup from './Signup';
 import './index.css';
-import Login from './Login';
-import Home from './Pages/Home';
 import Navbar from './Components/Navbar/Navbar';
 import ProfileInfo from './Components/ProfileInfo';
 import Events from './Pages/Events';
+import Home from './Pages/Home';
+import Login from './Pages/Login';
 import Market from './Pages/Market';
 import Message from './Pages/Message';
+import Signup from './Pages/Signup';
 
 
 
