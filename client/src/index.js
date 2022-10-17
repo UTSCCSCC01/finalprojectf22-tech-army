@@ -11,6 +11,7 @@ import Login from './Pages/Login';
 import Market from './Pages/Market';
 import Message from './Pages/Message';
 import Signup from './Pages/Signup';
+import PostEvent from './Pages/PostEvent';
 
 
 
@@ -25,6 +26,7 @@ root.render(
       <Route path="/profile" exact element={<ProfileInfo />}/>
       <Route path="/market" exact element={<Market />}/>
       <Route path="/events" exact element={<Events />}/>
+      <Route path="/events/postevent" exact element={<PostEvent />}/>
       <Route path="/message" exact element={<Message />}/>
     </Routes>
   </BrowserRouter>
