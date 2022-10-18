@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getToken, setUserData, setUserSession } from "../Utils/Common";
 import './signupLogin.css';
-import { setUserSession } from "../Utils/Common";
 
 const Login = () => {
 
