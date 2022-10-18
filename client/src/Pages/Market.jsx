@@ -1,7 +1,10 @@
 import React from 'react';
+import Navbar from '../Components/Navbar/Navbar';
+
   
 const Market = () => {
   return (
+    <><Navbar />
     <div
       style={{
         display: 'flex',
@@ -12,7 +15,7 @@ const Market = () => {
       }}
     >
       <h1>Welcome to Market Page!</h1>
-    </div>
+    </div></>
   );
 };
   

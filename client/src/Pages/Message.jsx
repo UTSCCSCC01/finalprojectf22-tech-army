@@ -1,8 +1,9 @@
 import React from 'react';
+import Navbar from '../Components/Navbar/Navbar';
   
 const Message = () => {
   return (
-    <div
+    <><Navbar /><div
       style={{
         display: 'flex',
         justifyContent: 'Left',
@@ -12,7 +13,7 @@ const Message = () => {
       }}
     >
       <h1>Welcome to Message Page!</h1>
-    </div>
+    </div></>
   );
 };
   
