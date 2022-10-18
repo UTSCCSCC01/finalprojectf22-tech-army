@@ -9,7 +9,7 @@ const Message = () => {
         justifyContent: 'Left',
         alignItems: 'Left',
         height: '100vh',
-        paddingLeft: "25%"
+        paddingLeft: "300px",
       }}
     >
       <h1>Welcome to Message Page!</h1>
