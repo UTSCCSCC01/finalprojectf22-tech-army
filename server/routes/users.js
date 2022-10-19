@@ -34,7 +34,7 @@ router.post('/', [
             email,
             password
         });
-        const salt = await bcrypt.genSalt() //encrypt the password
+        const salt = await bcrypt.genSalt(); //encrypt the password
         user.password = await bcrypt.hash(password, salt);
         await user.save();
         jsonwebtoken.sign(
@@ -51,8 +51,30 @@ router.post('/', [
     }
 }); 
 
-
-
+/*
+    ROUTE: PUT api/users
+    DESC: Update user info (username, password)
+    ACCESS: Private
+*/
+router.put('/', [
+    check('name', 'Please enter your name').notEmpty(),
+    check('password', 'Please enter a password with 5 or more characters').isLength({min: 5})
+], auth, async (request, response) =>{
+    const errorMessages = validationResult(request);
+    if(!errorMessages.isEmpty()) return response.status(400).json({errors: errorMessages.array()});
+    try {
+        const {name, email, password} = request.body;
+        const filter = {email};
+        const salt = await bcrypt.genSalt();
+        const newPass = await bcrypt.hash(password, salt);
+        const update = {name: name, password: newPass};
+        await User.findOneAndUpdate(filter, update);
+        response.json({message: "Updated user info"});
+    } catch(error) {
+        console.log(error.message);
+        response.json({message: error.message});
+    }
+});
 
 /*
     ROUTE: DELETE api/users
