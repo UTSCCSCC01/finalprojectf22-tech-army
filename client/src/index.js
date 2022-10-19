@@ -9,6 +9,7 @@ import Login from './Pages/Login';
 import Market from './Pages/Market';
 import Message from './Pages/Message';
 import Signup from './Pages/Signup';
+import PostItem from './Pages/PostItem';
 
 
 
@@ -21,6 +22,7 @@ root.render(
       <Route path="/signup" exact element={<Signup />}/>
       <Route path="/profile" exact element={<ProfileInfo />}/>
       <Route path="/market" exact element={<Market />}/>
+      <Route path="/events/postitem" exact element={<PostItem />}/>
       <Route path="/events" exact element={<Events />}/>
       <Route path="/message" exact element={<Message />}/>
     </Routes>
