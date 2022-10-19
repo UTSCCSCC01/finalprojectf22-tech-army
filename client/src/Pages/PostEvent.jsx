@@ -6,18 +6,11 @@ import FileUpload from '../Utils/FileUpload'
 const { Title } = Typography;
 const { TextArea } = Input;
 
-const Continents = [
-    { key: 1, value: "Sport" },
-    { key: 2, value: "Social" },
-    { key: 3, value: "Study" }
-]
-
 function UploadProductPage(props) {
 
     const [TitleValue, setTitleValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
     const [PriceValue, setPriceValue] = useState(0)
-    const [ContinentValue, setContinentValue] = useState(1)
 
     //const [Images, setImages] = useState([])
 
@@ -28,14 +21,6 @@ function UploadProductPage(props) {
 
     const onDescriptionChange = (event) => {
         setDescriptionValue(event.currentTarget.value)
-    }
-
-    const onPriceChange = (event) => {
-        setPriceValue(event.currentTarget.value)
-    }
-
-    const onContinentsSelectChange = (event) => {
-        setContinentValue(event.currentTarget.value)
     }
 
     /*const updateImages = (newImages) => {
@@ -74,7 +59,7 @@ function UploadProductPage(props) {
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                <Title level={2}> Upload Travel Product</Title>
+                <Title level={2}> Post An Evnet</Title>
             </div>
 
 
@@ -85,7 +70,7 @@ function UploadProductPage(props) {
 
                 <br />
                 <br />
-                <label>Title</label>
+                <label>Event Title</label>
                 <Input
                     onChange={onTitleChange}
                     value={TitleValue}
@@ -97,20 +82,6 @@ function UploadProductPage(props) {
                     onChange={onDescriptionChange}
                     value={DescriptionValue}
                 />
-                <br />
-                <br />
-                <label>Price($)</label>
-                <Input
-                    onChange={onPriceChange}
-                    value={PriceValue}
-                    type="number"
-                />
-                <br /><br />
-                <select onChange={onContinentsSelectChange} value={ContinentValue}>
-                    {Continents.map(item => (
-                        <option key={item.key} value={item.key}>{item.value} </option>
-                    ))}
-                </select>
                 <br />
                 <br />
 
