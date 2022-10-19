@@ -6,11 +6,10 @@ import FileUpload from '../Utils/FileUpload'
 const { Title } = Typography;
 const { TextArea } = Input;
 
-function UploadProductPage(props) {
+function PostEvent(props) {
 
     const [TitleValue, setTitleValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
-    const [PriceValue, setPriceValue] = useState(0)
 
     //const [Images, setImages] = useState([])
 
@@ -77,7 +76,7 @@ function UploadProductPage(props) {
                 />
                 <br />
                 <br />
-                <label>Description</label>
+                <label>Event Description</label>
                 <TextArea
                     onChange={onDescriptionChange}
                     value={DescriptionValue}
@@ -97,4 +96,4 @@ function UploadProductPage(props) {
     )
 }
 
-export default UploadProductPage
+export default PostEvent;

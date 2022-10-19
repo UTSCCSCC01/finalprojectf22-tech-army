@@ -7,7 +7,7 @@ const Events = () => {
 
   const handlePost = () => {
     navigate('/events/postevent');
-}
+  }
   
   return (
     <div
