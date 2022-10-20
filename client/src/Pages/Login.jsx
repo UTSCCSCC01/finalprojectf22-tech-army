@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getToken, setUserData, setUserSession } from "../Utils/Common";
+import './signupLogin.css';
 
 const Login = () => {
 
@@ -71,39 +72,49 @@ const Login = () => {
     }
 
     return (
-        
-        <div style={{paddingLeft: "300px"}}>
-            Login <br /><br />
-            <div>
-                UofT Email<br />
-                <input
-                    type="text"
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
-                />
-            </div>
-            <div>
-                Password<br />
-                <input
-                    type="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-            </div><br />
-            {error && <pre className="error">{error}</pre>}
-            <input
-                type="button"
-                value={loading ? "Loading..." : "Log In"}
-                disabled={loading}
-                onClick={handleLogin}
-            />
-            <input
-                type="button"
-                value={loading ? "Loading..." : "Sign Up"}
-                disabled={loading}
-                onClick={handleSignup}
-            />
+        <>
+        <div className="Header">
+            <img src={`${process.env.PUBLIC_URL}/logo.png`} alt="UTSC Hub"></img>
         </div>
+        <div className="formContainer">
+            <div className="form">
+                <h1>Login</h1>
+                <hr />
+                <div className="uiForm">
+                    <div className="formField">
+                        <label>UofT Email</label>
+                        <input
+                            type="text"
+                            value={username}
+                            onChange={e => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <div className="formField">
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)} />
+                    </div>
+                    <br />
+                    {error && <pre className="error">{error}</pre>}
+                    <input
+                        className="button"
+                        type="button"
+                        value={loading ? "Loading..." : "Log In"}
+                        disabled={loading}
+                        onClick={handleLogin} />
+                    <input
+                        className="button"
+                        type="button"
+                        value={loading ? "Loading..." : "Sign Up"}
+                        disabled={loading}
+                        onClick={handleSignup}
+                    />
+                </div>
+            </div>
+        </div>
+        </>
     )
 }
 
