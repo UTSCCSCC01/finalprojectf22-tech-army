@@ -33,7 +33,7 @@ var upload = multer({ storage: storage }).single("file")
 
 router.post("/uploadImage", auth, (req, res) => {
 
-    upload((req, res, err) => {
+    upload(req, res, (err) => {
         if (err) {
             return res.json({ success: false, err })
         }
