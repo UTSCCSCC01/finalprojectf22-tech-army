@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Dropzone from 'react-dropzone';
 import { PlusOutlined } from '@ant-design/icons';
 import Axios from 'axios';
+import { getToken } from './Common';
 
 function FileUpload(props) {
 
@@ -11,14 +12,18 @@ function FileUpload(props) {
 
         let formData = new FormData();
         const config = {
-            header: { 'content-type': 'multipart/form-data' }
+            headers : {
+                'Content-Type' : 'multipart/form-data',
+                'x-auth-token' : getToken()
+            }
         }
         formData.append("file", files[0])
         //save the Image the user chose inside the Node Server 
-        Axios.post('/api/product/uploadImage', formData, config)
+        Axios.post('/api/postevent/uploadImage', formData, config)
             .then(response => {
+                console.log("response>>>", response);
                 if (response.data.success) {
-
+                    
                     setImages([...Images, response.data.image])
                     props.refreshFunction([...Images, response.data.image])
 

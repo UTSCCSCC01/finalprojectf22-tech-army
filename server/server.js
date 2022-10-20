@@ -28,6 +28,7 @@ app.get('/', (request, response) => response.send('Hello World'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/items', require('./routes/items'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/postevent', require('./routes/postevent'));
 
 const port = process.env.PORT || 8000; //uses either production or port 8000 for development
 

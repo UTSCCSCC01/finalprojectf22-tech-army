@@ -11,7 +11,7 @@ function PostEvent(props) {
     const [TitleValue, setTitleValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
 
-    //const [Images, setImages] = useState([])
+    const [Images, setImages] = useState([])
 
 
     const onTitleChange = (event) => {
@@ -22,10 +22,10 @@ function PostEvent(props) {
         setDescriptionValue(event.currentTarget.value)
     }
 
-    /*const updateImages = (newImages) => {
+    const updateImages = (newImages) => {
         setImages(newImages)
     }
-    const onSubmit = (event) => {
+    /*const onSubmit = (event) => {
         event.preventDefault();
 
 
@@ -65,7 +65,7 @@ function PostEvent(props) {
             <Form onSubmit>
 
                 {/* DropZone */}
-                <FileUpload />
+                <FileUpload refreshFunction={updateImages}/>
 
                 <br />
                 <br />
