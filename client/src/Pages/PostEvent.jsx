@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Typography, Button, Form, message, Input, Icon } from 'antd';
 import FileUpload from '../Utils/FileUpload'
-//import Axios from 'axios';
+import Axios from 'axios';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -10,6 +10,7 @@ function PostEvent(props) {
 
     const [TitleValue, setTitleValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
+
 
     const [Images, setImages] = useState([])
 
@@ -23,14 +24,16 @@ function PostEvent(props) {
     }
 
     const updateImages = (newImages) => {
+
+        console.log(newImages)
         setImages(newImages)
     }
-    /*const onSubmit = (event) => {
+    const onSubmit = (event) => {
         event.preventDefault();
 
 
-        if (!TitleValue || !DescriptionValue || !PriceValue ||
-            !ContinentValue || !Images) {
+        if (!TitleValue || !DescriptionValue || 
+             !Images) {
             return alert('fill all the fields first!')
         }
 
@@ -38,9 +41,9 @@ function PostEvent(props) {
             writer: props.user.userData._id,
             title: TitleValue,
             description: DescriptionValue,
-            price: PriceValue,
+      
             images: Images,
-            continents: ContinentValue,
+       
         }
 
         Axios.post('/api/product/uploadProduct', variables)
@@ -53,7 +56,7 @@ function PostEvent(props) {
                 }
             })
 
-    }*/
+    }
 
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
