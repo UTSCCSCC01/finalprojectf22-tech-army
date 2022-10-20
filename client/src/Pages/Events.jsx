@@ -4,6 +4,8 @@ import axios from "axios";
 import { Col, Card, Row } from 'antd';
 import ImageSlider from '../Utils/ImageSlider';
 import Button from '@mui/material/Button'
+import { getToken } from '../Utils/Common';
+import { useNavigate } from "react-router-dom";
 
 const Events = () => {
 
@@ -17,29 +19,25 @@ const Events = () => {
 
   const { Meta } = Card;
 
-  const [Skip, setSkip] = useState(0)
-  const [Limit, setLimit] = useState(8)
-  
-  // only when the PostSize is 8 then we show the load more button
-  const [PostSize, setPostSize] = useState()
 
 
 
   useEffect( () => {
 
-    const body = {
-      skip: Skip,
-      limit : Limit
-
-    }
-
-    axios.post('http://localhost:8000/api/events',body).then (response =>{
+    const config = {
+      headers : {
+         // 'Content-Type' : 'multipart/form-data',
+          'x-auth-token' : getToken()
+      }
+  }
+    axios.post('/api/postevent/getEvents',null,config).then (response =>{
       if (response.data.success) {
 
-            setevents([...response.data.event])     //check if the name is called Events
+            setevents([...response.data.events])     //check if the name is called Events
 
-            setPostSize(response.data.PostSize)
-            console.log()
+            console.log(response.data.events)
+
+            
       } else{
           alert('cant fetch data from db')
       }
@@ -49,33 +47,6 @@ const Events = () => {
 
 
 
-
-  const Loadfunc = () =>{
-      let skip = Skip + Limit;
-
-      const body = {
-            skip: skip,
-            limit : Limit
-
-      }
-
-          // need to update 
-          axios.post('http://localhost:8000/api/events',body).then (response =>{
-      if (response.data.success) {
-
-            setevents([...response.data.event])     //check if the name is called Events
-
-            setPostSize(response.data.PostSize)
-            console.log()
-      } else{
-          alert('cant fetch data from db')
-      }
-    })
-
-
-    setSkip(skip)
-
-  }
 
 
 
@@ -105,7 +76,7 @@ const Events = () => {
 
 
 
-          <Button variant="contained" size="large" color="secondary">create my own event</Button>
+          <Button variant="contained" size="large" color="secondary" onClick={handlePost}>Post event</Button>
 
           {Events.length === 0 ?
                 <div style={{ display: 'flex', height: '300px', justifyContent: 'Left', alignItems: 'Left' }}>
@@ -140,27 +111,7 @@ const Events = () => {
 
             <br /><br />
 
-
-            { PostSize >= Limit &&
-                <div style={{ display: 'flex', justifyContent: 'Left' }}>
-                    <button onClick={Loadfunc}>Load More</button>
-                </div>
-            }
-          
-            
-
-            
-               
-
-
-
-
-
-
-
-
-
-
+    
         </div>
    
     
