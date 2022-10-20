@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
-import { Typography, Button, Form, message, Input, Icon } from 'antd';
+import { Typography, Button, Form, Input } from 'antd';
 import FileUpload from '../Utils/FileUpload'
-//import Axios from 'axios';
+import Axios from 'axios';
+import { getUser,getToken } from '../Utils/Common';
+import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 const { TextArea } = Input;
 
-function PostEvent(props) {
 
+function PostEvent(props) {
+    const navigate = useNavigate();
     const [TitleValue, setTitleValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
+
 
     const [Images, setImages] = useState([])
 
@@ -23,37 +27,58 @@ function PostEvent(props) {
     }
 
     const updateImages = (newImages) => {
+
+        console.log("image info ",newImages)
         setImages(newImages)
     }
-    /*const onSubmit = (event) => {
+    const onSubmit = (event) => {
         event.preventDefault();
 
 
-        if (!TitleValue || !DescriptionValue || !PriceValue ||
-            !ContinentValue || !Images) {
+        if (!TitleValue || !DescriptionValue || 
+             !Images) {
             return alert('fill all the fields first!')
         }
 
         const variables = {
-            writer: props.user.userData._id,
+           // writer: props.user.userData._id,
+
+            //not sure how to store writer? token?
+            writer : getUser(),
+
             title: TitleValue,
             description: DescriptionValue,
-            price: PriceValue,
+      
             images: Images,
-            continents: ContinentValue,
+       
         }
 
-        Axios.post('/api/product/uploadProduct', variables)
+
+        const config = {
+            headers : {
+               // 'Content-Type' : 'multipart/form-data',
+                'x-auth-token' : getToken()
+            }
+        }
+
+        Axios.post('/api/postevent/uploadEvent', variables,config)
             .then(response => {
                 if (response.data.success) {
-                    alert('Product Successfully Uploaded')
-                    props.history.push('/')
+                    alert('Event Successfully posted')
+
+                    //after successful posted go back to event page
+                   
+                            //not sure why this cant work 
+                            // props.history.push('/')
+                    navigate("/events");
+
+
                 } else {
                     alert('Failed to upload Product')
                 }
             })
 
-    }*/
+    }
 
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
@@ -62,7 +87,7 @@ function PostEvent(props) {
             </div>
 
 
-            <Form onSubmit>
+            <Form onSubmit = {onSubmit}>
 
                 {/* DropZone */}
                 <FileUpload refreshFunction={updateImages}/>
@@ -85,7 +110,7 @@ function PostEvent(props) {
                 <br />
 
                 <Button
-                    onClick
+                    onClick={onSubmit}
                 >
                     Submit
                 </Button>

@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 
+const Event = require("../models/Event");
+
 const auth = require("../middleware/auth");
 
 var storage = multer.diskStorage({
@@ -28,7 +30,7 @@ var upload = multer({ storage: storage }).single("file")
 
 
 //=================================
-//             Product
+//             Event API
 //=================================
 
 router.post("/uploadImage", auth, (req, res) => {
@@ -41,6 +43,21 @@ router.post("/uploadImage", auth, (req, res) => {
     })
 
 });
+
+
+//save data to the db
+router.post("/uploadEvent", auth, (req, res) => {
+
+    const event = new Event(req.body)
+
+    event.save((err) => {
+        if (err) return res.status(400).json({ success: false, err })
+        return res.status(200).json({ success: true })
+    })
+
+});
+
+
 
 
 module.exports = router;
