@@ -1,12 +1,6 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import axios from "axios";
-import { Col, Card, Row } from 'antd';
-import ImageSlider from '../Utils/ImageSlider';
-import Button from '@mui/material/Button'
-
-import { useNavigate } from "react-router-dom";
-
+import React from 'react';
+import Navbar from '../Components/Navbar/Navbar';
+  
 const Events = () => {
 
   const navigate = useNavigate();
@@ -82,93 +76,18 @@ const Events = () => {
 
 
   return (
-    <>
-       <div
-          style={{
-          display: 'flex',
-          justifyContent: 'Left',
-          alignItems: 'Left',
-          //height: '100vh',
-          paddingLeft: "45%"
-        }}
-       >
-              <h1>Welcome to Events Page!</h1> 
-      </div>
-
-      <div
-          style={{
-          alignItems: 'Left',
-          //height: '100vh',
-          paddingLeft: "45%"
-        }}
-       >
-
-
-
-
-          <Button variant="contained" size="large" color="secondary" onClick={handlePost}>Post event</Button>
-
-          {Events.length === 0 ?
-                <div style={{ display: 'flex', height: '300px', justifyContent: 'Left', alignItems: 'Left' }}>
-                    <h2>No events yet...</h2>
-                </div> :
-
-                                // render card part
-                <div>
-                    
-                     <Row gutter={[16, 16]}></Row>
-                        {Events.map((events,index) => {
-                            return <Col lg={6} md={8} xs={24}>
-
-                                    <Card
-                                          hoverable={true}
-                                          cover={
-                                             <ImageSlider images={events.images} />}
-                                    >
-
-                                        <Meta
-                                            title={events.title}
-                                            description={events.description}
-                                        />
-                                   </Card>
-
-                                  </Col>
-                        }) }
-
-
-                </div>
-            }
-
-            <br /><br />
-
-
-            { PostSize >= Limit &&
-                <div style={{ display: 'flex', justifyContent: 'Left' }}>
-                    <button onClick={Loadfunc}>Load More</button>
-                </div>
-            }
-          
-            
-
-            
-               
-
-
-
-
-
-
-
-
-
-
-        </div>
-   
-    
-    </>
-    
-
-    
+    <><Navbar />
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'Left',
+        alignItems: 'Left',
+        height: '100vh',
+        paddingLeft: "300px"
+      }}
+    >
+      <h1>Welcome to Events Page!</h1>
+    </div></>
   );
 };
   
