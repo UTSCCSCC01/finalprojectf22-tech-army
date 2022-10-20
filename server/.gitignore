@@ -39,6 +39,3 @@ jspm_packages
 
 #Excluding server build directory
 public/
-
-# Storage for user uploads
-uploads/
