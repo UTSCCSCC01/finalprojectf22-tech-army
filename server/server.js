@@ -30,6 +30,8 @@ app.use('/api/items', require('./routes/items'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/postevent', require('./routes/postevent'));
 
+app.use("/uploads", express.static("uploads"));
+
 const port = process.env.PORT || 8000; //uses either production or port 8000 for development
 
 app.listen(port, () => console.log("Server started on port " + port));
