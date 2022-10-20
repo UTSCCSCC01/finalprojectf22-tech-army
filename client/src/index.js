@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
 import './index.css';
-import Navbar from './Components/Navbar/Navbar';
 import ProfileInfo from './Components/ProfileInfo';
 import Events from './Pages/Events';
 import Home from './Pages/Home';
@@ -17,7 +15,6 @@ import Signup from './Pages/Signup';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-  <Navbar />
     <Routes>
       <Route path="/" exact element={<Login />}/>
       <Route path="/dashboard" element={<Home/>} />
