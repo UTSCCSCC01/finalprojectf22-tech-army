@@ -11,6 +11,7 @@ import {
   getToken,
   getUser,
   setUserData,
+  validatePassword,
 } from '../Utils/Common';
 import FileUpload from '../Utils/FileUpload'
 import Navbar from '../Components/Navbar/Navbar';
@@ -28,6 +29,7 @@ const EditProfile = () => {
   const [coverImg, setCoverImg] = useState(null);
   const [username, setUsername] = useState(getUser());
   const [password, setPassword] = useState('');
+  const [passwordErrors, setPasswordErrors] = useState([]);
 
   const updateProfilePic = (newImages) => {
     setProfilePic(newImages[0])
@@ -46,9 +48,16 @@ const EditProfile = () => {
   }
 
   const saveChanges = () => {
+    let newValidPassword = ''; // API should refuse to change password if password is empty string
+    const invalidPasswordReasons = validatePassword(password);
+    setPasswordErrors(invalidPasswordReasons);
+    if (invalidPasswordReasons.length == 0) {
+      newValidPassword = password;
+    }
+
     const body = {
       email: getEmail(),
-      password: password,
+      password: newValidPassword,
       username: username,
       profilePic: profilePic,
       coverImg: coverImg,
