@@ -78,7 +78,7 @@ const Events = () => {
                 <Card
                   hoverable={true}
                   cover={
-                      <ImageSlider images={events.images} />
+                      <a href={`/events/${events._id}`}><ImageSlider images={events.images} /></a>
                     }
                 >
                   <Meta
