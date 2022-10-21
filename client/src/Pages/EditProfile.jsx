@@ -14,7 +14,6 @@ const EditProfile = () => {
 
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState(getEmail());
   const [username, setUsername] = useState(getUser());
 
   const saveChanges = () => {
@@ -69,14 +68,6 @@ const EditProfile = () => {
           type="text"
           value={username}
           onChange={e => setUsername(e.target.value)}
-        />
-      </div>
-      <div className="formField">
-        <label>Email</label>
-        <input
-          type="text"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
         />
       </div>
 
