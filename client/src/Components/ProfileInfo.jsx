@@ -27,8 +27,8 @@ const ProfileInfo = () => {
         navigate('/editProfile');
     }
 
-    const onCoverImgError = () => profilePicFallback.current.src = defaultProfilePic;
-    const onProfilePicError = () => coverImgFallback.current.src = defaultCoverImg;
+    const onProfilePicError = () => profilePicFallback.current.src = defaultProfilePic;
+    const onCoverImgError = () => coverImgFallback.current.src = defaultCoverImg;
 
     return (
         <>
