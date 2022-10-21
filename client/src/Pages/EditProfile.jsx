@@ -99,7 +99,7 @@ const EditProfile = () => {
         <br />
         <br />
 
-        <label>Password</label>
+        <label>New Password (leave blank if not changing)</label>
         <Input.Password
           onChange={onPasswordChange}
           value={password}
