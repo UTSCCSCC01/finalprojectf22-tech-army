@@ -21,4 +21,20 @@ router.post("/uploadEvent", auth, (req, res) => {
 
 });
 
+
+// Event page API
+router.post("/getEvents", auth, (req, res) => {
+
+    Event.find()
+    .exec( (err, events) => {
+        if (err) return res.status(400).json({success:false,err})
+
+        res.status(200).json({success:true , events})
+    } )
+
+});
+
+
+
+
 module.exports = router;
