@@ -34,7 +34,6 @@ const ProfileInfo = () => {
             >
           
             <img src={profilePicUrl} height={120} alt="profile-pic" />
-                <Button variant = "outlined" size="medium" color = "primary" >edit cover</Button>
                 <Button variant = "outlined" size="medium" color = "primary" onClick={handleEditProfile}>edit profile</Button>
             </div>
         </>
