@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import Button from '@mui/material/Button';
+import {
+  Typography,
+  Button,
+  Form,
+  Input
+} from 'antd';
 import {
   getEmail,
   getToken,
@@ -10,11 +15,19 @@ import {
 import Navbar from '../Components/Navbar/Navbar';
 import axios from "axios";
 
+const { Title } = Typography;
+const { TextArea } = Input;
+
+
 const EditProfile = () => {
 
   const navigate = useNavigate();
 
   const [username, setUsername] = useState(getUser());
+
+  const onUsernameChange = (event) => {
+    setUsername(event.target.value)
+  }
 
   const saveChanges = () => {
     const body = {
@@ -56,22 +69,34 @@ const EditProfile = () => {
         justifyContent: 'Left',
         alignItems: 'Left',
         height: '100vh',
-        paddingLeft: "300px"
+        paddingLeft: "300px",
       }}
     >
-      <h1>Edit Profile</h1>
-
-      <div className="formField">
-        <label>Username</label>
-        <input
-          type="text"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
+      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <Title level={2}>Edit Profile</Title>
       </div>
+      
+      <Form>
+        <br />
+        <br />
 
-      <Button variant="contained" size="large" color="secondary" onClick={saveChanges}>Save</Button>
-      <Button variant="contained" size="large" color="secondary" onClick={cancelChanges}>Cancel</Button>
+        <label>Username</label>
+        <Input
+          onChange={onUsernameChange}
+          value={username}
+        />
+        <br />
+        <br />
+
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
+          <Button variant="contained" size="large" color="secondary" onClick={saveChanges} danger>Save</Button>
+          <Button variant="contained" size="large" color="secondary" onClick={cancelChanges}>Cancel</Button>
+        </div>
+      </Form>
     </div>
     </>
   );
