@@ -56,3 +56,15 @@ export const removeUserSession = () =>{
     sessionStorage.removeItem("name");
     sessionStorage.removeItem("token");
 }
+
+export const validatePassword = (password) => {
+    const minPasswordLength = 5;
+    
+    const passwordProblems = [];
+
+    if (password?.length < minPasswordLength) {
+        passwordProblems.push('Password must be at least 5 characters long');
+    }
+    
+    return passwordProblems;
+}
