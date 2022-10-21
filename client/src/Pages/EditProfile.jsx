@@ -47,6 +47,7 @@ const EditProfile = () => {
 
   const saveChanges = () => {
     const body = {
+      email: getEmail(),
       password: password,
       username: username,
     };
