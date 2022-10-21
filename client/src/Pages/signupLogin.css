@@ -14,6 +14,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .formContainer form, .formContainer .form {
     z-index: 7;
     background-color: white;
@@ -29,7 +30,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: 500px;
+    height: 400px;
 }
 
 .formField {
