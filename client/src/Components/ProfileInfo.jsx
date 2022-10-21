@@ -1,14 +1,19 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
-import coverIMG from '../assets/profileBackground.png'
 import Button from '@mui/material/Button'
-import { getEmail, getUser } from '../Utils/Common'
+import {
+    getUser,
+    getEmail,
+    getCoverImg,
+    getProfilePicURL,
+} from '../Utils/Common'
 
 const ProfileInfo = () => {
     
     const user = getUser();
     const email = getEmail();
     const profilePicUrl = getProfilePicURL();
+    const coverImg = getCoverImg();
 
     const navigate = useNavigate();
 
