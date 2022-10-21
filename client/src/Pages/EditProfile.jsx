@@ -121,6 +121,10 @@ const EditProfile = () => {
           onChange={onPasswordChange}
           value={password}
         />
+        {passwordErrors?.length && <p className="errorMsg">Passwords must satisfy the following criteria:</p>}
+        {passwordErrors?.map(errorMsg => {
+            return <p className="errorMsg">• {errorMsg}</p>
+        })}
         <br />
         <br />
 
