@@ -38,11 +38,11 @@ const EditProfile = () => {
     }
   }
 
-  const updateProfilePicPreview = (newImages) => {
+  const updateProfilePic = (newImages) => {
     setFirstImage(newImages, setProfilePic)
   }
 
-  const updateCoverImgPreview = (newImages) => {
+  const updateCoverImg = (newImages) => {
     setFirstImage(newImages, setCoverImg)
   }
 
@@ -97,12 +97,12 @@ const EditProfile = () => {
       <Form>
         
         <label>Profile Picture</label>
-        <FileUpload refreshFunction={updateProfilePicPreview}/>
+        <FileUpload refreshFunction={updateProfilePic}/>
         <br />
         <br />
 
         <label>Profile Cover/Banner</label>
-        <FileUpload refreshFunction={updateCoverImgPreview}/>
+        <FileUpload refreshFunction={updateCoverImg}/>
         <br />
         <br />
 
