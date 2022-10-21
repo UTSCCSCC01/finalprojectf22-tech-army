@@ -12,6 +12,7 @@ import {
   getUser,
   setUserData,
 } from '../Utils/Common';
+import FileUpload from '../Utils/FileUpload'
 import Navbar from '../Components/Navbar/Navbar';
 import axios from "axios";
 
@@ -23,10 +24,25 @@ const EditProfile = () => {
 
   const navigate = useNavigate();
 
+  const [profilePic, setProfilePic] = useState([]);
   const [username, setUsername] = useState(getUser());
+  const [password, setPassword] = useState('');
+
+  const updateProfilePicPreview = (newImages) => {
+    // Use the most recently uploaded image as the sole image the user wants
+    if (newImages?.length > 0) {
+      setProfilePic([newImages[newImages.length - 1]])
+    } else {
+      setProfilePic([])
+    }
+  }
 
   const onUsernameChange = (event) => {
     setUsername(event.target.value)
+  }
+
+  const onPasswordChange = (event) => {
+    setPassword(event.target.value)
   }
 
   const saveChanges = () => {
@@ -77,6 +93,9 @@ const EditProfile = () => {
       </div>
       
       <Form>
+        
+        <label>Profile Picture</label>
+        <FileUpload refreshFunction={updateProfilePicPreview}/>
         <br />
         <br />
 
@@ -84,6 +103,14 @@ const EditProfile = () => {
         <Input
           onChange={onUsernameChange}
           value={username}
+        />
+        <br />
+        <br />
+
+        <label>Password</label>
+        <Input.Password
+          onChange={onPasswordChange}
+          value={password}
         />
         <br />
         <br />
