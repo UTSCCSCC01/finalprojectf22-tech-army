@@ -48,77 +48,53 @@ const Events = () => {
 
 
 
-
-
-
   return (
     <>
-       <div
-          style={{
-          display: 'flex',
-          justifyContent: 'Left',
-          alignItems: 'Left',
-          //height: '100vh',
-          paddingLeft: "45%"
-        }}
-       >
-              <h1>Welcome to Events Page!</h1> 
-      </div>
+    <Navbar />
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'Left',
+        alignItems: 'Left',
+        height: '100vh',
+        paddingLeft: "300px"
+      }}
+    >
+      <h1>Welcome to Events Page!</h1>
 
-      <div
-          style={{
-          alignItems: 'Left',
-          //height: '100vh',
-          paddingLeft: "45%"
-        }}
-       >
+      <Button variant="contained" size="large" color="secondary" onClick={handlePost}>Post event</Button>
 
-
-
-
-          <Button variant="contained" size="large" color="secondary" onClick={handlePost}>Post event</Button>
-
-          {Events.length === 0 ?
-                <div style={{ display: 'flex', height: '300px', justifyContent: 'Left', alignItems: 'Left' }}>
-                    <h2>No events yet...</h2>
-                </div> :
-
-                                // render card part
-                <div>
-                    
-                     <Row gutter={[16, 16]}></Row>
-                        {Events.map((events,index) => {
-                            return <Col lg={6} md={8} xs={24}>
-
-                                    <Card
-                                          hoverable={true}
-                                          cover={
-                                             <ImageSlider images={events.images} />}
-                                    >
-
-                                        <Meta
-                                            title={events.title}
-                                            description={events.description}
-                                        />
-                                   </Card>
-
-                                  </Col>
-                        }) }
-
-
-                </div>
-            }
-
-            <br /><br />
-
-    
+      {Events.length === 0 ?
+        <div style={{ display: 'flex', height: '300px', justifyContent: 'Left', alignItems: 'Left' }}>
+          <h2>No events yet...</h2>
+        </div> 
+          :
+                        // render card part
+        <div>
+          <Row gutter={[16, 16]}></Row>
+          {Events.map((events,index) => {
+            return (
+              <Col lg={6} md={8} xs={24}>
+                <Card
+                  hoverable={true}
+                  cover={
+                      <ImageSlider images={events.images} />
+                    }
+                >
+                  <Meta
+                      title={events.title}
+                      description={events.description}
+                  />
+                </Card>
+              </Col>
+            )
+          }) }
         </div>
-   
-    
-    </>
-    
+      }
 
-    
+      <br /><br />
+    </div>
+    </>
   );
 };
   
