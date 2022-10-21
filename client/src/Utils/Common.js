@@ -63,7 +63,7 @@ export const validatePassword = (password) => {
     const passwordProblems = [];
 
     if (password?.length < minPasswordLength) {
-        passwordProblems.push('Password must be at least 5 characters long');
+        passwordProblems.push('must be at least 5 characters long');
     }
     
     return passwordProblems;

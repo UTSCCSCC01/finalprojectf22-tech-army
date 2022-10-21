@@ -3,6 +3,10 @@ import axios from 'axios';
 import './signupLogin.css';
 import { useNavigate } from "react-router-dom";
 
+import {
+    validatePassword,
+} from '../Utils/Common';
+
 function Signup() {
 
     const initialValues = { username: "", mailAddress: "", password: "" };
@@ -46,9 +50,7 @@ function Signup() {
         else if (!regex.test(values.mailAddress)){
             errors.mailAddress = "Please enter the valid mail address";
         }
-        if(!values.password){
-            errors.password = "Please enter your password";
-        }
+        errors.password = validatePassword(values.password);
         return errors;
     }
   return (
@@ -87,7 +89,10 @@ function Signup() {
                             name="password"
                             onChange={(e) => handleChange(e)} />
                     </div>
-                    <p className="errorMsg">{formErrors.password}</p>
+                    {formErrors.password?.length && <p className="errorMsg">Passwords must satisfy the following criteria:</p>}
+                    {formErrors.password?.map(errorMsg => {
+                        return <p className="errorMsg">• {errorMsg}</p>
+                    })}
                     <button className="submitButton">Create Your Account</button>
                 </div>
             </form>
