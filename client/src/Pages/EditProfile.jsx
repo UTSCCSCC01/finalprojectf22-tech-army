@@ -25,6 +25,7 @@ const EditProfile = () => {
   const navigate = useNavigate();
 
   const [profilePic, setProfilePic] = useState([]);
+  const [coverImg, setCoverImg] = useState([]);
   const [username, setUsername] = useState(getUser());
   const [password, setPassword] = useState('');
 
@@ -39,6 +40,10 @@ const EditProfile = () => {
 
   const updateProfilePicPreview = (newImages) => {
     useFirstImage(newImages, setProfilePic)
+  }
+
+  const updateCoverImgPreview = (newImages) => {
+    useFirstImage(newImages, setCoverImg)
   }
 
   const onUsernameChange = (event) => {
@@ -92,6 +97,11 @@ const EditProfile = () => {
       <Form>
         
         <label>Profile Picture</label>
+        <FileUpload refreshFunction={updateProfilePicPreview}/>
+        <br />
+        <br />
+
+        <label>Profile Cover/Banner</label>
         <FileUpload refreshFunction={updateProfilePicPreview}/>
         <br />
         <br />
