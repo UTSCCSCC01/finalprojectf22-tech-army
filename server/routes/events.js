@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const auth = require('../middleware/auth');
+//const auth = require('../middleware/auth');
 const Event = require('../models/Event');
 const User = require('../models/User');
 
 // @route   POST api/events
 // @desc    Create an event for the user that is logged in
 // @access  Private
-router.post('/', [auth, [
+router.post('/', [
     check('title', 'Title is required').not().isEmpty(),
     check('description', 'Description is required').not().isEmpty()
-]], async (req, res) => {
+], async (req, res) => {
     //check for errors in the request
     const errors = validationResult(req);
     // if there are errors, return a 400 status and the errors
@@ -39,7 +39,7 @@ router.post('/', [auth, [
 // @route   GET api/events
 // @desc    Get all events
 // @access  Private
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         //find all events without any filters
         const events = await Event.find();
@@ -56,7 +56,7 @@ router.get('/', auth, async (req, res) => {
 // @route   GET api/events/:id
 // @desc    get all events for a specific user by their ID
 // @access  Private
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         //find all events for a specific user by their id
         const event = await Event.findById(req.params.id);
@@ -80,7 +80,7 @@ router.get('/:id', auth, async (req, res) => {
 // @route   DELETE api/events/:id
 // @desc    Delete an event
 // @access  Private
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         //find the event by the id
         const event = await Event.findById(req.params.id);
