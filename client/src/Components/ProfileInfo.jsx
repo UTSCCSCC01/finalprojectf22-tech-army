@@ -1,7 +1,6 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import coverIMG from '../assets/profileBackground.png'
-import profilepic from'../assets/profilepic1.png'
 import Button from '@mui/material/Button'
 import { getEmail, getUser } from '../Utils/Common'
 
@@ -9,6 +8,7 @@ const ProfileInfo = () => {
     
     const user = getUser();
     const email = getEmail();
+    const profilePicUrl = getProfilePicURL();
 
     const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const ProfileInfo = () => {
                 }}
             >
           
-            <img src={profilepic} height={120} alt="profile-pic" />
+            <img src={profilePicUrl} height={120} alt="profile-pic" />
                 <Button variant = "outlined" size="medium" color = "primary" >edit cover</Button>
                 <Button variant = "outlined" size="medium" color = "primary" onClick={handleEditProfile}>edit profile</Button>
             </div>
