@@ -52,44 +52,47 @@ function Signup() {
         return errors;
     }
   return (
-    <div className="formContainer" style={{paddingLeft: "300px"}}>
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <h1>Signup Form</h1>
-            <hr />
-            <div className="uiForm">
-                <div className="formField">
-                    <label>Username</label>
-                    <input 
-                      type="text" 
-                      placeholder="Username" 
-                      name="username" 
-                      onChange={(e) => handleChange(e)}
-                    />
+    <>
+    <header>
+        <img src={`${process.env.PUBLIC_URL}/logo.png`} alt="UTSC Hub logo"></img>
+    </header>
+        <div className="formContainer">
+            <form onSubmit={(e) => handleSubmit(e)}>
+                <h1>Signup Form</h1>
+                <hr />
+                <div className="uiForm">
+                    <div className="formField">
+                        <label>Username</label>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            name="username"
+                            onChange={(e) => handleChange(e)}
+                        />
+                    </div>
+                    <p className="errorMsg">{formErrors.username}</p>
+                    <div className="formField">
+                        <label>Mail Address</label>
+                        <input
+                            type="text"
+                            placeholder="Mail Address"
+                            name="mailAddress"
+                            onChange={(e) => handleChange(e)} />
+                    </div>
+                    <p className="errorMsg">{formErrors.mailAddress}</p>
+                    <div className="formField">
+                        <label>Password</label>
+                        <input type="text"
+                            placeholder="Password"
+                            name="password"
+                            onChange={(e) => handleChange(e)} />
+                    </div>
+                    <p className="errorMsg">{formErrors.password}</p>
+                    <button className="submitButton">Create Your Account</button>
                 </div>
-                <p className="errorMsg">{formErrors.username}</p>
-                <div className="formField">
-                    <label>Mail Address</label>
-                    <input
-                      type="text"
-                      placeholder="Mail Address" 
-                      name="mailAddress"
-                      onChange={(e) => handleChange(e)}
-                    />
-                </div>
-                <p className="errorMsg">{formErrors.mailAddress}</p>
-                <div className="formField">
-                    <label>Password</label>
-                    <input type="text"
-                      placeholder="Password" 
-                      name="password"
-                      onChange={(e) => handleChange(e)}
-                    />
-                </div>
-                <p className="errorMsg">{formErrors.password}</p>
-                <button className="submitButton">Signup</button>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+    </>
   );
 }
 

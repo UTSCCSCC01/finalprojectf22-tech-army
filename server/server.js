@@ -29,6 +29,7 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/items', require('./routes/items'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/postevent', require('./routes/postevent'));
+app.use('/api/upload', require('./routes/upload'));
 
 app.use("/uploads", express.static("uploads"));
 

@@ -4,6 +4,7 @@ import FileUpload from '../Utils/FileUpload'
 import Axios from 'axios';
 import { getUser,getToken } from '../Utils/Common';
 import { useNavigate } from "react-router-dom";
+import Navbar from '../Components/Navbar/Navbar';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -81,43 +82,45 @@ function PostEvent(props) {
     }
 
     return (
-        <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                <Title level={2}> Post An Evnet</Title>
+        <><Navbar />
+            <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
+                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                    <Title level={2}> Post An Evnet</Title>
+                </div>
+
+
+                <Form onSubmit = {onSubmit}>
+
+                    {/* DropZone */}
+                    <FileUpload refreshFunction={updateImages}/>
+
+                    <br />
+                    <br />
+                    <label>Event Title</label>
+                    <Input
+                        onChange={onTitleChange}
+                        value={TitleValue}
+                    />
+                    <br />
+                    <br />
+                    <label>Event Description</label>
+                    <TextArea
+                        onChange={onDescriptionChange}
+                        value={DescriptionValue}
+                    />
+                    <br />
+                    <br />
+
+                    <Button
+                        onClick={onSubmit}
+                    >
+                        Submit
+                    </Button>
+
+                </Form>
+
             </div>
-
-
-            <Form onSubmit = {onSubmit}>
-
-                {/* DropZone */}
-                <FileUpload refreshFunction={updateImages}/>
-
-                <br />
-                <br />
-                <label>Event Title</label>
-                <Input
-                    onChange={onTitleChange}
-                    value={TitleValue}
-                />
-                <br />
-                <br />
-                <label>Event Description</label>
-                <TextArea
-                    onChange={onDescriptionChange}
-                    value={DescriptionValue}
-                />
-                <br />
-                <br />
-
-                <Button
-                    onClick={onSubmit}
-                >
-                    Submit
-                </Button>
-
-            </Form>
-
-        </div>
+        </>
     )
 }
 
