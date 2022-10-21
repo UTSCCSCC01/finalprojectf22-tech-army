@@ -102,7 +102,7 @@ const EditProfile = () => {
         <br />
 
         <label>Profile Cover/Banner</label>
-        <FileUpload refreshFunction={updateProfilePicPreview}/>
+        <FileUpload refreshFunction={updateCoverImgPreview}/>
         <br />
         <br />
 
