@@ -24,26 +24,17 @@ const EditProfile = () => {
 
   const navigate = useNavigate();
 
-  const [profilePic, setProfilePic] = useState([]);
-  const [coverImg, setCoverImg] = useState([]);
+  const [profilePic, setProfilePic] = useState(null);
+  const [coverImg, setCoverImg] = useState(null);
   const [username, setUsername] = useState(getUser());
   const [password, setPassword] = useState('');
 
-  const setFirstImage = (newImages, setCallback) => {
-    // Use the most recently uploaded image as the sole image the user wants
-    if (newImages?.length > 0) {
-      setCallback([newImages[newImages.length - 1]])
-    } else {
-      setCallback([])
-    }
-  }
-
   const updateProfilePic = (newImages) => {
-    setFirstImage(newImages, setProfilePic)
+    setProfilePic(newImages[0])
   }
 
   const updateCoverImg = (newImages) => {
-    setFirstImage(newImages, setCoverImg)
+    setCoverImg(newImages[0])
   }
 
   const onUsernameChange = (event) => {
