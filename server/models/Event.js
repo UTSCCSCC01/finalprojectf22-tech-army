@@ -1,27 +1,39 @@
 const mongoose = require("mongoose");
 
+const Schema = mongoose.Schema;
+
 const EventSchema = mongoose.Schema({
-    //title of the event
+
+    writer: {
+        //type: Schema.Types.ObjectId,
+        type: String
+        //ref: 'User'
+    },
+
     title: {
         type: String,
-        required: true,
+        maxlength: 50
     },
-    //may need to change required to false as it is not required, not sure yet.
+
     description: {
-        type: String,
-        required: true,
+        type: String
+    },
+
+    images: {
+        type: Array,
+        default: []
+    },
+    
+}, { timestamps: true })
+
+
+EventSchema.index({ 
+    title:'text',
+    description: 'text',
+}, {
+    weights: {
+        name: 5,
+        description: 1,
     }
-    //date is a string because it is easier to work with
-    // date: {
-    //     type: Date,
-    //     required: true,
-    // },
-    // //use the user model to create a relationship between the user and the event
-    // creator: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User'
-    // }
-});
-
-module.exports = mongoose.model('event', EventSchema);
-
+})
+module.exports = mongoose.model('Event', EventSchema);
