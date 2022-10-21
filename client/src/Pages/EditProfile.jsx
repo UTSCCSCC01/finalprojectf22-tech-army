@@ -79,15 +79,7 @@ const EditProfile = () => {
   return (
     <>
     <Navbar />
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'Left',
-        alignItems: 'Left',
-        height: '100vh',
-        paddingLeft: "300px",
-      }}
-    >
+    <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <Title level={2}>Edit Profile</Title>
       </div>
