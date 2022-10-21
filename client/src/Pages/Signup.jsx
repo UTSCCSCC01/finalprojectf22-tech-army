@@ -89,7 +89,7 @@ function Signup() {
                             name="password"
                             onChange={(e) => handleChange(e)} />
                     </div>
-                    {formErrors.password?.length && <p className="errorMsg">Passwords must satisfy the following criteria:</p>}
+                    {formErrors.password?.length ? <p className="errorMsg">Passwords must satisfy the following criteria:</p> : <></>}
                     {formErrors.password?.map(errorMsg => {
                         return <p className="errorMsg">• {errorMsg}</p>
                     })}
