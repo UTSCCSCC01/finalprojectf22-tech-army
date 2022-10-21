@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import {
+  getEmail,
   getToken,
+  getUser,
   setUserData,
 } from '../Utils/Common';
 import Navbar from '../Components/Navbar/Navbar';
@@ -11,6 +13,9 @@ import axios from "axios";
 const EditProfile = () => {
 
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState(getEmail());
+  const [username, setUsername] = useState(getUser());
 
   const saveChanges = () => {
     const body = {
@@ -57,6 +62,23 @@ const EditProfile = () => {
       }}
     >
       <h1>Edit Profile</h1>
+
+      <div className="formField">
+        <label>Username</label>
+        <input
+          type="text"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+        />
+      </div>
+      <div className="formField">
+        <label>Email</label>
+        <input
+          type="text"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+      </div>
 
       <Button variant="contained" size="large" color="secondary" onClick={saveChanges}>Save</Button>
       <Button variant="contained" size="large" color="secondary" onClick={cancelChanges}>Cancel</Button>
