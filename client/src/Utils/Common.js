@@ -23,15 +23,15 @@ export const getEmail =() => {
 export const getCoverImg = () => {
     const coverImg = sessionStorage.getItem("coverImg");
 
-    if (coverImg) return JSON.parse(coverImg);
-    else return defaultCoverImg;
+    const imgSrc = coverImg ? JSON.parse(coverImg) : null;
+    return imgSrc || defaultCoverImg;
 }
 
 export const getProfilePic = () => {
     const profilePic = sessionStorage.getItem("profilePic");
 
-    if (profilePic) return JSON.parse(profilePic);
-    else return defaultProfilePic;
+    const imgSrc = profilePic ? JSON.parse(profilePic) : null;
+    return imgSrc || defaultProfilePic;
 }
 
 export const getToken =() => {
