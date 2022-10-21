@@ -28,7 +28,7 @@ const ProfileInfo = () => {
             </div>
 
             <div>
-                <img src={coverIMG} width={927} height={90} alt="cover" />
+                <img src={coverImg} width={927} height={90} alt="cover" />
             </div>
 
             <div 
