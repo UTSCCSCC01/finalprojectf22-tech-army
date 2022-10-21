@@ -46,8 +46,8 @@ export const setUserSession = (token) => {
 export const setUserData = (name, email, profilePic, coverImg) => {
     sessionStorage.setItem("name", JSON.stringify(name));
     sessionStorage.setItem("email", JSON.stringify(email));
-    sessionStorage.setItem("coverImg", JSON.stringify(coverImg));
-    sessionStorage.setItem("profilePic", JSON.stringify(profilePic));
+    sessionStorage.setItem("coverImg", JSON.stringify(coverImg ?? null));
+    sessionStorage.setItem("profilePic", JSON.stringify(profilePic ?? null));
 }
 
 
