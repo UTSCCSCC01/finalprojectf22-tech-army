@@ -1,4 +1,5 @@
 import defaultProfilePic from'../assets/profilepic1.png'
+import defaultCoverImg from '../assets/profileBackground.png'
 
 export const getUser =() => {
     const userStr = sessionStorage.getItem("name");
@@ -19,6 +20,13 @@ export const getEmail =() => {
     else return null;
 }
 
+export const getCoverImg = () => {
+    const coverImg = sessionStorage.getItem("coverImg");
+
+    if (coverImg) return JSON.parse(coverImg);
+    else return defaultCoverImg;
+}
+
 export const getProfilePicUrl = () => {
     const profilePicUrl = sessionStorage.getItem("profilePicUrl");
 
@@ -35,9 +43,10 @@ export const setUserSession = (token) => {
 }
 
 
-export const setUserData = (name, email, profilePicUrl) => {
+export const setUserData = (name, email, profilePicUrl, coverImg) => {
     sessionStorage.setItem("name", JSON.stringify(name));
     sessionStorage.setItem("email", JSON.stringify(email));
+    sessionStorage.setItem("coverImg", JSON.stringify(coverImg));
     sessionStorage.setItem("profilePicUrl", JSON.stringify(profilePicUrl));
 }
 
