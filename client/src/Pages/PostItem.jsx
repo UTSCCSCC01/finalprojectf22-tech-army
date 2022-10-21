@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
-import { Typography, Button, Form, message, Input, Icon } from 'antd';
+import { Typography, Button, Form, Input } from 'antd';
 import FileUpload from '../Utils/FileUpload'
-//import Axios from 'axios';
+import Axios from 'axios';
+import { getUser,getToken } from '../Utils/Common';
+import { Navigate, useNavigate } from "react-router-dom";
+import Navbar from '../Components/Navbar/Navbar';
 
 const { Title } = Typography;
 const { TextArea } = Input;
 
 function PostItem(props) {
-
+    const navigate = useNavigate();
     const [TitleValue, setTitleValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
     const [PriceValue, setPriceValue] = useState(0)
 
-    //const [Images, setImages] = useState([])
+    const [Images, setImages] = useState([])
 
 
     const onTitleChange = (event) => {
@@ -27,7 +30,7 @@ function PostItem(props) {
         setPriceValue(event.currentTarget.value)
     }
 
-    /*const updateImages = (newImages) => {
+    const updateImages = (newImages) => {
         setImages(newImages)
     }
     const onSubmit = (event) => {
@@ -35,30 +38,35 @@ function PostItem(props) {
 
 
         if (!TitleValue || !DescriptionValue || !PriceValue ||
-            !ContinentValue || !Images) {
+            !Images) {
             return alert('fill all the fields first!')
         }
 
         const variables = {
-            writer: props.user.userData._id,
             title: TitleValue,
             description: DescriptionValue,
             price: PriceValue,
             images: Images,
-            continents: ContinentValue,
         }
 
-        Axios.post('/api/product/uploadProduct', variables)
+        const config = {
+            headers : {
+                'x-auth-token' : getToken()
+            }
+        }
+
+        Axios.post('/api/product/uploadItem', variables, config)
             .then(response => {
                 if (response.data.success) {
-                    alert('Product Successfully Uploaded')
-                    props.history.push('/')
+                    alert('Item Successfully Posted')
+                    navigate("/market")
+
                 } else {
                     alert('Failed to upload Product')
                 }
             })
 
-    }*/
+    }
 
     return (
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
@@ -70,7 +78,7 @@ function PostItem(props) {
             <Form onSubmit>
 
                 {/* DropZone */}
-                <FileUpload />
+                <FileUpload refreshFunction={updateImages}/>
 
                 <br />
                 <br />

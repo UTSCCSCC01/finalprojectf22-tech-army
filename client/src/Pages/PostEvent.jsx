@@ -65,7 +65,7 @@ function PostEvent(props) {
         Axios.post('/api/postevent/uploadEvent', variables,config)
             .then(response => {
                 if (response.data.success) {
-                    alert('Event Successfully posted')
+                    alert('Event Successfully Posted')
 
                     //after successful posted go back to event page
                    

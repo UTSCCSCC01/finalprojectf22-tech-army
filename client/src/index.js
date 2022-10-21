@@ -11,6 +11,7 @@ import Message from './Pages/Message';
 import Signup from './Pages/Signup';
 import PostEvent from './Pages/PostEvent';
 import DetailEvent from './Pages/DetailEvent';
+import PostItem from './Pages/PostItem';
 
 
 
