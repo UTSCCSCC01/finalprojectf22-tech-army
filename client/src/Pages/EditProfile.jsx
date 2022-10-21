@@ -18,7 +18,6 @@ const EditProfile = () => {
 
   const saveChanges = () => {
     const body = {
-      email: email,
       password: password,
       username: username,
     };
@@ -33,7 +32,7 @@ const EditProfile = () => {
     axios.post('/api/users', body, axiosConfig).then(response => {
       if (response.data.success) {
         // Succesfully changed account info on backend, update data on client
-        setUserData(username, email);
+        setUserData(username, getEmail());
         navigate('/dashboard');
       } else {
         const errorMsg = 'Error while saving changes';
