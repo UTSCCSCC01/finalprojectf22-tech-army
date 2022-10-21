@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button'
 import {
@@ -8,6 +8,9 @@ import {
     getProfilePic,
 } from '../Utils/Common'
 
+import defaultProfilePic from'../assets/profilepic1.png'
+import defaultCoverImg from '../assets/profileBackground.png'
+
 const ProfileInfo = () => {
     
     const user = getUser();
@@ -15,11 +18,17 @@ const ProfileInfo = () => {
     const profilePic = getProfilePic();
     const coverImg = getCoverImg();
 
+    const profilePicFallback = useRef();
+    const coverImgFallback = useRef();
+
     const navigate = useNavigate();
 
     const handleEditProfile = () => {
         navigate('/editProfile');
     }
+
+    const onCoverImgError = () => profilePicFallback.current.src = defaultProfilePic;
+    const onProfilePicError = () => coverImgFallback.current.src = defaultCoverImg;
 
     return (
         <>
@@ -28,7 +37,7 @@ const ProfileInfo = () => {
             </div>
 
             <div>
-                <img src={coverImg} width={927} height={90} alt="cover" />
+                <img ref={coverImgFallback} src={coverImg} width={927} height={90} alt="cover" onError={onCoverImgError} />
             </div>
 
             <div 
@@ -38,7 +47,7 @@ const ProfileInfo = () => {
                 }}
             >
           
-            <img src={profilePic} height={120} alt="profile-pic" />
+            <img ref={profilePicFallback} src={profilePic} height={120} alt="profile-pic" onError={onProfilePicError} />
                 <Button variant = "outlined" size="medium" color = "primary" onClick={handleEditProfile}>edit profile</Button>
             </div>
         </>
