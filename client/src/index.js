@@ -11,6 +11,7 @@ import Message from './Pages/Message';
 import Signup from './Pages/Signup';
 import PostEvent from './Pages/PostEvent';
 import DetailEvent from './Pages/DetailEvent';
+import PostItem from './Pages/PostItem';
 
 
 
@@ -23,6 +24,7 @@ root.render(
       <Route path="/signup" exact element={<Signup />}/>
       <Route path="/profile" exact element={<ProfileInfo />}/>
       <Route path="/market" exact element={<Market />}/>
+      <Route path="/events/postitem" exact element={<PostItem />}/>
       <Route path="/events" exact element={<Events />}/>
       <Route path="/events/postevent" exact element={<PostEvent />}/>
       <Route path="/events/:eventId" exact element={<DetailEvent />}/>
