@@ -27,10 +27,10 @@ export const getCoverImg = () => {
     else return defaultCoverImg;
 }
 
-export const getProfilePicUrl = () => {
-    const profilePicUrl = sessionStorage.getItem("profilePicUrl");
+export const getProfilePic = () => {
+    const profilePic = sessionStorage.getItem("profilePic");
 
-    if (profilePicUrl) return JSON.parse(profilePicUrl);
+    if (profilePic) return JSON.parse(profilePic);
     else return defaultProfilePic;
 }
 
@@ -43,11 +43,11 @@ export const setUserSession = (token) => {
 }
 
 
-export const setUserData = (name, email, profilePicUrl, coverImg) => {
+export const setUserData = (name, email, profilePic, coverImg) => {
     sessionStorage.setItem("name", JSON.stringify(name));
     sessionStorage.setItem("email", JSON.stringify(email));
     sessionStorage.setItem("coverImg", JSON.stringify(coverImg));
-    sessionStorage.setItem("profilePicUrl", JSON.stringify(profilePicUrl));
+    sessionStorage.setItem("profilePic", JSON.stringify(profilePic));
 }
 
 

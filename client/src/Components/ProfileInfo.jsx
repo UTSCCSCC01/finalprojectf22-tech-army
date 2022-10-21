@@ -5,14 +5,14 @@ import {
     getUser,
     getEmail,
     getCoverImg,
-    getProfilePicURL,
+    getProfilePic,
 } from '../Utils/Common'
 
 const ProfileInfo = () => {
     
     const user = getUser();
     const email = getEmail();
-    const profilePicUrl = getProfilePicURL();
+    const profilePic = getProfilePic();
     const coverImg = getCoverImg();
 
     const navigate = useNavigate();
@@ -38,7 +38,7 @@ const ProfileInfo = () => {
                 }}
             >
           
-            <img src={profilePicUrl} height={120} alt="profile-pic" />
+            <img src={profilePic} height={120} alt="profile-pic" />
                 <Button variant = "outlined" size="medium" color = "primary" onClick={handleEditProfile}>edit profile</Button>
             </div>
         </>
