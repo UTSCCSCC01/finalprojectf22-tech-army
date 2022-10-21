@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import ProfileInfo from './Components/ProfileInfo';
 import Events from './Pages/Events';
 import Home from './Pages/Home';
