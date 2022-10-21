@@ -6,6 +6,7 @@ import ImageSlider from '../Utils/ImageSlider';
 import Button from '@mui/material/Button'
 import { getToken } from '../Utils/Common';
 import { useNavigate } from "react-router-dom";
+import './event.css'
 
 const Events = () => {
 
@@ -15,7 +16,9 @@ const Events = () => {
     navigate('/events/postevent');
   }
   
-  const [Events, setevents] = useState([])
+  const [Events, setevents] = useState([]);
+  const [query, setQuery] = useState("");
+  const [Events_Final, setevents_final] = useState([]);
 
   const { Meta } = Card;
 
@@ -34,6 +37,7 @@ const Events = () => {
       if (response.data.success) {
 
             setevents([...response.data.events])     //check if the name is called Events
+            setevents_final([...response.data.events])
 
             console.log(response.data.events)
 
@@ -45,7 +49,25 @@ const Events = () => {
 
   }, [])
 
+  if (!Events) return null;
 
+  const filterPost =() => {
+    if (query === "") {
+      setevents_final(Events);
+      return;
+    } 
+
+    setevents_final(Events_Final.filter(eventss => {
+      if (query === '') {
+        return eventss;
+      } else if (eventss.title.toLowerCase().includes(query.toLowerCase())) {
+        return eventss;
+      } else {
+        return null
+      }
+    }))
+    
+  }
 
 
   return (
@@ -72,23 +94,30 @@ const Events = () => {
                         // render card part
         <div>
           <Row gutter={[16, 16]}></Row>
-          {Events.map((events,index) => {
-            return (
-              <Col lg={6} md={8} xs={24}>
-                <Card
-                  hoverable={true}
-                  cover={
-                      <a href={`/events/${events._id}`}><ImageSlider images={events.images} /></a>
-                    }
-                >
-                  <Meta
-                      title={events.title}
-                      description={events.description}
-                  />
-                </Card>
-              </Col>
-            )
-          }) }
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+          <div class="example">
+            <input type="text" placeholder="Enter Event Name" onChange={event => setQuery(event.target.value)} />
+            <button type="submit" onClick={filterPost}><i class="fa fa-search"></i></button>
+          </div>
+          {
+            Events_Final.map((events,index) => {
+              return (
+                <Col lg={6} md={8} xs={24}>
+                  <Card
+                    hoverable={true}
+                    cover={
+                        <a href={`/events/${events._id}`}><ImageSlider images={events.images} /></a>
+                      }
+                  >
+                    <Meta
+                        title={events.title}
+                        description={events.description}
+                    />
+                  </Card>
+                </Col>
+              )
+            }) 
+          }
         </div>
       }
 
