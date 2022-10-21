@@ -28,13 +28,17 @@ const EditProfile = () => {
   const [username, setUsername] = useState(getUser());
   const [password, setPassword] = useState('');
 
-  const updateProfilePicPreview = (newImages) => {
+  const useFirstImage = (newImages, setCallback) => {
     // Use the most recently uploaded image as the sole image the user wants
     if (newImages?.length > 0) {
-      setProfilePic([newImages[newImages.length - 1]])
+      setCallback([newImages[newImages.length - 1]])
     } else {
-      setProfilePic([])
+      setCallback([])
     }
+  }
+
+  const updateProfilePicPreview = (newImages) => {
+    useFirstImage(newImages, setProfilePic)
   }
 
   const onUsernameChange = (event) => {
