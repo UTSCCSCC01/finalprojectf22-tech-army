@@ -10,8 +10,7 @@ const User = require('../models/User');
 // @access  Private
 router.post('/', [auth, [
     check('title', 'Title is required').not().isEmpty(),
-    check('description', 'Description is required').not().isEmpty(),
-    check('date', 'Date is required').not().isEmpty()
+    check('description', 'Description is required').not().isEmpty()
 ]], async (req, res) => {
     //check for errors in the request
     const errors = validationResult(req);
@@ -25,9 +24,7 @@ router.post('/', [auth, [
         //create a new event 
         const newEvent = new Event({
             title: req.body.title,
-            description: req.body.description,
-            date: req.body.date,
-            creator: req.user.id
+            description: req.body.description
         });
         //save the event to the database
         const event = await newEvent.save();
@@ -44,8 +41,8 @@ router.post('/', [auth, [
 // @access  Private
 router.get('/', auth, async (req, res) => {
     try {
-        //find all events and sort by date
-        const events = await Event.find().sort({ date: -1 });
+        //find all events without any filters
+        const events = await Event.find();
         //send the events back to the client
         res.json(events);
     } catch (err) {
@@ -85,23 +82,19 @@ router.get('/:id', auth, async (req, res) => {
 // @access  Private
 router.delete('/:id', auth, async (req, res) => {
     try {
+        //find the event by the id
         const event = await Event.findById(req.params.id);
-
+        //if there is no event, send a 404 status
         if (!event) {
             return res.status(404).json({ msg: 'Event not found' });
         }
-
-        // Check user
-        if (event.creator.toString() !== req.user.id) {
-            return res.status(401).json({ msg: 'User not authorized' });
-        }
-
+        //remove the event
         await event.remove();
-
+        //send a message back to the client
         res.json({ msg: 'Event removed' });
     } catch (err) {
         console.error(err.message);
-
+        //if there is an error, send a 500 status
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ msg: 'Event not found' });
         }
@@ -109,5 +102,6 @@ router.delete('/:id', auth, async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
 
 module.exports = router;
