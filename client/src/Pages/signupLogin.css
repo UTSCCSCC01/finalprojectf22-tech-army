@@ -1,12 +1,22 @@
 
-.formContainer {
-    height: 100%;
+.App {
+    background-image: url("../assets/utsc.jpg");
+    background-size: cover;
+    background-position: center;
     width: 100%;
+    height: 100vh;
+}
+
+.formContainer {
+    margin: 150px auto auto auto;
+    z-index: 7;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .formContainer form, .formContainer .form {
+    z-index: 7;
     background-color: white;
     width: 70%;
     max-width: 450px;
@@ -15,6 +25,7 @@
     border: 1px solid #dfdfdf;
 }
 .uiForm {
+    z-index: 7;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,18 +34,21 @@
 }
 
 .formField {
+    z-index: 7;
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
 .formField input {
-    border: 1px solid grey;
+    z-index: 7;
+    border: 1p solid grey;
     padding: 20px;
     border-radius: 4px;
 }
 
 .formField label {
+    z-index: 7;
     font-size: 15px;
     font-weight: 600;
     margin-bottom: 3px;
@@ -44,7 +58,8 @@
     outline: none;
 }
 
-button, .button {
+.submitButton, .button {
+    z-index: 7;
     background-color: #697BFF;
     width: 100%;
     margin-top: 10px;
@@ -57,7 +72,7 @@ button, .button {
     transition: all 0.2s;
 }
 
-button:hover {
+.submitButton:hover {
     background-color: #175892;
 }
 
@@ -67,8 +82,17 @@ button:hover {
     align-self: flex-start;
 }
 
-img {
-    width: 300px;
-    height: 300px;
-    padding: 0%;
+.Logo {
+    z-index: 7;
+    width: 25%;
+    height: 25%;
+
+}
+
+.AboutUs {
+    margin: 150px auto auto auto;
+}
+
+.AboutUs .title {
+    font-size: 50px;
 }

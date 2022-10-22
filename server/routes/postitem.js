@@ -10,7 +10,7 @@ const auth = require("../middleware/auth");
 //             Event API
 //=================================
 //save data to the db
-router.post("/uploadEvent", auth, (req, res) => {
+router.post("/uploadItem", auth, (req, res) => {
 
     const event = new Event(req.body)
 
@@ -23,7 +23,7 @@ router.post("/uploadEvent", auth, (req, res) => {
 
 
 // Event page API
-router.post("/getEvents", auth, (req, res) => {
+router.post("/getItems", auth, (req, res) => {
 
     Event.find()
     .exec( (err, events) => {
