@@ -1,5 +1,8 @@
 # Sprint 2
 
+## Trello Link
+https://trello.com/invite/b/eImU5yaC/ATTI76d567d63fed7236f3f747a71138d067BB3C2F40/utsc-hub
+
 ## Sprint 2 Planning Meeting
 We had our sprint 2 Planning meeting on the C01 Discord server on October 17th, 2022, with the purpose of choosing which user stories should be included, identifying the associated tasks to the user stories, and dividing the work among the team members. During this meeting, every member of our team was present.
 
