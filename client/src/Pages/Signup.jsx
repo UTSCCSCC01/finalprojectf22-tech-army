@@ -5,6 +5,10 @@ import AboutUs from "../AboutUs";
 import { useNavigate } from "react-router-dom";
 import { Row, Col, Container } from 'react-bootstrap';
 
+import {
+    validatePassword,
+} from '../Utils/Common';
+
 function Signup() {
 
     const initialValues = { username: "", mailAddress: "", password: "" };
@@ -55,6 +59,7 @@ function Signup() {
         else if (!regex.test(values.mailAddress)){
             errors.mailAddress = "Please enter the valid mail address";
         }
+
         if(!values.password){
             errors.password = "Please enter your password";
         }
