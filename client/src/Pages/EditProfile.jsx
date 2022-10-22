@@ -62,8 +62,8 @@ const EditProfile = () => {
     const body = {
       email: getEmail(),
       password: newValidPassword,
-      username: username,
-      profilePic: profilePic,
+      name: username,
+      profilePictureURL: profilePic,
       coverImg: coverImg,
     };
 
@@ -75,7 +75,7 @@ const EditProfile = () => {
     };
 
     axios.put('/api/users', body, axiosConfig).then(response => {
-      if (response.data.success) {
+      if (response.status === 200) {
         // Succesfully changed account info on backend, update data on client
         setUserData(username, getEmail(), profilePic, coverImg);
         navigate('/dashboard');
