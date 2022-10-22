@@ -5,6 +5,7 @@ import EventImage from '../Components/EventImage'
 import EventInfo from '../Components/EventInfo'
 import { useParams } from "react-router-dom"
 import { getToken } from '../Utils/Common'
+import '../Pages/eventdetail.css'
 
 function DetailEvent() {
     
