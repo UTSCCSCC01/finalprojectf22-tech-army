@@ -48,11 +48,15 @@ const EditProfile = () => {
   }
 
   const saveChanges = () => {
-    let newValidPassword = ''; // API should refuse to change password if password is empty string
-    const invalidPasswordReasons = validatePassword(password);
-    setPasswordErrors(invalidPasswordReasons);
-    if (invalidPasswordReasons.length == 0) {
-      newValidPassword = password;
+    // API should refuse to change password if password is not empty string and is invalid
+    // Empty password string is treated as asking for password to be unchanged
+    let newValidPassword = '';
+    if (password?.length > 0) {
+      const invalidPasswordReasons = validatePassword(password);
+      setPasswordErrors(invalidPasswordReasons);
+      if (invalidPasswordReasons.length == 0) {
+        newValidPassword = password;
+      }
     }
 
     const body = {
