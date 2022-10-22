@@ -60,13 +60,14 @@ router.put('/', auth, async (request, response) =>{
     const errorMessages = validationResult(request);
     if(!errorMessages.isEmpty()) return response.status(400).json({errors: errorMessages.array()});
     try {
-        const {name, password, profilePictureURL} = request.body;
+        const {name, email, password, profilePictureURL} = request.body;
+        const filter = {email};
         const salt = await bcrypt.genSalt();
         let newPass;
         if(password) newPass = await bcrypt.hash(password, salt);
         const update = {name: name, password: newPass, profilePictureURL: profilePictureURL};
         Object.keys(update).forEach(key => update[key] === undefined ? delete update[key] : {});
-        await User.findByIdAndUpdate(request.user.id, update);
+        await User.findOneAndUpdate(filter, update);
         response.json({message: "Updated user info"});
     } catch(error) {
         console.log(error.message);
