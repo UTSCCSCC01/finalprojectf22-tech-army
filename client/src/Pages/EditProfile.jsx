@@ -62,8 +62,8 @@ const EditProfile = () => {
     const body = {
       email: getEmail(),
       password: newValidPassword,
-      username: username,
-      profilePic: profilePic,
+      name: username,
+      profilePictureURL: profilePic,
       coverImg: coverImg,
     };
 
