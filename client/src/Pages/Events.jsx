@@ -27,7 +27,7 @@ const Events = () => {
         paddingLeft: "300px"
       }}
     >
-      <input placeholder="Enter Event Name" onChange={event => setQuery(event.target.value)} />
+      <input placeholder="Enter Event Name..." onChange={event => setQuery(event.target.value)} />
       {
         events.filter(eventss => {
           if (query === '') {
