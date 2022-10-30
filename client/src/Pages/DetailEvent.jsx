@@ -24,6 +24,19 @@ function DetailEvent() {
         })
     }, [])
 
+    const joinEvent = (eventId) => {
+        const path = '/api/events/' + eventId;
+        Axios.put(path, {}, axiosConfig).then(response => {
+            const message = response.data.message
+            console.log(message);
+        }).catch((error) => {
+            const errorMsg = error.response.data.message;
+            alert(errorMsg);
+            console.error(errorMsg);
+            console.log(error);
+        })
+    }
+      
     return (
         <div className="postEvent" style={{ width: '100%', padding: '3rem 4rem' }}>
 
@@ -38,7 +51,7 @@ function DetailEvent() {
                     <EventImage detail={Event}/>
                 </Col>
                 <Col lg={12} xs={24}>
-                    <EventInfo detail={Event}/>
+                    <EventInfo detail={Event} joinEvent = {joinEvent}/>
                 </Col>
             </Row>
         </div>

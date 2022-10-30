@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-//const auth = require('../middleware/auth');
+const auth = require('../middleware/auth');
+const { events } = require('../models/Event');
+const mongoose = require('mongoose');
 const Event = require('../models/Event');
 const User = require('../models/User');
 
@@ -11,7 +13,8 @@ const User = require('../models/User');
 router.post('/', [
     check('title', 'Title is required').not().isEmpty(),
     check('description', 'Description is required').not().isEmpty()
-], async (req, res) => {
+], auth,  async (req, res) => {
+    console.log("huuuh?");
     //check for errors in the request
     const errors = validationResult(req);
     // if there are errors, return a 400 status and the errors
@@ -20,12 +23,16 @@ router.post('/', [
     }
     
     try {
-        const user = await User.findById(req.user.id).select('-password');
+        const userId = req.user.id;
+        const newId = new mongoose.mongo.ObjectId(userId);
         //create a new event 
         const newEvent = new Event({
             title: req.body.title,
-            description: req.body.description
+            description: req.body.description,
+            creator: newId
         });
+        console.log("new event");
+        console.log(newEvent);
         //save the event to the database
         const event = await newEvent.save();
         //send the event back to the client
@@ -39,7 +46,7 @@ router.post('/', [
 // @route   GET api/events
 // @desc    Get all events
 // @access  Private
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         //find all events without any filters
         const events = await Event.find();
@@ -52,11 +59,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-//get all events for a specific user by their id
+//get all events posted by a specific user by their id
 // @route   GET api/events/:id
 // @desc    get all events for a specific user by their ID
 // @access  Private
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
     try {
         //find all events for a specific user by their id
         const event = await Event.findById(req.params.id);
@@ -77,10 +84,41 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+//Add a user to an event
+// @route   GET api/events/:id
+// @desc    get all events for a specific user by their ID
+// @access  Private
+router.put('/:id', auth, async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id);
+        console.log("put request called");
+        console.log(req.user.id);
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+        const userId = req.user.id;
+        const newId = new mongoose.mongo.ObjectId(userId);
+        const usersJoined = event.usersJoined;
+        if(usersJoined.some((user) => {
+            return user.toString() == userId;
+        })){
+            return res.status(400).json({ message: 'User is already in event' });
+        }
+        usersJoined.push(newId);
+        await event.save();
+        res.status(200).json({message: "User has been added to event"});
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+
+
 // @route   DELETE api/events/:id
 // @desc    Delete an event
 // @access  Private
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
     try {
         //find the event by the id
         const event = await Event.findById(req.params.id);
