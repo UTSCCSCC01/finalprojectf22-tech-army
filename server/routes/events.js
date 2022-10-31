@@ -53,13 +53,11 @@ router.get('/', auth, async (req, res) => {
     }
 });
 
-//get all events posted by a specific user by their id
 // @route   GET api/events/:id
-// @desc    get all events for a specific user by their ID
+// @desc    get an event by its id
 // @access  Private
 router.get('/:id', auth, async (req, res) => {
     try {
-        //find all events for a specific user by their id
         const event = await Event.findById(req.params.id);
         //if there is no event, send a 404 status
         if (!event) {
@@ -78,28 +76,33 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
-//Add a user to an event
-// @route   GET api/events/:id
-// @desc    get all events for a specific user by their ID
+// @route   PUT api/events/:id
+// @desc    Add user to an event
 // @access  Private
 router.put('/:id', auth, async (req, res) => {
     try {
         const event = await Event.findById(req.params.id);
-        console.log("put request called");
-        console.log(req.user.id);
         if (!event) {
             return res.status(404).json({ message: 'Event not found' });
         }
         const userId = req.user.id;
-        const newId = new mongoose.mongo.ObjectId(userId);
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const newUserId = new mongoose.mongo.ObjectId(userId);
+        const newEventId = new mongoose.mongo.ObjectId(req.params.id);
         const usersJoined = event.usersJoined;
         if(usersJoined.some((user) => {
             return user.toString() == userId;
         })){
             return res.status(400).json({ message: 'User is already in event' });
         }
-        usersJoined.push(newId);
+
+        usersJoined.push(newUserId); //add user to an event
+        user.eventsJoined.push(newEventId); //add an event to a user
         await event.save();
+        await user.save();
         res.status(200).json({message: "User has been added to event"});
     } catch (err) {
         console.error(err.message);
