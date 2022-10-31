@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const User = require("../models/User");
 const Event = require("../models/Event");
 const mongoose = require('mongoose');
 const auth = require("../middleware/auth");
@@ -11,14 +11,17 @@ const auth = require("../middleware/auth");
 //=================================
 //save data to the db
 router.post("/uploadEvent", auth, (req, res) => {
-    const userIdObj = new mongoose.mongo.ObjectId(req.user.id);
+    const userId = req.user.id;
+    const user = Event.findById(userId);
+    const userIdObj = new mongoose.mongo.ObjectId(userId);
     req.body.creator = userIdObj;
     const event = new Event(req.body);
     event.save((err) => {
         if (err) return res.status(400).json({ success: false, err })
-        return res.status(200).json({ success: true })
     })
-
+    user.eventsPosted.push(event._id);
+    user.save();
+    res.status(200).json({message: "Event has been posted"});
 });
 
 
