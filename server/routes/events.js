@@ -14,7 +14,6 @@ router.post('/', [
     check('title', 'Title is required').not().isEmpty(),
     check('description', 'Description is required').not().isEmpty()
 ], auth,  async (req, res) => {
-    console.log("huuuh?");
     //check for errors in the request
     const errors = validationResult(req);
     // if there are errors, return a 400 status and the errors
@@ -23,16 +22,11 @@ router.post('/', [
     }
     
     try {
-        const userId = req.user.id;
-        const newId = new mongoose.mongo.ObjectId(userId);
         //create a new event 
         const newEvent = new Event({
             title: req.body.title,
             description: req.body.description,
-            creator: newId
         });
-        console.log("new event");
-        console.log(newEvent);
         //save the event to the database
         const event = await newEvent.save();
         //send the event back to the client
