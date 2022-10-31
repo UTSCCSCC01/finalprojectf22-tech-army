@@ -5,7 +5,7 @@ import { removeUserSession,getToken, getUser } from '../Utils/Common'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from '../Components/Navbar/Navbar';
-import { userInfo } from 'os';
+// import { userInfo } from 'os';
 
 const Home = () => {
 
@@ -18,6 +18,7 @@ const Home = () => {
 
     let axiosConfig = {
         headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
             'x-auth-token': getToken(),
         }
     };
@@ -31,10 +32,12 @@ const Home = () => {
         })
     }
 
-    const handleGetEvents = (eventIds) => {
-        axios.get('http://localhost:8000/api/events/array', {}, axiosConfig).then(response =>{
-            console.log(response);
-        });
+    const handleGetEvents = () => {
+        // axios.get('http://localhost:8000/api/events/array', {}, axiosConfig).then(response =>{
+        //     console.log(response);
+        // });
+
+        navigate("/events/array");
     }
 
 
@@ -52,7 +55,7 @@ const Home = () => {
                 }}
             >
                 <span>
-                    <Button variant="contained" size="large" color="secondary">My events</Button>
+                    <Button variant="contained" size="large" color="secondary" onClick={handleGetEvents}>My events</Button>
                 </span>
                 
                 <span style={{paddingLeft:"20px"}}>
