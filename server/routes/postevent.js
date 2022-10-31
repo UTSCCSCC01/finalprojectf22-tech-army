@@ -10,18 +10,17 @@ const auth = require("../middleware/auth");
 //             Event API
 //=================================
 //save data to the db
-router.post("/uploadEvent", auth, (req, res) => {
+router.post("/uploadEvent", auth, async (req, res) => {
     const userId = req.user.id;
-    const user = Event.findById(userId);
+    const user = await User.findById(userId);
+    if(!user) res.status(404).json({message: "Cannot get user"});
     const userIdObj = new mongoose.mongo.ObjectId(userId);
     req.body.creator = userIdObj;
     const event = new Event(req.body);
-    event.save((err) => {
-        if (err) return res.status(400).json({ success: false, err })
-    })
+    event.save();
     user.eventsPosted.push(event._id);
     user.save();
-    res.status(200).json({message: "Event has been posted"});
+    res.status(200).json({ success: true, message: "Event uploaded" })
 });
 
 
