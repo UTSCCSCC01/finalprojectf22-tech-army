@@ -58,15 +58,19 @@ router.get('/', auth, async (req, res) => {
 // @access  Private
 router.get('/array', auth, async (req, res) => {
     try {
-        const eventsArray = req.body.eventsArray;
-        if (!eventsArray) {
-            return res.status(400).json({ message: 'Please include a property of eventsArray in the body of the request' });
+        const eventIds = req.body.eventIds;
+        if (!eventIds) {
+            return res.status(400).json({ message: 'Please include a property of eventIds in the body of the request' });
         }
-        const eventsArrayObjects = await Event.find({ '_id': { $in: eventsArray } });
-        if(eventsArray.length != eventsArrayObjects.length){
-            return res.status(404).json({ message: 'Cannot find one or more of the events' });
-        }
-        res.status(200).json(eventsArrayObjects);
+        const eventObjects = await Event.find({ '_id': { $in: eventIds } });
+        /*
+            idk if we should include this error below, removing it makes development a lot easier, otherwise when u delete events u need to go through
+            all the users and delete the event from there as well
+        */
+        // if(eventIds.length != eventObjects.length){
+        //     return res.status(404).json({ message: 'Cannot find one or more of the events' });
+        // }
+        res.status(200).json(eventObjects);
     } catch (err) {
         console.log(err);  
         res.status(500).send('Server Error');
