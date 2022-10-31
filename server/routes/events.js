@@ -53,6 +53,26 @@ router.get('/', auth, async (req, res) => {
     }
 });
 
+// @route   GET api/events/array
+// @desc    Get an array of events from an array of eventIds
+// @access  Private
+router.get('/array', auth, async (req, res) => {
+    try {
+        const eventsArray = req.body.eventsArray;
+        if (!eventsArray) {
+            return res.status(400).json({ message: 'Please include a property of eventsArray in the body of the request' });
+        }
+        const eventsArrayObjects = await Event.find({ '_id': { $in: eventsArray } });
+        if(eventsArray.length != eventsArrayObjects.length){
+            return res.status(404).json({ message: 'Cannot find one or more of the events' });
+        }
+        res.status(200).json(eventsArrayObjects);
+    } catch (err) {
+        console.log(err);  
+        res.status(500).send('Server Error');
+    }
+});
+
 // @route   GET api/events/:id
 // @desc    get an event by its id
 // @access  Private
