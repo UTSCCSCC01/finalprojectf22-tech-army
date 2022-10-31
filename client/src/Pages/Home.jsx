@@ -1,10 +1,11 @@
 import React from 'react'
 import Button from '@mui/material/Button'
 import ProfileInfo from '../Components/ProfileInfo'
-import { removeUserSession,getToken } from '../Utils/Common'
+import { removeUserSession,getToken, getUser } from '../Utils/Common'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from '../Components/Navbar/Navbar';
+import { userInfo } from 'os';
 
 const Home = () => {
 
@@ -28,6 +29,12 @@ const Home = () => {
             console.log(response);
             navigate("/");
         })
+    }
+
+    const handleGetEvents = (eventIds) => {
+        axios.get('http://localhost:8000/api/events/array', {}, axiosConfig).then(response =>{
+            console.log(response);
+        });
     }
 
 

@@ -54,23 +54,19 @@ router.get('/', auth, async (req, res) => {
 });
 
 // @route   GET api/events/array
-// @desc    Get an array of events from an array of eventIds
+// @desc    Get an array of events that a user has posted or joined
 // @access  Private
 router.get('/array', auth, async (req, res) => {
     try {
-        const eventIds = req.body.eventIds;
-        if (!eventIds) {
-            return res.status(400).json({ message: 'Please include a property of eventIds in the body of the request' });
+        const user = await User.findById(req.user.id).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
         }
-        const eventObjects = await Event.find({ '_id': { $in: eventIds } });
-        /*
-            idk if we should include this error below, removing it makes development a lot easier, otherwise when u delete events u need to go through
-            all the users and delete the event from there as well
-        */
-        // if(eventIds.length != eventObjects.length){
-        //     return res.status(404).json({ message: 'Cannot find one or more of the events' });
-        // }
-        res.status(200).json(eventObjects);
+        const eventsJoinedIds = user.eventsJoined;
+        const eventsPostedIds = user.eventsPosted;
+        const eventJoinedObjects = await Event.find({ '_id': { $in: eventsJoinedIds } });
+        const eventPostedObjects = await Event.find({ '_id': { $in: eventsPostedIds } });
+        res.status(200).json({eventsJoined: eventJoinedObjects, eventPosted : eventPostedObjects});
     } catch (err) {
         console.log(err);  
         res.status(500).send('Server Error');
