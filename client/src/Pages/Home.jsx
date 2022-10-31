@@ -33,10 +33,6 @@ const Home = () => {
     }
 
     const handleGetEvents = () => {
-        axios.get('http://localhost:8000/api/events/array', axiosConfig).then(response =>{
-            console.log(response);
-        });
-
         navigate("/events/array");
     }
 

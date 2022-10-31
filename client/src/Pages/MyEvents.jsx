@@ -18,7 +18,7 @@ const MyEvents = () => {
     };
     
     useEffect(() => {
-        Axios.get('http://localhost:8000/api/events/array', {}, axiosConfig).then(response =>{
+        Axios.get('http://localhost:8000/api/events/array', axiosConfig).then(response =>{
         console.log(response);
     },[]);
 
