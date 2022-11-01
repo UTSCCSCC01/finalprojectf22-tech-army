@@ -1,0 +1,12 @@
+@import '~antd/dist/antd.css';
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+.userCol {
+    display: flex;
+}
+
+.userPic {
+    border-radius: 50%;
+    width: 100px;
+    max-height: 100px;
+}

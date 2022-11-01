@@ -1,10 +1,11 @@
 import React from 'react'
 import Button from '@mui/material/Button'
 import ProfileInfo from '../Components/ProfileInfo'
-import { removeUserSession,getToken } from '../Utils/Common'
+import { removeUserSession,getToken, getUser } from '../Utils/Common'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from '../Components/Navbar/Navbar';
+// import { userInfo } from 'os';
 
 const Home = () => {
 
@@ -17,6 +18,7 @@ const Home = () => {
 
     let axiosConfig = {
         headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
             'x-auth-token': getToken(),
         }
     };
@@ -30,10 +32,14 @@ const Home = () => {
         })
     }
 
+    const handleGetEvents = () => {
+        navigate("/events/array");
+    }
+
 
     return (
         <><Navbar />
-            <div style={{paddingLeft: "300px"}}>
+            <div className="profileBox" style={{paddingLeft: "300px"}}>
                 <div>
                     <ProfileInfo/>
                 </div>
@@ -45,7 +51,7 @@ const Home = () => {
                 }}
             >
                 <span>
-                    <Button variant="contained" size="large" color="secondary">My events</Button>
+                    <Button variant="contained" size="large" color="secondary" onClick={handleGetEvents}>My events</Button>
                 </span>
                 
                 <span style={{paddingLeft:"20px"}}>

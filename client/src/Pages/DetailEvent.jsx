@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
-import { Row, Col } from 'antd'
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import EventImage from '../Components/EventImage'
 import EventInfo from '../Components/EventInfo'
 import { useParams } from "react-router-dom"
 import { getToken } from '../Utils/Common'
-import '../Pages/eventdetail.css'
+import '../Styles/eventdetail.css'
+
 
 function DetailEvent() {
     
     const { eventId } = useParams();
-    const [Event, setEvent] = useState([])
+    const [Event, setEvent] = useState([]);
+    const [usersJoined, setUsersJoined] = useState([]);
     let axiosConfig = {
         headers: {
             'x-auth-token': getToken(),
@@ -20,10 +22,36 @@ function DetailEvent() {
     useEffect(() => {
         Axios.get(`/api/postevent/events_by_id?id=${eventId}&type=single`, axiosConfig)
         .then(response => {
-            setEvent(response.data[0])
+            setEvent(response.data[0]);
+            let axiosConfig2 = {
+                headers: {
+                  'Content-Type': 'application/json;charset=UTF-8',
+                  'x-auth-token': getToken(),
+                },
+                params: {"userIds": response.data[0].usersJoined}
+              };
+            Axios.get('http://localhost:8000/api/users/array', axiosConfig2).then(response => {
+                console.log(response.data);
+                setUsersJoined(response.data);
+            });
         })
-    }, [])
+    }, []);
 
+    console.log('Who are the users\n', usersJoined);
+
+    const joinEvent = (eventId) => {
+        const path = '/api/events/' + eventId;
+        Axios.put(path, {}, axiosConfig).then(response => {
+            const message = response.data.message
+            console.log(message);
+        }).catch((error) => {
+            const errorMsg = error.response.data.message;
+            alert(errorMsg);
+            console.error(errorMsg);
+            console.log(error);
+        })
+    }
+      
     return (
         <div className="postEvent" style={{ width: '100%', padding: '3rem 4rem' }}>
 
@@ -32,15 +60,37 @@ function DetailEvent() {
             </div>
 
             <br />
-
-            <Row gutter={[16, 16]} >
-                <Col lg={12} xs={24}>
-                    <EventImage detail={Event}/>
-                </Col>
-                <Col lg={12} xs={24}>
-                    <EventInfo detail={Event}/>
-                </Col>
-            </Row>
+            <Container>
+                <Row gutter={[16, 16]} >
+                    <Col lg={12} xs={24}>
+                        <EventImage detail={Event}/>
+                    </Col>
+                    <Col lg={12} xs={24}>
+                        <EventInfo detail={Event} joinEvent = {joinEvent}/>
+                    </Col>
+                </Row>
+                <Row className="userCol">
+                    <h1>See who has joined this event.</h1>
+                    {
+                        usersJoined.length === 0 ?
+                        <h2> No users yet...</h2>
+                        :
+                        usersJoined.map((user, index) => {
+                            return (
+                                <Col lg={6} md={8} xs={24}>
+                                    <Card>
+                                        <Card.Title>
+                                            {user.name}
+                                        </Card.Title>
+                                        <img className="userPic"
+                                            src={`http://localhost:8000/${user.profilePictureURL}`} alt="userImage" />
+                                    </Card>
+                                </Col>
+                            )
+                        })
+                    }
+                </Row>
+            </Container>
         </div>
     )
 }
