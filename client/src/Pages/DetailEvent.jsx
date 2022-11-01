@@ -20,18 +20,28 @@ function DetailEvent() {
     useEffect(() => {
         Axios.get(`/api/postevent/events_by_id?id=${eventId}&type=single`, axiosConfig)
         .then(response => {
-            setEvent(response.data[0])
+            setEvent(response.data[0]);
+            let axiosConfig2 = {
+                headers: {
+                  'Content-Type': 'application/json;charset=UTF-8',
+                  'x-auth-token': getToken(),
+                },
+                params: {"userIds": response.data[0].usersJoined}
+              };
+            Axios.get('http://localhost:8000/api/users/array', axiosConfig2).then(response => {
+                console.log(response.data);
+            });
         })
     }, []);
 
-    const body = Event.usersJoined;
+    // const body = Event.usersJoined;
 
-    useEffect(() => {
-        Axios.get('http://localhost:8000/api/users/array', body, axiosConfig)
-        .then(response => {
-            console.log(response.data);
-        })
-    }, []);
+    // useEffect(() => {
+    //     Axios.get('http://localhost:8000/api/users/array', body, axiosConfig)
+    //     .then(response => {
+    //         console.log(response.data);
+    //     })
+    // }, []);
 
     console.log("What are the users", Event.usersJoined);
 
