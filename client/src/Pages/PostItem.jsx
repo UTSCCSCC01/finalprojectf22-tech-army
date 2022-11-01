@@ -56,7 +56,7 @@ function PostItem(props) {
             }
         }
 
-        Axios.post('/api/postitems/uploadItem', variables, config)
+        Axios.post('/api/postitem/uploadItem', variables, config)
             .then(response => {
                 if (response.data.success) {
                     alert('Item Successfully Posted')
