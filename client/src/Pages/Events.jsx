@@ -6,7 +6,7 @@ import ImageSlider from '../Utils/ImageSlider';
 import Button from '@mui/material/Button'
 import { getToken } from '../Utils/Common';
 import { useNavigate } from "react-router-dom";
-import './event.css'
+import '../Styles/event.css'
 
 const Events = () => {
 

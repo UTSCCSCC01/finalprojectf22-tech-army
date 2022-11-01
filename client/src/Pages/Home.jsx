@@ -39,7 +39,7 @@ const Home = () => {
 
     return (
         <><Navbar />
-            <div style={{paddingLeft: "300px"}}>
+            <div className="profileBox" style={{paddingLeft: "300px"}}>
                 <div>
                     <ProfileInfo/>
                 </div>

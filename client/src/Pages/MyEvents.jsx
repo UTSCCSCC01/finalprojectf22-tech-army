@@ -35,60 +35,61 @@ const MyEvents = () => {
             <div>
                 <ProfileInfo/>
             </div>
+            <Container>
+                <Row>
+
+                    <Col>
+                        <h2>Below are the events that you created</h2>
+                        {
+                            eventsPosted.length === 0 ?
+                                <h2>No events yet...</h2>
+                                :
+                                eventsPosted.map((event, index) => {
+                                    return (
+                                        <Col lg={6} md={8} xs={24}>
+                                            <Card>
+                                                <Card.Title>
+                                                    {event.title}
+                                                </Card.Title>
+                                                <a href={`/events/${event._id}`}><ImageSlider images={event.images} /></a>
+                                                <Card.Text>
+                                                    {event.description}
+                                                </Card.Text>
+                                            </Card>
+                                        </Col>
+                                    )
+                                })
+                            }
+                    </Col>
+
+                    <Col>
+                        <h2>Below are the events that you joined</h2>
+                        {
+                            eventsJoined.length === 0 ?
+                                <h2>No events yet...</h2>
+                                :
+                                eventsJoined.map((event, index) => {
+                                    return (
+                                        <Col lg={6} md={8} xs={24}>
+                                            <Card>
+                                                <Card.Title>
+                                                    {event.title}
+                                                </Card.Title>
+                                                <a href={`/events/${event._id}`}><ImageSlider images={event.images} /></a>
+                                                <Card.Text>
+                                                    {event.description}
+                                                </Card.Text>
+                                            </Card>
+                                        </Col>
+                                    )
+                                })
+                            }
+                    </Col>
+
+                </Row>
+            </Container>
         </div>
-        <Container>
-            <Row>
-
-                <Col>
-                    <div>Below are the events that you created</div>
-                    {
-                        eventsPosted.length === 0 ?
-                            <h2>No events yet...</h2>
-                            :
-                            eventsPosted.map((event, index) => {
-                                return (
-                                    <Col lg={6} md={8} xs={24}>
-                                        <Card>
-                                            <Card.Title>
-                                                {event.title}
-                                            </Card.Title>
-                                            <a href={`/events/${event._id}`}><ImageSlider images={event.images} /></a>
-                                            <Card.Text>
-                                                {event.description}
-                                            </Card.Text>
-                                        </Card>
-                                    </Col>
-                                )
-                            })
-                        }
-                </Col>
-
-                <Col>
-                    <div>Below are the events that you joined</div>
-                    {
-                        eventsJoined.length === 0 ?
-                            <h2>No events yet...</h2>
-                            :
-                            eventsJoined.map((event, index) => {
-                                return (
-                                    <Col lg={6} md={8} xs={24}>
-                                        <Card>
-                                            <Card.Title>
-                                                {event.title}
-                                            </Card.Title>
-                                            <a href={`/events/${event._id}`}><ImageSlider images={event.images} /></a>
-                                            <Card.Text>
-                                                {event.description}
-                                            </Card.Text>
-                                        </Card>
-                                    </Col>
-                                )
-                            })
-                        }
-                </Col>
-
-            </Row>
-        </Container>
+        
         </>
     )
 }
