@@ -89,9 +89,6 @@ const MyEvents = () => {
 
             </Row>
         </Container>
-
-
-        <h1>Hello World</h1>
         </>
     )
 }
