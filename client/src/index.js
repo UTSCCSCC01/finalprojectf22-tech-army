@@ -13,6 +13,7 @@ import Signup from './Pages/Signup';
 import PostEvent from './Pages/PostEvent';
 import DetailEvent from './Pages/DetailEvent';
 import PostItem from './Pages/PostItem';
+import CommentSection from './Pages/CommentSection';
 
 
 
@@ -30,6 +31,7 @@ root.render(
       <Route path="/events" exact element={<Events />}/>
       <Route path="/events/postevent" exact element={<PostEvent />}/>
       <Route path="/events/:eventId" exact element={<DetailEvent />}/>
+      <Route path="/events/comment" exact element={<CommentSection />}/>
       <Route path="/message" exact element={<Message />}/>
     </Routes>
   </BrowserRouter>

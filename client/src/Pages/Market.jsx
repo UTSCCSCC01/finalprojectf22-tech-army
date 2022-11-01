@@ -11,6 +11,10 @@ const Market = () => {
     navigate('/events/postitem');
   }
 
+  const handleComment = () => {
+    navigate('/events/comment');
+  }
+
   return (
     <>
     <Navbar />
@@ -27,6 +31,11 @@ const Market = () => {
         type="button"
         value={"Post Item"}
         onClick={handlePost}
+      />
+      <input
+        type="button"
+        value={"Add Comment"}
+        onClick={handleComment}
       />
     </div>
     </>
