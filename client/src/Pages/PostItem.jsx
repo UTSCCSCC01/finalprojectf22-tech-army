@@ -55,7 +55,7 @@ function PostItem(props) {
             }
         }
 
-        Axios.post('/api/product/uploadItem', variables, config)
+        Axios.post('/api/items', variables, config)
             .then(response => {
                 if (response.data.success) {
                     alert('Item Successfully Posted')
@@ -106,7 +106,7 @@ function PostItem(props) {
                 <br />
 
                 <Button
-                    onClick
+                    onClick={onSubmit}
                 >
                     Submit
                 </Button>
