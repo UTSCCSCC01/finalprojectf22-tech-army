@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import { Row, Col } from 'antd'
-import EventImage from '../Components/Image'
-import EventInfo from '../Components/EventInfo'
+import ItemImage from '../Components/Image'
+import ItemInfo from '../Components/ItemInfo'
 import { useParams } from "react-router-dom"
 import { getToken } from '../Utils/Common'
 import '../Pages/eventdetail.css'
 
-function DetailEvent() {
+function DetailItem() {
     
-    const { eventId } = useParams();
-    const [Event, setEvent] = useState([])
+    const { itemId } = useParams();
+    const [Item, setItem] = useState([])
     let axiosConfig = {
         headers: {
             'x-auth-token': getToken(),
@@ -18,31 +18,31 @@ function DetailEvent() {
     };
 
     useEffect(() => {
-        Axios.get(`/api/postevent/events_by_id?id=${eventId}&type=single`, axiosConfig)
+        Axios.get(`/api/postitem/:id?id=${itemId}&type=single`, axiosConfig)
         .then(response => {
-            setEvent(response.data[0])
+            setItem(response.data[0])
         })
     }, [])
 
     return (
-        <div className="postEvent" style={{ width: '100%', padding: '3rem 4rem' }}>
+        <div className="postItem" style={{ width: '100%', padding: '3rem 4rem' }}>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <h1>{Event.title}</h1>
+                <h1>{Item.title}</h1>
             </div>
 
             <br />
 
             <Row gutter={[16, 16]} >
                 <Col lg={12} xs={24}>
-                    <EventImage detail={Event}/>
+                    <ItemImage detail={Item}/>
                 </Col>
                 <Col lg={12} xs={24}>
-                    <EventInfo detail={Event}/>
+                    <ItemInfo detail={Item}/>
                 </Col>
             </Row>
         </div>
     )
 }
 
-export default DetailEvent
+export default DetailItem

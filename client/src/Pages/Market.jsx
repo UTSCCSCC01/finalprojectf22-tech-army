@@ -14,7 +14,7 @@ const Market = () => {
   const navigate = useNavigate();
 
   const handlePost = () => {
-    navigate('/events/postitem');
+    navigate('/market/postitem');
   }
 
   const [Items, setitems] = useState([]);
@@ -115,6 +115,7 @@ const Market = () => {
                   >
                     <Meta
                         title={items.title}
+                        description={items.description}
                         price={items.price}
                     />
                   </Card>
