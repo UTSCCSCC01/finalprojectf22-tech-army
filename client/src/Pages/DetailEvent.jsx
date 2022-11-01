@@ -22,7 +22,18 @@ function DetailEvent() {
         .then(response => {
             setEvent(response.data[0])
         })
-    }, [])
+    }, []);
+
+    const body = Event.usersJoined;
+
+    useEffect(() => {
+        Axios.get('http://localhost:8000/api/users/array', body, axiosConfig)
+        .then(response => {
+            console.log(response.data);
+        })
+    }, []);
+
+    console.log("What are the users", Event.usersJoined);
 
     const joinEvent = (eventId) => {
         const path = '/api/events/' + eventId;
