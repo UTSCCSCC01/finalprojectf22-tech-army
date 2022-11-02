@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require("../middleware/auth");
 const item = require('../models/item');
 const User = require('../models/User');
+const mongoose = require('mongoose');
 
 
 //http://localhost:8000/api/postitems
@@ -79,7 +80,7 @@ router.get('/array', auth, async (req, res) => {
     }
 });
 
-// @route   PUT api/postitem/:id
+// @route   PUT api/postitems/:id
 // @desc    bookmark an item
 // @access  Private
 router.put('/:id', auth, async (req, res) => {
@@ -92,11 +93,10 @@ router.put('/:id', auth, async (req, res) => {
         }
         const newItemId = new mongoose.mongo.ObjectId(itemId);
         const itemsBookmarked = user.itemsBookmarked;
-        const message = "";
-        if(itemsBookmarked.some((item) => {
-            return item.toString() == itemId;
-        })){
-            itemsBookmarked = itemsBookmarked.filter(item => item.toString() == itemId);
+        let message = "";
+        const index = itemsBookmarked.findIndex(item => item.toString() == itemId);
+        if(index != -1){
+            itemsBookmarked.splice(index, 1);
             message = "Bookmark removed";
         }else{
             itemsBookmarked.push(newItemId);
