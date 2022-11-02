@@ -61,6 +61,55 @@ router.get('/', async (req, res) => {
     }
 });
 
+// @route   GET api/items/array
+// @desc    Get an array of items that the user has bookmarked
+// @access  Private
+router.get('/array', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const itemsBookmarked = user.itemsBookmarked;
+        const itemsBookmarkedObjs = await item.find({ '_id': { $in: itemsBookmarked } });
+        res.status(200).json({itemsBookmarked: itemsBookmarkedObjs});
+    } catch (err) {
+        console.log(err);  
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   PUT api/postitem/:id
+// @desc    bookmark an item
+// @access  Private
+router.put('/:id', auth, async (req, res) => {
+    try {
+        const itemId = req.params.id;
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const newItemId = new mongoose.mongo.ObjectId(itemId);
+        const itemsBookmarked = user.itemsBookmarked;
+        const message = "";
+        if(itemsBookmarked.some((item) => {
+            return item.toString() == itemId;
+        })){
+            itemsBookmarked = itemsBookmarked.filter(item => item.toString() == itemId);
+            message = "Bookmark removed";
+        }else{
+            itemsBookmarked.push(newItemId);
+            message = "Item has been bookmarked";
+        }
+        await user.save();
+        res.status(200).json({message});
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 
 
 //get all items for a specific user by their id
