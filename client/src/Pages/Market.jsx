@@ -60,11 +60,11 @@ const Market = () => {
       return;
     } 
 
-    setitems_final(Items_Final.filter(itemss => {
+    setitems_final(Items_Final.filter(items => {
       if (query === '') {
-        return itemss;
-      } else if (itemss.title.toLowerCase().includes(query.toLowerCase())) {
-        return itemss;
+        return items;
+      } else if (items.title.toLowerCase().includes(query.toLowerCase())) {
+        return items;
       } else {
         return null
       }
@@ -110,7 +110,7 @@ const Market = () => {
                   <Card
                     hoverable={true}
                     cover={
-                        <a href={`/items/${items._id}`}><ImageSlider images={items.images} /></a>
+                        <a href={`/market/${items._id}`}><ImageSlider images={items.images} /></a>
                       }
                   >
                     <Meta

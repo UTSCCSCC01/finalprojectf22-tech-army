@@ -5,6 +5,8 @@ import ItemImage from '../Components/Image'
 import ItemInfo from '../Components/ItemInfo'
 import { useParams } from "react-router-dom"
 import { getToken } from '../Utils/Common'
+import Comments from "../Components/comments/Comments";
+import "./Commentview.css";
 import '../Pages/eventdetail.css'
 
 function DetailItem() {
@@ -18,7 +20,7 @@ function DetailItem() {
     };
 
     useEffect(() => {
-        Axios.get(`/api/postitem/:id?id=${itemId}&type=single`, axiosConfig)
+        Axios.get(`/api/postitem/items_by_id?id=${itemId}&type=single`, axiosConfig)
         .then(response => {
             setItem(response.data[0])
         })
@@ -41,6 +43,10 @@ function DetailItem() {
                     <ItemInfo detail={Item}/>
                 </Col>
             </Row>
+            <Comments
+                commentsUrl="http://localhost:3004/comments"
+                currentUserId="1"
+            />
         </div>
     )
 }

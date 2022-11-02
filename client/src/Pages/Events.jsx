@@ -57,11 +57,11 @@ const Events = () => {
       return;
     } 
 
-    setevents_final(Events_Final.filter(eventss => {
+    setevents_final(Events_Final.filter(events => {
       if (query === '') {
-        return eventss;
-      } else if (eventss.title.toLowerCase().includes(query.toLowerCase())) {
-        return eventss;
+        return events;
+      } else if (events.title.toLowerCase().includes(query.toLowerCase())) {
+        return events;
       } else {
         return null
       }

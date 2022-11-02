@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
-const auth = require("../middleware/auth");
-const Item = require('../models/item');
-const User = require('../models/User');
 
+const auth = require("../middleware/auth");
+
+const Item = require('../models/item');
 
 //http://localhost:8000/api/postitems
 // Note: uid = user id, iid = item id
@@ -67,7 +66,25 @@ router.post("/getItems", auth, (req, res) => {
 
 });
 
-// @route   GET api/postitems
+router.get("/items_by_id", auth, (req, res) => {
+    let type = req.query.type
+    let itemIds = req.query.id
+
+    if (type === "array") {
+
+    }
+
+
+    //we need to find the product information that belong to product Id 
+    Item.find({ '_id': { $in: itemIds } })
+        .populate('writer')
+        .exec((err, item) => {
+            if (err) return res.status(400).send(err)
+            return res.status(200).send(item)
+        })
+});
+
+/*// @route   GET api/postitems
 // @desc    Get all Items
 // @access  Private
 router.get('/', auth, (req, res) => {
@@ -108,7 +125,7 @@ router.get('/:id', async (req, res) => {
         
         res.status(500).send('Server Error');
     }
-});
+});*/
 
 
 module.exports = router;
