@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar/Navbar';
 import ProfileInfo from '../Components/ProfileInfo';
 import { getToken } from '../Utils/Common'
 import { Row, Col, Container, Card } from 'react-bootstrap';
+import '../Styles/home.css';
 
 
 import Axios from "axios";
@@ -31,7 +32,7 @@ const MyEvents = () => {
     return (
         <>
         <Navbar />
-        <div style={{paddingLeft: "300px"}}>
+        <div className="profileBox">
             <div>
                 <ProfileInfo/>
             </div>
