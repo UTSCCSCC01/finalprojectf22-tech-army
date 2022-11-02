@@ -17,7 +17,7 @@ const MyItems = () => {
     };
     
     useEffect(() => {
-        Axios.get('http://localhost:8000/api/myitems/array', axiosConfig)
+        Axios.get('http://localhost:8000/api/postitems/array', axiosConfig)
         .then(response =>{
             console.log(response);
         })
