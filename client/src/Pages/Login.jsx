@@ -38,7 +38,7 @@ const Login = () => {
                 console.log(response);
                 setLoading(false);
 
-                setUserData(response.data.name, response.data.email, response.data.profilePictureURL, response.data.coverImg);
+                setUserData(response.data.name, response.data._id, response.data.email, response.data.profilePictureURL, response.data.coverImg);
 
                 navigate('/dashboard');
             }).catch(error => {

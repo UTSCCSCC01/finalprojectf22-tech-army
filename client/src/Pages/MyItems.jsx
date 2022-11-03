@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../Components/Navbar/Navbar';
 import ProfileInfo from '../Components/ProfileInfo';
-import { getToken } from '../Utils/Common'
+import { getToken, getUserId } from '../Utils/Common'
 import { Row, Col, Container, Card } from 'react-bootstrap';
 import Axios from "axios";
 import ImageSlider from '../Utils/ImageSlider';
 
 const MyItems = () => {
     const [itemsPosted, setItemsPosted] = useState([]);
-    const [itemsBookmarked, setitemsBookmarked] = useState([]);
+    const [itemsBookmarked, setItemsBookmarked] = useState([]);
+    const userId = getUserId();
+    // console.log(userId);
 
     let axiosConfig = {
         headers: {
@@ -19,8 +21,14 @@ const MyItems = () => {
     useEffect(() => {
         Axios.get('http://localhost:8000/api/postitems/array', axiosConfig)
         .then(response =>{
-            console.log(response);
-        })
+            console.log(response.data.itemsBookmarked);
+            setItemsBookmarked(response.data.itemsBookmarked);
+        });
+        Axios.get(`http://localhost:8000/api/postitems/${userId}`, axiosConfig)
+        .then(response => {
+            console.log(response.data);
+            setItemsPosted(response.data);
+        });
     }, []);
 
     return (
@@ -46,7 +54,7 @@ const MyItems = () => {
                                                 <Card.Title>
                                                     {item.title}
                                                 </Card.Title>
-                                                <a href={`/itemsposted/${item._id}`}><ImageSlider images={item.images} /></a>
+                                                {/* <a href={`/itemsposted/${item._id}`}><ImageSlider images={item.images} /></a> */}
                                                 <Card.Text>
                                                     {item.description}
                                                 </Card.Text>
@@ -70,7 +78,7 @@ const MyItems = () => {
                                                 <Card.Title>
                                                     {item.title}
                                                 </Card.Title>
-                                                <a href={`/itemsposted/${item._id}`}><ImageSlider images={item.images} /></a>
+                                                {/* <a href={`/itemsposted/${item._id}`}><ImageSlider images={item.images} /></a> */}
                                                 <Card.Text>
                                                     {item.description}
                                                 </Card.Text>
