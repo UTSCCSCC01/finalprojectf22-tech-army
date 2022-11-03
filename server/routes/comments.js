@@ -31,6 +31,7 @@ router.post("/", auth, [
             username: req.body.username,
             userId: user,
             parentID: req.body.parentID,
+            itemID: req.body.itemID,
         });
         newComment.createdAt = Date.now();
         const comment = await newComment.save();
@@ -59,14 +60,14 @@ router.get('/', auth, async (req, res) => {
 });
 
 
-//get all comments for a specific user by their id
+//get all comments for a specific item by their item id
 // @route   GET api/postitems/:id
-// @desc    get all items for a specific user by their ID
+// @desc    get all items for a specific item by their item ID
 // @access  Private
 router.get('/:id', async (req, res) => {
   try {
-      //find all items for a specific user by their id
-      const comment = await Comment.find({"userId": req.params.id});
+      //find all items for a specific item by their id
+      const comment = await Comment.find({"itemID": req.params.id});
       //if there is no item, send a 404 status
       if (!comment) {
           return res.status(404).json({ msg: 'Comment not found' });
