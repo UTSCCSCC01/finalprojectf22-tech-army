@@ -42,7 +42,8 @@ function DetailEvent() {
     const joinEvent = (eventId) => {
         const path = '/api/events/' + eventId;
         Axios.put(path, {}, axiosConfig).then(response => {
-            const message = response.data.message
+            const message = response.data.message;
+            alert(message);
             console.log(message);
         }).catch((error) => {
             const errorMsg = error.response.data.message;
