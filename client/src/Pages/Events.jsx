@@ -99,22 +99,26 @@ const Events = () => {
             <input type="text" placeholder="Enter Event Name" onChange={event => setQuery(event.target.value)} />
             <button type="submit" onClick={filterPost}><i class="fa fa-search"></i></button>
           </div>
+        
           {
             Events_Final.map((events,index) => {
               return (
-                <Col lg={6} md={8} xs={24}>
-                  <Card
-                    hoverable={true}
-                    cover={
-                        <a href={`/events/${events._id}`}><ImageSlider images={events.images} /></a>
-                      }
-                  >
-                    <Meta
-                        title={events.title}
-                        description={events.description}
-                    />
-                  </Card>
-                </Col>
+                <div className="eventsRow">
+                  {/* <Col lg={6} md={8} xs={24}> */}
+                  <div className="event">
+                    <Card
+                      hoverable={true}
+                      cover={
+                          <a href={`/events/${events._id}`}><ImageSlider images={events.images} /></a>
+                        }
+                    >
+                      <Meta
+                          title={events.title}
+                          description={events.description}
+                      />
+                    </Card>
+                  </div>
+                </div>
               )
             }) 
           }
