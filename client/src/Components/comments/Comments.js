@@ -8,7 +8,7 @@ import {
   deleteComment as deleteCommentApi,
 } from "./api";
 
-const Comments = ({ commentsUrl, currentUserId }) => {
+const Comments = ({ commentsUrl, currentUserId, currentPostId }) => {
   const [backendComments, setBackendComments] = useState([]);
   const [activeComment, setActiveComment] = useState(null);
   const rootComments = backendComments.filter(
@@ -22,7 +22,7 @@ const Comments = ({ commentsUrl, currentUserId }) => {
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       );
   const addComment = (text, parentId) => {
-    createCommentApi(text, parentId).then((comment) => {
+    createCommentApi(text, parentId, currentPostId).then((comment) => {
       setBackendComments([comment, ...backendComments]);
       setActiveComment(null);
     });
@@ -52,7 +52,7 @@ const Comments = ({ commentsUrl, currentUserId }) => {
   };
 
   useEffect(() => {
-    getCommentsApi().then((data) => {
+    getCommentsApi(currentPostId).then((data) => {
       setBackendComments(data);
     });
   }, []);
@@ -74,6 +74,7 @@ const Comments = ({ commentsUrl, currentUserId }) => {
             deleteComment={deleteComment}
             updateComment={updateComment}
             currentUserId={currentUserId}
+            currentPostId={currentPostId}
           />
         ))}
       </div>

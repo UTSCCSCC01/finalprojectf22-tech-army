@@ -45,7 +45,8 @@ function DetailItem() {
             </Row>
             <Comments
                 commentsUrl="http://localhost:3004/comments"
-                currentUserId="1"
+                currentUserId={getToken()}
+                currentPostId={itemId}
             />
         </div>
     )

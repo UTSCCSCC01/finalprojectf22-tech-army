@@ -11,6 +11,7 @@ const Comment = ({
   addComment,
   parentId = null,
   currentUserId,
+  currentPostId,
 }) => {
   const isEditing =
     activeComment &&
@@ -100,6 +101,7 @@ const Comment = ({
                 parentId={comment.id}
                 replies={[]}
                 currentUserId={currentUserId}
+                currentPostId={currentPostId}
               />
             ))}
           </div>

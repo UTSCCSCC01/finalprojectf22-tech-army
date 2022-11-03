@@ -1,4 +1,7 @@
-export const getComments = async () => {
+import { getUser, getToken } from "../../Utils/Common";
+import axios from 'axios';
+
+export const getComments = async (currentPostId) => {
     return [
       {
         id: "1",
@@ -35,7 +38,24 @@ export const getComments = async () => {
     ];
   };
   
-  export const createComment = async (text, parentId = null) => {
+  export const createComment = async (text, parentId = null, currentPostId) => {
+    const body = {
+      id: Math.random().toString(36).substr(2, 9),
+      body: text,
+      parentId,
+      userId: getToken(),
+      username: getUser(),
+      postId: currentPostId,
+      createdAt: new Date().toISOString(),
+    };
+
+    axios.post('http://localhost:8000/api/comments/', body)
+    .then(res =>{
+      console.log(res);
+    }).catch(error =>{
+      console.error(error);
+    })
+    /*
     return {
       id: Math.random().toString(36).substr(2, 9),
       body: text,
@@ -43,7 +63,7 @@ export const getComments = async () => {
       userId: "1",
       username: "John",
       createdAt: new Date().toISOString(),
-    };
+    };*/
   };
   
   export const updateComment = async (text) => {
