@@ -20,7 +20,7 @@ function EventImage(props) {
     }, [props.detail])
 
     return (
-        <div>
+        <div className="eventImage" style={{ width: '50%', height: '50%'}}>
             <ImageGallery items={Images} />
         </div>
     )

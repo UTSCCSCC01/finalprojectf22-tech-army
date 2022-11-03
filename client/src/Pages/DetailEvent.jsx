@@ -61,23 +61,23 @@ function DetailEvent() {
 
             <br />
             <Container>
-                <Row gutter={[16, 16]} >
-                    <Col lg={12} xs={24}>
+                <Row xs md lg = {{ gutterX: 5, gutterY: 5 }} >
+                    <Col md xs lg = {{span: 5, offset: 5}}>
                         <EventImage detail={Event}/>
                     </Col>
-                    <Col lg={12} xs={24}>
+                    <Col md xs lg = {{span: 5, offset: 5}}>
                         <EventInfo detail={Event} joinEvent = {joinEvent}/>
                     </Col>
                 </Row>
-                <Row className="userCol">
-                    <h1>See who has joined this event.</h1>
+                <h2 className="text-center">See who has joined this event.</h2>
+                <Row>
                     {
                         usersJoined.length === 0 ?
                         <h2> No users yet...</h2>
                         :
                         usersJoined.map((user, index) => {
                             return (
-                                <Col lg={6} md={8} xs={24}>
+                                <Col md xs lg={{ span: 3 }}>
                                     <Card>
                                         <Card.Title>
                                             {user.name}
@@ -91,7 +91,7 @@ function DetailEvent() {
                     }
                 </Row>
             </Container>
-        </div>
+            </div>
     )
 }
 

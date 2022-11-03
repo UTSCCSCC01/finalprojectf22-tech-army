@@ -36,8 +36,8 @@ div.example::after {
   display: table;
 }
 
-.eventsRow {
-  display: flex;
+.eventsContent {
+  /* float:left; */
 }
 
 .event {
