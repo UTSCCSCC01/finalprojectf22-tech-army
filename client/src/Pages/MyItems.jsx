@@ -10,7 +10,6 @@ const MyItems = () => {
     const [itemsPosted, setItemsPosted] = useState([]);
     const [itemsBookmarked, setItemsBookmarked] = useState([]);
     const userId = getUserId();
-    // console.log(userId);
 
     let axiosConfig = {
         headers: {
