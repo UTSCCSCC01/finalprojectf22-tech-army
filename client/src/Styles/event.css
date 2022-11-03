@@ -35,3 +35,12 @@ div.example::after {
   clear: both;
   display: table;
 }
+
+.eventsRow {
+  display: flex;
+}
+
+.event {
+  width: 200px;
+  height:100px;
+}
