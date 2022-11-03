@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Descriptions } from 'antd';
+import { useNavigate } from "react-router-dom";
 
 function EventInfo(props) {
-    
+
+    const navigate = useNavigate();
     const [Event, setEvent] = useState({})
 
     useEffect(() => {
@@ -13,6 +15,11 @@ function EventInfo(props) {
 
     const joinEventhandler = () => {
         props.joinEvent(props.detail._id)
+    }
+
+    const deleteEventhandler = () => {
+        props.deleteEvent(props.detail._id)
+        navigate("/events/array");
     }
 
 
@@ -30,6 +37,14 @@ function EventInfo(props) {
                     onClick={joinEventhandler}
                 >
                     Join Event
+                    </Button>
+            </div>
+            <br />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button size="large" shape="round" type="danger"
+                    onClick={deleteEventhandler}
+                >
+                    Delete Event
                     </Button>
             </div>
         </div>

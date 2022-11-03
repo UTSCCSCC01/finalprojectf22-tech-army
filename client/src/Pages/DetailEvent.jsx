@@ -51,6 +51,24 @@ function DetailEvent() {
             console.log(error);
         })
     }
+
+    const deleteEvent = (eventId) => {
+        if (getToken() === Event.creator){
+            const path = '/api/events/' + eventId;
+            Axios.delete(path, {}, axiosConfig).then(response => {
+                const message = response.data.message
+                console.log(message);
+            }).catch((error) => {
+                const errorMsg = error.response.data.message;
+                alert(errorMsg);
+                console.error(errorMsg);
+                console.log(error);
+            })
+        }
+        else{
+            alert("You didn't create this post.")
+        }
+    }
       
     return (
         <div className="postEvent" style={{ width: '100%', padding: '3rem 4rem' }}>
@@ -61,15 +79,15 @@ function DetailEvent() {
 
             <br />
             <Container>
-                <Row gutter={[16, 16]} >
-                    <Col lg={12} xs={24}>
+                <Row>
+                    <Col>
                         <EventImage detail={Event}/>
                     </Col>
-                    <Col lg={12} xs={24}>
-                        <EventInfo detail={Event} joinEvent = {joinEvent}/>
+                    <Col>
+                        <EventInfo detail={Event} joinEvent = {joinEvent} deleteEvent = {deleteEvent}/>
                     </Col>
                 </Row>
-                <Row className="userCol">
+                <Row>
                     <h1>See who has joined this event.</h1>
                     {
                         usersJoined.length === 0 ?
