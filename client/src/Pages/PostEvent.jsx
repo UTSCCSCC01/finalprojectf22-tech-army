@@ -62,7 +62,7 @@ function PostEvent(props) {
             }
         }
 
-        Axios.post('/api/postevent/uploadEvent', variables,config)
+        Axios.post('/api/events/uploadEvent', variables,config)
             .then(response => {
                 if (response.data.success) {
                     alert('Event Successfully Posted')
