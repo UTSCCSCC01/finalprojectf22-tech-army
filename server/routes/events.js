@@ -26,17 +26,15 @@ router.post("/uploadEvent", auth, async (req, res) => {
 // @route   GET api/events
 // @desc    Get all events
 // @access  Private
-router.get('/', auth, async (req, res) => {
-    try {
-        //find all events without any filters
-        const events = await Event.find();
-        //send the events back to the client
-        res.json(events);
-    } catch (err) {
-        console.error(err.message);
-        //if there is an error, send a 500 status
-        res.status(500).send('Server Error');
-    }
+router.post("/getEvents", auth, (req, res) => {
+
+    Event.find()
+    .exec( (err, events) => {
+        if (err) return res.status(400).json({success:false,err})
+
+        res.status(200).json({success:true , events})
+    } )
+
 });
 
 // @route   GET api/events/array
