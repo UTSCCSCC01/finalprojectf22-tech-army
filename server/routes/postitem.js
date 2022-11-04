@@ -80,7 +80,7 @@ router.get('/array', auth, async (req, res) => {
     }
 });
 
-// @route   PUT api/postitems/:id
+// @route   PUT api/postitem/:id
 // @desc    bookmark an item
 // @access  Private
 router.put('/:id', auth, async (req, res) => {
@@ -136,6 +136,47 @@ router.get('/:id', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
+//edit an item by its id 
+// @route   PUT api/postitem/:id
+// @desc    edit an item by its ID
+// @access  Private
+router.put('/editItem/:id', auth, async (req, res) => {
+    try {
+        //find the item by its id
+        const itemObj = await item.findById(req.params.id);
+        // const users = await user.findById(req.params.id);
+        // const user
+        //if there is no item, send a 404 status
+        if (!itemObj) {
+            return res.status(404).json({ msg: 'Item not found' });
+        }
+        //if the user is not the seller, send a 401 status
+        if (itemObj.seller.toString() !== req.user.id) {
+            return res.status(401).json({ msg: 'User not authorized' });
+        }
+        // if () {
+            
+        // }
+        //update the item
+        itemObj.title = req.body.title;
+        itemObj.description = req.body.description;
+        itemObj.price = req.body.price;
+        itemObj.date_added = req.body.date_added;
+        //save the item
+        await itemObj.save();
+        //send the item back to the client
+        res.json(itemObj);
+    } catch (err) {
+        console.error(err.message);
+        //if there is an error, send a 500 status
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Item not found' });
+        }
+        res.status(500).send('Server Error');
+    }
+});
+
 
 
 module.exports = router;
