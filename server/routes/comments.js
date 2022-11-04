@@ -43,34 +43,18 @@ router.post("/", auth, [
 });
 
 
-// @route   GET api/comments
-// @desc    Get all comments
-// @access  Private
-router.get('/', auth, async (req, res) => {
-  try {
-      //find all items without any filters
-      const comment = await Comment.find();
-      //send the items back to the client
-      res.json(comment);
-  } catch (err) {
-      console.error(err.message);
-      //if there is an error, send a 500 status
-      res.status(500).send('Server Error');
-  }
-});
-
-
 //get all comments for a specific item by their item id
 // @route   GET api/postitems/:id
 // @desc    get all items for a specific item by their item ID
 // @access  Private
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
   try {
       //find all items for a specific item by their id
       const comment = await Comment.find({"itemId": req.params.id});
       //if there is no item, send a 404 status
       if (!comment) {
-          return res.status(404).json({ msg: 'Comment not found' });
+        console.log("error at 73");
+          return res.status(404).json({ msg: 'Comment not found no comment' });
       }
   
       res.json(comment);
@@ -78,6 +62,7 @@ router.get('/:id', async (req, res) => {
       console.error(err.message);
       //if there is an error, send a 500 status
       if (err.kind === 'ObjectId') {
+        console.log("error at 82");
           return res.status(404).json({ msg: 'Comment not found' });
       }
       

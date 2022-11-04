@@ -25,12 +25,14 @@ function DetailItem() {
         .then(response => {
             setItem(response.data[0])
         })
-    }, [])
+    }, []);
 
     useEffect(() => {
-        Axios.get(`api/comments/${itemId}`, axiosConfig)
+        Axios.get(`http://localhost:8000/api/comments/${itemId}`, axiosConfig)
         .then((response) => {
+            console.log(response.data);
             setComments(response.data);
+            console.log(CommentList);
         })
         .catch((err) => {
             console.log(err);
