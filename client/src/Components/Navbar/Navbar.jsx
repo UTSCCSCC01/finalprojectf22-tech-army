@@ -39,12 +39,13 @@ const Navbar = () => {
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
         <Nav style={{ textAlign: "center", paddingTop: "30px", paddingLeft: "60px", paddingBottom:"20px" }}>
-          <img src={require('../../assets/logo.png')} width={150} height={75} alt="Logo" />
+          
         </Nav>
         
         <SidebarNav sidebar={sidebar}>
           
           <SidebarWrap>
+            <img src={Logo} width={150} height={75} style={{margin: 'auto', display: 'block'}} alt="Logo" />
             {SidebarData.map((item, index) => {
               return <SubMenu item={item} key={index} />;
             })}
