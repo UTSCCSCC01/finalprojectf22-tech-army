@@ -8,7 +8,7 @@ import {
   deleteComment as deleteCommentApi,
 } from "./api";
 
-const Comments = ({ commentsUrl, currentUserId, currentPostId }) => {
+const Comments = ({ commentsUrl, currentUserId, currentPostId, comments }) => {
   const [backendComments, setBackendComments] = useState([]);
   const [activeComment, setActiveComment] = useState(null);
   const rootComments = backendComments.filter(
@@ -52,7 +52,7 @@ const Comments = ({ commentsUrl, currentUserId, currentPostId }) => {
   };
 
   useEffect(() => {
-    getCommentsApi(currentPostId).then((data) => {
+    getCommentsApi(comments).then((data) => {
       setBackendComments(data);
     });
   }, []);

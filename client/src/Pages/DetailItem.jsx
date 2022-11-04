@@ -13,6 +13,7 @@ function DetailItem() {
     
     const { itemId } = useParams();
     const [Item, setItem] = useState([])
+    const [CommentList, setComments] = useState([]);
     let axiosConfig = {
         headers: {
             'x-auth-token': getToken(),
@@ -25,6 +26,16 @@ function DetailItem() {
             setItem(response.data[0])
         })
     }, [])
+
+    useEffect(() => {
+        Axios.get(`api/comments/${itemId}`, axiosConfig)
+        .then((response) => {
+            setComments(response.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }, []);
 
     return (
         <div className="postItem" style={{ width: '100%', padding: '3rem 4rem' }}>
@@ -47,6 +58,7 @@ function DetailItem() {
                 commentsUrl="http://localhost:3004/comments"
                 currentUserId={getToken()}
                 currentPostId={itemId}
+                comments={CommentList}
             />
         </div>
     )

@@ -13,11 +13,11 @@ const CommentSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
-    parentID: {
+    parentId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Comment'
     },
-    itemID: {
+    itemId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Item'
     },

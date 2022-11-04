@@ -30,8 +30,8 @@ router.post("/", auth, [
             body: req.body.body,
             username: req.body.username,
             userId: user,
-            parentID: req.body.parentID,
-            itemID: req.body.itemID,
+            parentId: req.body.parentId,
+            itemId: req.body.itemId,
         });
         newComment.createdAt = Date.now();
         const comment = await newComment.save();
@@ -67,7 +67,7 @@ router.get('/', auth, async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
       //find all items for a specific item by their id
-      const comment = await Comment.find({"itemID": req.params.id});
+      const comment = await Comment.find({"itemId": req.params.id});
       //if there is no item, send a 404 status
       if (!comment) {
           return res.status(404).json({ msg: 'Comment not found' });
