@@ -57,12 +57,10 @@ router.get("/events_by_id", auth, (req, res) => {
 
 
 router.delete("/:id", auth, (req, res) => {
-    console.log("assa");
     const userId = req.user.id;
     const user = User.findById(userId);
     if(!user) res.status(404).json({message: "Cannot get user"});
     const eventId = req.params.id;
-    console.log(eventId);
     Event.findByIdAndDelete(eventId, (err, event) => {
         if (err) return res.status(400).send(err)
         return res.status(200).json({ success: true, message: "Event deleted" })
