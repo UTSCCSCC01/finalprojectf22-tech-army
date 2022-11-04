@@ -55,7 +55,7 @@ const Comments = ({ commentsUrl, currentUserId, currentPostId, comments }) => {
     getCommentsApi(comments).then((data) => {
       setBackendComments(data);
     });
-  }, []);
+  }, [comments]);
 
   return (
     <div className="comments">
