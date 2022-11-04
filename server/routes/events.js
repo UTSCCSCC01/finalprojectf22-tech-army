@@ -60,24 +60,22 @@ router.get('/array', auth, async (req, res) => {
 // @route   GET api/events/:id
 // @desc    get an event by its id
 // @access  Private
-router.get('/:id', auth, async (req, res) => {
-    try {
-        const event = await Event.findById(req.params.id);
-        //if there is no event, send a 404 status
-        if (!event) {
-            return res.status(404).json({ msg: 'Event not found' });
-        }
-    
-        res.json(event);
-    } catch (err) {
-        console.error(err.message);
-        //if there is an error, send a 500 status
-        if (err.kind === 'ObjectId') {
-            return res.status(404).json({ msg: 'Event not found' });
-        }
-        
-        res.status(500).send('Server Error');
+router.get("/events_by_id", auth, (req, res) => {
+    let type = req.query.type
+    let eventIds = req.query.id
+
+    if (type === "array") {
+
     }
+
+
+    //we need to find the product information that belong to product Id 
+    Event.find({ '_id': { $in: eventIds } })
+        .populate('writer')
+        .exec((err, event) => {
+            if (err) return res.status(400).send(err)
+            return res.status(200).send(event)
+        })
 });
 
 // @route   PUT api/events/:id
