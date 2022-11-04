@@ -33,7 +33,7 @@ const Events = () => {
           'x-auth-token' : getToken()
       }
   }
-    axios.post('/api/postevent/getEvents',null,config).then (response =>{
+    axios.post('/api/events/getEvents',null,config).then (response =>{
       if (response.data.success) {
 
             setevents([...response.data.events])     //check if the name is called Events

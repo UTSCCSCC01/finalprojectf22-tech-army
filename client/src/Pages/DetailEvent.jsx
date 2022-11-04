@@ -20,7 +20,7 @@ function DetailEvent() {
     };
 
     useEffect(() => {
-        Axios.get(`/api/postevent/events_by_id?id=${eventId}&type=single`, axiosConfig)
+        Axios.get(`/api/events/events_by_id?id=${eventId}&type=single`, axiosConfig)
         .then(response => {
             setEvent(response.data[0]);
             let axiosConfig2 = {
