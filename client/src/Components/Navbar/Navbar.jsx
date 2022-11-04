@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { SidebarData } from "./NavbarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
-  
+import Logo from '../../assets/logo.png';
+
 const Nav = styled.div`
   background: #697BFF;
   height: 80px;
@@ -13,14 +14,15 @@ const Nav = styled.div`
 `;
   
 const SidebarNav = styled.nav`
-  bottom: 100;
+  
   background: #697BFF;
   width: 270px;
   height: 100vh;
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 110;
+  top: 0px;
+  padding-top: 110px;
   left: ${({ sidebar }) => (sidebar ? "0" : "-10%")};
   transition: 350ms;
   z-index: 10;
