@@ -4,7 +4,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import EventImage from '../Components/EventImage'
 import EventInfo from '../Components/EventInfo'
 import { useParams } from "react-router-dom"
-import { getToken } from '../Utils/Common'
+import { getToken, getUser } from '../Utils/Common'
 import '../Styles/eventdetail.css'
 
 
@@ -53,9 +53,9 @@ function DetailEvent() {
     }
 
     const deleteEvent = (eventId) => {
-        if (getToken() === Event.creator){
+        if (getUser() === Event.writer){
             const path = '/api/events/' + eventId;
-            Axios.delete(path, {}, axiosConfig).then(response => {
+            Axios.delete(path, axiosConfig).then(response => {
                 const message = response.data.message
                 console.log(message);
             }).catch((error) => {
