@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require("../middleware/auth");
 const item = require('../models/item');
 const User = require('../models/User');
+const mongoose = require('mongoose');
 
 
 //http://localhost:8000/api/postitems
@@ -57,6 +58,54 @@ router.get('/', async (req, res) => {
     } catch (err) {
         console.error(err.message);
         //if there is an error, send a 500 status
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   GET api/items/array
+// @desc    Get an array of items that the user has bookmarked
+// @access  Private
+router.get('/array', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const itemsBookmarked = user.itemsBookmarked;
+        const itemsBookmarkedObjs = await item.find({ '_id': { $in: itemsBookmarked } });
+        res.status(200).json({itemsBookmarked: itemsBookmarkedObjs});
+    } catch (err) {
+        console.log(err);  
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   PUT api/postitems/:id
+// @desc    bookmark an item
+// @access  Private
+router.put('/:id', auth, async (req, res) => {
+    try {
+        const itemId = req.params.id;
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const newItemId = new mongoose.mongo.ObjectId(itemId);
+        const itemsBookmarked = user.itemsBookmarked;
+        let message = "";
+        const index = itemsBookmarked.findIndex(item => item.toString() == itemId);
+        if(index != -1){
+            itemsBookmarked.splice(index, 1);
+            message = "Bookmark removed";
+        }else{
+            itemsBookmarked.push(newItemId);
+            message = "Item has been bookmarked";
+        }
+        await user.save();
+        res.status(200).json({message});
+    } catch (err) {
+        console.error(err.message);
         res.status(500).send('Server Error');
     }
 });
