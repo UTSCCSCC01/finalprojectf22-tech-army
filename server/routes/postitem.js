@@ -121,7 +121,7 @@ router.get('/array', auth, async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
+*/
 // @route   PUT api/postitem/:id
 // @desc    bookmark an item
 // @access  Private
@@ -151,7 +151,7 @@ router.put('/:id', auth, async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
+/** 
 
 
 //get all items for a specific user by their id
