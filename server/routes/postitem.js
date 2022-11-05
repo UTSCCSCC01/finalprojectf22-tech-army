@@ -6,7 +6,11 @@ const auth = require("../middleware/auth");
 const item = require('../models/item');
 const User = require('../models/User');
 const mongoose = require('mongoose');
+
 const { check, validationResult } = require('express-validator');
+
+
+
 const Item = require('../models/item');
 
 //http://localhost:8000/api/postitems
@@ -17,6 +21,7 @@ const Item = require('../models/item');
     DESC: POST items (UTSC marketplace)
     ACCESS: Private 
 */
+
 router.post("/uploadItem", auth, [
     check('title', 'Title is required').not().isEmpty(),
     check('description', 'Description is required').not().isEmpty(),
@@ -30,7 +35,6 @@ router.post("/uploadItem", auth, [
     }
 
     try {
-
         const user = await User.findById(req.user.id).select('-password');
         const items = new item({
             title: req.body.title,
@@ -47,6 +51,7 @@ router.post("/uploadItem", auth, [
         return res.status(400).json({ success: false, err })
     }
 });
+
 
 // router.post("/uploadItem", auth, (req, res) => {
 
@@ -85,6 +90,7 @@ router.get("/items_by_id", auth, (req, res) => {
             return res.status(200).send(item)
         })
 });
+
 
 // @route   GET api/postitems
 // @desc    Get all Items
