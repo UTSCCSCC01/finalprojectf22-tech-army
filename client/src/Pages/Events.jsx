@@ -103,6 +103,7 @@ const Events = () => {
             Events_Final.map((events,index) => {
               return (
                 <Col lg={6} md={8} xs={24}>
+                  <a href={`/events/${events._id}`}>
                   <Card
                     hoverable={true}
                     cover={
@@ -114,6 +115,7 @@ const Events = () => {
                         description={events.description}
                     />
                   </Card>
+                  </a>
                 </Col>
               )
             }) 

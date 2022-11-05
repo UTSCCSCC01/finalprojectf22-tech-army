@@ -30,6 +30,10 @@ const UserSchema = mongoose.Schema({
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event'}],
         default: [],
     },
+    itemsBookmarked: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'item'}],
+        default: [],
+    },
 });
 
 module.exports = mongoose.model('user', UserSchema);

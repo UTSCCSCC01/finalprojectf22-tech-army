@@ -3,6 +3,10 @@ const router = express.Router();
 
 const auth = require("../middleware/auth");
 
+const item = require('../models/item');
+const User = require('../models/User');
+const mongoose = require('mongoose');
+
 const Item = require('../models/item');
 
 //http://localhost:8000/api/postitems
@@ -100,6 +104,54 @@ router.get('/', auth, (req, res) => {
     }
 });
 
+// @route   GET api/items/array
+// @desc    Get an array of items that the user has bookmarked
+// @access  Private
+router.get('/array', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const itemsBookmarked = user.itemsBookmarked;
+        const itemsBookmarkedObjs = await item.find({ '_id': { $in: itemsBookmarked } });
+        res.status(200).json({itemsBookmarked: itemsBookmarkedObjs});
+    } catch (err) {
+        console.log(err);  
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   PUT api/postitem/:id
+// @desc    bookmark an item
+// @access  Private
+router.put('/:id', auth, async (req, res) => {
+    try {
+        const itemId = req.params.id;
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const newItemId = new mongoose.mongo.ObjectId(itemId);
+        const itemsBookmarked = user.itemsBookmarked;
+        let message = "";
+        const index = itemsBookmarked.findIndex(item => item.toString() == itemId);
+        if(index != -1){
+            itemsBookmarked.splice(index, 1);
+            message = "Bookmark removed";
+        }else{
+            itemsBookmarked.push(newItemId);
+            message = "Item has been bookmarked";
+        }
+        await user.save();
+        res.status(200).json({message});
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 
 
 //get all items for a specific user by their id
@@ -126,6 +178,47 @@ router.get('/:id', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });*/
+
+//edit an item by its id 
+// @route   PUT api/postitem/:id
+// @desc    edit an item by its ID
+// @access  Private
+router.put('/editItem/:id', auth, async (req, res) => {
+    try {
+        //find the item by its id
+        const itemObj = await item.findById(req.params.id);
+        // const users = await user.findById(req.params.id);
+        // const user
+        //if there is no item, send a 404 status
+        if (!itemObj) {
+            return res.status(404).json({ msg: 'Item not found' });
+        }
+        //if the user is not the seller, send a 401 status
+        if (itemObj.seller.toString() !== req.user.id) {
+            return res.status(401).json({ msg: 'User not authorized' });
+        }
+        // if () {
+            
+        // }
+        //update the item
+        itemObj.title = req.body.title;
+        itemObj.description = req.body.description;
+        itemObj.price = req.body.price;
+        itemObj.date_added = req.body.date_added;
+        //save the item
+        await itemObj.save();
+        //send the item back to the client
+        res.json(itemObj);
+    } catch (err) {
+        console.error(err.message);
+        //if there is an error, send a 500 status
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Item not found' });
+        }
+        res.status(500).send('Server Error');
+    }
+});
+
 
 
 module.exports = router;

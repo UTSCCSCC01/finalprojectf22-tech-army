@@ -36,6 +36,10 @@ const Home = () => {
         navigate("/events/array");
     }
 
+    const handleGetItems = () => {
+        navigate("/postitems/array");
+    }
+
 
     return (
         <><Navbar />
@@ -55,7 +59,7 @@ const Home = () => {
                 </span>
                 
                 <span style={{paddingLeft:"20px"}}>
-                    <Button variant="contained" size="large" color="secondary">My items for sale</Button>
+                    <Button variant="contained" size="large" color="secondary" onClick={handleGetItems}>My items</Button>
                 </span>
             </div>
             <div 
