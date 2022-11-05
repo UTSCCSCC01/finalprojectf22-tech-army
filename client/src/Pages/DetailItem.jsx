@@ -8,6 +8,10 @@ import { getToken } from '../Utils/Common'
 import Comments from "../Components/comments/Comments";
 import "./Commentview.css";
 import '../Styles/eventdetail.css'
+import { useNavigate } from "react-router-dom";
+import {
+    Button,
+} from 'antd';
 
 function DetailItem() {
     
@@ -19,6 +23,8 @@ function DetailItem() {
             'x-auth-token': getToken(),
         }
     };
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         Axios.get(`/api/postitem/items_by_id?id=${itemId}&type=single`, axiosConfig)
@@ -42,6 +48,12 @@ function DetailItem() {
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <h1>{Item.title}</h1>
+            </div>
+
+            <div style={{width: '100%', paddingLeft: '70%', justifyItems: 'right'}}>
+                <Button size="large" shape="round" type="danger" onClick={(e) => {navigate('/market')}}>
+                    Back to Market
+                </Button>
             </div>
 
             <br />
