@@ -22,7 +22,7 @@ const SidebarNav = styled.nav`
   justify-content: center;
   position: fixed;
   top: 0px;
-  padding-top: 110px;
+  padding-top: 10px;
   left: ${({ sidebar }) => (sidebar ? "0" : "-10%")};
   transition: 350ms;
   z-index: 10;
