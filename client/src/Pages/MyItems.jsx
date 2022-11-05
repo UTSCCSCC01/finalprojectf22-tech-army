@@ -18,12 +18,12 @@ const MyItems = () => {
     };
     
     useEffect(() => {
-        Axios.get('http://localhost:8000/api/postitems/array', axiosConfig)
+        Axios.get('http://localhost:8000/api/postitem/array', axiosConfig)
         .then(response =>{
             console.log(response.data.itemsBookmarked);
             setItemsBookmarked(response.data.itemsBookmarked);
         });
-        Axios.get(`http://localhost:8000/api/postitems/${userId}`, axiosConfig)
+        Axios.get(`http://localhost:8000/api/postitem/${userId}`, axiosConfig)
         .then(response => {
             console.log(response.data);
             setItemsPosted(response.data);

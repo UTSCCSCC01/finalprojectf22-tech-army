@@ -53,8 +53,7 @@ router.get('/:id', auth, async (req, res) => {
       const comment = await Comment.find({"itemId": req.params.id});
       //if there is no item, send a 404 status
       if (!comment) {
-        console.log("error at 73");
-          return res.status(404).json({ msg: 'Comment not found no comment' });
+          return res.status(404).json({ msg: 'No comment found for this post' });
       }
   
       res.json(comment);
@@ -62,7 +61,6 @@ router.get('/:id', auth, async (req, res) => {
       console.error(err.message);
       //if there is an error, send a 500 status
       if (err.kind === 'ObjectId') {
-        console.log("error at 82");
           return res.status(404).json({ msg: 'Comment not found' });
       }
       
