@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import EventImage from '../Components/EventImage'
+import EventImage from '../Components/Image'
 import EventInfo from '../Components/EventInfo'
 import { useParams } from "react-router-dom"
 import { getToken } from '../Utils/Common'

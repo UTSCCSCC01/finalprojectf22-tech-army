@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
+
 const auth = require("../middleware/auth");
+
 const item = require('../models/item');
 const User = require('../models/User');
 const mongoose = require('mongoose');
 
+const Item = require('../models/item');
 
 //http://localhost:8000/api/postitems
 // Note: uid = user id, iid = item id
@@ -15,7 +17,7 @@ const mongoose = require('mongoose');
     DESC: POST items (UTSC marketplace)
     ACCESS: Private 
 */
-router.post("/uploadItem", auth, [
+/*router.post("/uploadItem", auth, [
     check('title', 'Title is required').not().isEmpty(),
     check('description', 'Description is required').not().isEmpty(),
     check('price', 'Price is required').not().isEmpty(),
@@ -44,15 +46,55 @@ router.post("/uploadItem", auth, [
     } catch (error) {
         return res.status(400).json({ success: false, err })
     }
+});*/
+
+router.post("/uploadItem", auth, (req, res) => {
+
+    const item = new Item(req.body)
+
+    item.save((err) => {
+        if (err) return res.status(400).json({ success: false, err })
+        return res.status(200).json({ success: true })
+    })
+
 });
 
-// @route   GET api/postitems
+router.post("/getItems", auth, (req, res) => {
+
+    Item.find()
+    .exec( (err, items) => {
+        if (err) return res.status(400).json({success:false,err})
+
+        res.status(200).json({success:true , items})
+    } )
+
+});
+
+router.get("/items_by_id", auth, (req, res) => {
+    let type = req.query.type
+    let itemIds = req.query.id
+
+    if (type === "array") {
+
+    }
+
+
+    //we need to find the product information that belong to product Id 
+    Item.find({ '_id': { $in: itemIds } })
+        .populate('writer')
+        .exec((err, item) => {
+            if (err) return res.status(400).send(err)
+            return res.status(200).send(item)
+        })
+});
+
+/*// @route   GET api/postitems
 // @desc    Get all Items
 // @access  Private
-router.get('/', async (req, res) => {
+router.get('/', auth, (req, res) => {
     try {
         //find all items without any filters
-        const items = await item.find();
+        const items = item.find();
         //send the items back to the client
         res.json(items);
     } catch (err) {
@@ -135,7 +177,7 @@ router.get('/:id', async (req, res) => {
         
         res.status(500).send('Server Error');
     }
-});
+});*/
 
 //edit an item by its id 
 // @route   PUT api/postitem/:id
