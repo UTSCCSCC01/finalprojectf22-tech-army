@@ -36,25 +36,28 @@ function EventInfo(props) {
             </Descriptions>
 
             <br />
-            <div >
-                <Button size="large" shape="round" type="danger"
-                    onClick={joinEventhandler}
-                >
-                    Join Event
+            <div style={{ display: 'inline', justifyContent: 'center' }}>
+                <div style={{padding: '10px'}} >
+                    <Button size="large" shape="round" type="danger"
+                        onClick={joinEventhandler}
+                    >
+                        Join Event
                     </Button>
-                <Button size="large" shape="round" type="danger"
-                    onClick={backToEvents}
-                >
-                    Back to Events
-                </Button>
-            </div>
-            <br />
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button size="large" shape="round" type="danger"
-                    onClick={deleteEventhandler}
-                >
-                    Delete Event
+                </div>
+                <div style={{padding: '10px'}} >
+                    <Button size="large" shape="round" type="danger"
+                        onClick={backToEvents}
+                    >
+                        Back to Events
                     </Button>
+                </div>
+                <div style={{padding: '10px'}} >
+                    <Button size="large" shape="round" type="danger"
+                        onClick={deleteEventhandler}
+                    >
+                        Delete Event
+                    </Button>
+                </div>
             </div>
         </div>
     )
