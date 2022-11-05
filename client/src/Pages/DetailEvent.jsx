@@ -4,7 +4,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import EventImage from '../Components/Image'
 import EventInfo from '../Components/EventInfo'
 import { useParams } from "react-router-dom"
-import { getToken } from '../Utils/Common'
+import { getToken, getUser } from '../Utils/Common'
 import '../Styles/eventdetail.css'
 
 
@@ -52,6 +52,24 @@ function DetailEvent() {
             console.log(error);
         })
     }
+
+    const deleteEvent = (eventId) => {
+        if (getUser() === Event.writer){
+            const path = '/api/events/' + eventId;
+            Axios.delete(path, axiosConfig).then(response => {
+                const message = response.data.message
+                console.log(message);
+            }).catch((error) => {
+                const errorMsg = error.response.data.message;
+                alert(errorMsg);
+                console.error(errorMsg);
+                console.log(error);
+            })
+        }
+        else{
+            alert("You didn't create this post.")
+        }
+    }
       
     return (
         <div className="postEvent" style={{ width: '100%', padding: '3rem 4rem' }}>
@@ -67,7 +85,7 @@ function DetailEvent() {
                         <EventImage detail={Event}/>
                     </Col>
                     <Col md xs lg = {{span: 5, offset: 5}}>
-                        <EventInfo detail={Event} joinEvent = {joinEvent}/>
+                        <EventInfo detail={Event} joinEvent = {joinEvent} deleteEvent = {deleteEvent}/>
                     </Col>
                 </Row>
                 <h2 className="text-center">See who has joined this event.</h2>
