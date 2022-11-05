@@ -1,8 +1,10 @@
 @import '~antd/dist/antd.css';
 @import "~react-image-gallery/styles/css/image-gallery.css";
 
-.userCol {
-    display: flex;
+
+.eventContainer {
+    display:block;
+    justify-content: center;
 }
 
 .userPic {

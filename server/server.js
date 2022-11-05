@@ -26,10 +26,11 @@ app.get('/', (request, response) => response.send('Hello World'));
 
 //Route Definitions
 app.use('/api/users', require('./routes/users'));
-app.use('/api/postitems', require('./routes/postitem'));
+app.use('/api/postitem', require('./routes/postitem'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/upload', require('./routes/upload'));
 app.use('/api/events', require('./routes/events'));
+app.use('/api/comments', require('./routes/comments'));
 
 app.use("/uploads", express.static("uploads"));
 

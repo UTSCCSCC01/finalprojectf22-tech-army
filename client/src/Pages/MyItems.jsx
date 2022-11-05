@@ -1,38 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../Components/Navbar/Navbar';
 import ProfileInfo from '../Components/ProfileInfo';
-import { getToken } from '../Utils/Common'
+import { getToken, getUserId } from '../Utils/Common'
 import { Row, Col, Container, Card } from 'react-bootstrap';
-import '../Styles/home.css';
-
-
 import Axios from "axios";
 import ImageSlider from '../Utils/ImageSlider';
 
-const MyEvents = () => {
-    const [eventsPosted, setEventsPosted] = useState([]);
-    const [eventsJoined, setEventsJoined] = useState([]);
+const MyItems = () => {
+    const [itemsPosted, setItemsPosted] = useState([]);
+    const [itemsBookmarked, setItemsBookmarked] = useState([]);
+    const userId = getUserId();
 
     let axiosConfig = {
         headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
             'x-auth-token': getToken(),
         }
     };
     
     useEffect(() => {
-        Axios.get('http://localhost:8000/api/events/array', axiosConfig)
+        Axios.get('http://localhost:8000/api/postitem/array', axiosConfig)
         .then(response =>{
-            setEventsJoined(response.data.eventsJoined);
-            setEventsPosted(response.data.eventPosted);
+            console.log(response.data.itemsBookmarked);
+            setItemsBookmarked(response.data.itemsBookmarked);
+        });
+        Axios.get(`http://localhost:8000/api/postitem/${userId}`, axiosConfig)
+        .then(response => {
             console.log(response.data);
-        })
+            setItemsPosted(response.data);
+        });
     }, []);
 
     return (
         <>
         <Navbar />
-        <div className="profileBox">
+        <div style={{paddingLeft: "300px"}}>
             <div>
                 <ProfileInfo/>
             </div>
@@ -40,21 +41,21 @@ const MyEvents = () => {
                 <Row>
 
                     <Col>
-                        <h2>Below are the events that you created</h2>
+                        <h2>Below are the items you have for sale</h2>
                         {
-                            eventsPosted.length === 0 ?
-                                <h2>No events yet...</h2>
+                            itemsPosted.length === 0 ?
+                                <h2>No items for sale...</h2>
                                 :
-                                eventsPosted.map((event, index) => {
+                                itemsPosted.map((item, index) => {
                                     return (
                                         <Col lg={6} md={8} xs={24}>
                                             <Card>
                                                 <Card.Title>
-                                                    {event.title}
+                                                    {item.title}
                                                 </Card.Title>
-                                                <a href={`/events/${event._id}`}><ImageSlider images={event.images} /></a>
+                                                {/* <a href={`/itemsposted/${item._id}`}><ImageSlider images={item.images} /></a> */}
                                                 <Card.Text>
-                                                    {event.description}
+                                                    {item.description}
                                                 </Card.Text>
                                             </Card>
                                         </Col>
@@ -64,21 +65,21 @@ const MyEvents = () => {
                     </Col>
 
                     <Col>
-                        <h2>Below are the events that you joined</h2>
+                        <h2>Below are the items you have bookmarked</h2>
                         {
-                            eventsJoined.length === 0 ?
-                                <h2>No events yet...</h2>
+                            itemsBookmarked.length === 0 ?
+                                <h2>No items bookmarked...</h2>
                                 :
-                                eventsJoined.map((event, index) => {
+                                itemsBookmarked.map((item, index) => {
                                     return (
                                         <Col lg={6} md={8} xs={24}>
                                             <Card>
                                                 <Card.Title>
-                                                    {event.title}
+                                                    {item.title}
                                                 </Card.Title>
-                                                <a href={`/events/${event._id}`}><ImageSlider images={event.images} /></a>
+                                                {/* <a href={`/itemsposted/${item._id}`}><ImageSlider images={item.images} /></a> */}
                                                 <Card.Text>
-                                                    {event.description}
+                                                    {item.description}
                                                 </Card.Text>
                                             </Card>
                                         </Col>
@@ -95,4 +96,4 @@ const MyEvents = () => {
     )
 }
 
-export default MyEvents;
+export default MyItems;

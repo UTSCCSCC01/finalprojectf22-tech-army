@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import EventImage from '../Components/EventImage'
+import EventImage from '../Components/Image'
 import EventInfo from '../Components/EventInfo'
 import { useParams } from "react-router-dom"
 import { getToken, getUser } from '../Utils/Common'
@@ -42,7 +42,8 @@ function DetailEvent() {
     const joinEvent = (eventId) => {
         const path = '/api/events/' + eventId;
         Axios.put(path, {}, axiosConfig).then(response => {
-            const message = response.data.message
+            const message = response.data.message;
+            alert(message);
             console.log(message);
         }).catch((error) => {
             const errorMsg = error.response.data.message;
@@ -79,23 +80,23 @@ function DetailEvent() {
 
             <br />
             <Container>
-                <Row>
-                    <Col>
+                <Row xs md lg = {{ gutterX: 5, gutterY: 5 }} >
+                    <Col md xs lg = {{span: 5, offset: 5}}>
                         <EventImage detail={Event}/>
                     </Col>
-                    <Col>
+                    <Col md xs lg = {{span: 5, offset: 5}}>
                         <EventInfo detail={Event} joinEvent = {joinEvent} deleteEvent = {deleteEvent}/>
                     </Col>
                 </Row>
+                <h2 className="text-center">See who has joined this event.</h2>
                 <Row>
-                    <h1>See who has joined this event.</h1>
                     {
                         usersJoined.length === 0 ?
                         <h2> No users yet...</h2>
                         :
                         usersJoined.map((user, index) => {
                             return (
-                                <Col lg={6} md={8} xs={24}>
+                                <Col md xs lg={{ span: 3 }}>
                                     <Card>
                                         <Card.Title>
                                             {user.name}
@@ -109,7 +110,7 @@ function DetailEvent() {
                     }
                 </Row>
             </Container>
-        </div>
+            </div>
     )
 }
 
