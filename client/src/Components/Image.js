@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ImageGallery from 'react-image-gallery'
-import '../Pages/eventdetail.css'
+import '../Styles/eventdetail.css'
 
 function EventImage(props) {
     const [Images, setImages] = useState([])

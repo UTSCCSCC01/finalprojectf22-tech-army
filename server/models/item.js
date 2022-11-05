@@ -23,11 +23,11 @@ const ItemSchema = new Schema({
         type: Array,
         default: []
     },
-    //uses the user model to refernce the user
+    //uses the user model to reference the user
     seller: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
-  },
+    },
 });
 
 module.exports = Item = mongoose.model('item',ItemSchema);
