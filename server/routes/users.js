@@ -17,7 +17,7 @@ router.get('/array', auth, async (req, res) => {
     try {
         const userIds = req.query.userIds;
         if (!userIds) {
-            return res.status(400).json({ message: 'Please include a property of userIds in the body of the request' });
+            return res.status(400).json({ message: 'Please include a property of userIds in the params' });
         }
         const userObjects = await User.find({ '_id': { $in: userIds } });
         // DO WE WANT TO SEND THIS ERROR? i think its fine if a user deletes there account and you cant find it anymore

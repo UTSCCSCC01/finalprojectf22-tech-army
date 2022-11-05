@@ -14,8 +14,6 @@ function PostEvent(props) {
     const navigate = useNavigate();
     const [TitleValue, setTitleValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
-
-
     const [Images, setImages] = useState([])
 
 
@@ -37,7 +35,7 @@ function PostEvent(props) {
 
 
         if (!TitleValue || !DescriptionValue || 
-             !Images) {
+             Images.length === 0) {
             return alert('fill all the fields first!')
         }
 
@@ -62,7 +60,7 @@ function PostEvent(props) {
             }
         }
 
-        Axios.post('/api/postevent/uploadEvent', variables,config)
+        Axios.post('/api/events/uploadEvent', variables,config)
             .then(response => {
                 if (response.data.success) {
                     alert('Event Successfully Posted')

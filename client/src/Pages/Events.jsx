@@ -33,7 +33,7 @@ const Events = () => {
           'x-auth-token' : getToken()
       }
   }
-    axios.post('/api/postevent/getEvents',null,config).then (response =>{
+    axios.post('/api/events/getEvents',null,config).then (response =>{
       if (response.data.success) {
 
             setevents([...response.data.events])     //check if the name is called Events
@@ -57,11 +57,11 @@ const Events = () => {
       return;
     } 
 
-    setevents_final(Events_Final.filter(eventss => {
+    setevents_final(Events_Final.filter(events => {
       if (query === '') {
-        return eventss;
-      } else if (eventss.title.toLowerCase().includes(query.toLowerCase())) {
-        return eventss;
+        return events;
+      } else if (events.title.toLowerCase().includes(query.toLowerCase())) {
+        return events;
       } else {
         return null
       }
@@ -105,6 +105,7 @@ const Events = () => {
             Events_Final.map((events,index) => {
               return (
                 <Col lg={6} md={8} xs={24}>
+                  <a href={`/events/${events._id}`}>
                   <Card
                     hoverable={true}
                     cover={
@@ -116,6 +117,7 @@ const Events = () => {
                         description={events.description}
                     />
                   </Card>
+                  </a>
                 </Col>
               )
             }) 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import EventImage from '../Components/EventImage'
+import EventImage from '../Components/Image'
 import EventInfo from '../Components/EventInfo'
 import { useParams } from "react-router-dom"
 import { getToken } from '../Utils/Common'
@@ -20,7 +20,7 @@ function DetailEvent() {
     };
 
     useEffect(() => {
-        Axios.get(`/api/postevent/events_by_id?id=${eventId}&type=single`, axiosConfig)
+        Axios.get(`/api/events/events_by_id?id=${eventId}&type=single`, axiosConfig)
         .then(response => {
             setEvent(response.data[0]);
             let axiosConfig2 = {
@@ -42,7 +42,8 @@ function DetailEvent() {
     const joinEvent = (eventId) => {
         const path = '/api/events/' + eventId;
         Axios.put(path, {}, axiosConfig).then(response => {
-            const message = response.data.message
+            const message = response.data.message;
+            alert(message);
             console.log(message);
         }).catch((error) => {
             const errorMsg = error.response.data.message;
