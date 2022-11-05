@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom"
 import { getToken } from '../Utils/Common'
 import Comments from "../Components/comments/Comments";
 import "./Commentview.css";
-import '../Pages/eventdetail.css'
+import '../Styles/eventdetail.css'
 
 function DetailItem() {
     
@@ -25,7 +25,7 @@ function DetailItem() {
         .then(response => {
             setItem(response.data[0])
         })
-    }, []);
+    }, [])
 
     useEffect(() => {
         Axios.get(`http://localhost:8000/api/comments/${itemId}`, axiosConfig)
