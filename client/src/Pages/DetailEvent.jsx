@@ -88,7 +88,7 @@ function DetailEvent() {
                         <EventInfo detail={Event} joinEvent = {joinEvent} deleteEvent = {deleteEvent}/>
                     </Col>
                 </Row>
-                <h2 className="text-center">See who has joined this event.</h2>
+                <h2 >See who has joined this event.</h2>
                 <Row>
                     {
                         usersJoined.length === 0 ?
