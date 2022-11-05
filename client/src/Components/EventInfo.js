@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 function EventInfo(props) {
 
-    const navigate = useNavigate();
     const [Event, setEvent] = useState({})
     const navigate = useNavigate();
 
