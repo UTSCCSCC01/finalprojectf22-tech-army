@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Descriptions } from 'antd';
+import { getToken} from '../Utils/Common'
+import Axios from "axios";
+import { unstable_composeClasses } from '@mui/material';
 
 function ItemInfo(props) {
     
     const [Item, setItem] = useState({})
+
+    let axiosConfig = {
+        headers: {
+            'x-auth-token': getToken(),
+        }
+    };
 
     useEffect(() => {
 
@@ -12,6 +21,14 @@ function ItemInfo(props) {
     }, [props.detail])
 
     const buyItemhandler = () => {
+    }
+
+    const saveItemhandler = () => {
+        console.log(Item);
+        Axios.put(`http://localhost:8000/api/postitem/${Item._id}`, {}, axiosConfig)
+        .then(response =>{
+            console.log(response);
+        });
     }
 
 
@@ -30,6 +47,14 @@ function ItemInfo(props) {
                     onClick={buyItemhandler}
                 >
                     Buy Item
+                    </Button>
+            </div>
+            <br />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button size="large" shape="round" type="danger"
+                    onClick={saveItemhandler}
+                >
+                    Save Item
                     </Button>
             </div>
         </div>
