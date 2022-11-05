@@ -80,11 +80,11 @@ function DetailEvent() {
 
             <br />
             <Container>
-                <Row xs md lg = {{ gutterX: 5, gutterY: 5 }} >
-                    <Col md xs lg = {{span: 5, offset: 5}}>
+                <Row >
+                    <Col>
                         <EventImage detail={Event}/>
                     </Col>
-                    <Col md xs lg = {{span: 5, offset: 5}}>
+                    <Col >
                         <EventInfo detail={Event} joinEvent = {joinEvent} deleteEvent = {deleteEvent}/>
                     </Col>
                 </Row>
