@@ -6,7 +6,7 @@ const auth = require("../middleware/auth");
 const item = require('../models/item');
 const User = require('../models/User');
 const mongoose = require('mongoose');
-
+const { check, validationResult } = require('express-validator');
 const Item = require('../models/item');
 
 //http://localhost:8000/api/postitems
@@ -17,7 +17,7 @@ const Item = require('../models/item');
     DESC: POST items (UTSC marketplace)
     ACCESS: Private 
 */
-/*router.post("/uploadItem", auth, [
+router.post("/uploadItem", auth, [
     check('title', 'Title is required').not().isEmpty(),
     check('description', 'Description is required').not().isEmpty(),
     check('price', 'Price is required').not().isEmpty(),
@@ -46,18 +46,16 @@ const Item = require('../models/item');
     } catch (error) {
         return res.status(400).json({ success: false, err })
     }
-});*/
-
-router.post("/uploadItem", auth, (req, res) => {
-
-    const item = new Item(req.body)
-
-    item.save((err) => {
-        if (err) return res.status(400).json({ success: false, err })
-        return res.status(200).json({ success: true })
-    })
-
 });
+
+// router.post("/uploadItem", auth, (req, res) => {
+
+//     const item = new Item(req.body)
+//     item.save((err) => {
+//         if (err) return res.status(400).json({ success: false, err })
+//         return res.status(200).json({ success: true })
+//     })
+// });
 
 router.post("/getItems", auth, (req, res) => {
 
@@ -88,7 +86,7 @@ router.get("/items_by_id", auth, (req, res) => {
         })
 });
 
-/*// @route   GET api/postitems
+// @route   GET api/postitems
 // @desc    Get all Items
 // @access  Private
 router.get('/', auth, (req, res) => {
@@ -177,7 +175,7 @@ router.get('/:id', async (req, res) => {
         
         res.status(500).send('Server Error');
     }
-});*/
+});
 
 //edit an item by its id 
 // @route   PUT api/postitem/:id
