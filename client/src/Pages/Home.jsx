@@ -33,11 +33,11 @@ const Home = () => {
     }
 
     const handleGetEvents = () => {
-        navigate("/events/array");
+        navigate("/events/getUserEvents");
     }
 
     const handleGetItems = () => {
-        navigate("/postitems/array");
+        navigate("/postitems/getUserItems");
     }
 
 

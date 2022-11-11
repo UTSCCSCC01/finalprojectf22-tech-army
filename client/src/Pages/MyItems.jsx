@@ -18,7 +18,7 @@ const MyItems = () => {
     };
     
     useEffect(() => {
-        Axios.get('http://localhost:8000/api/postitem/array', axiosConfig)
+        Axios.get('http://localhost:8000/api/postitem/getUserItems', axiosConfig)
         .then(response =>{
             console.log(response.data.itemsBookmarked);
             setItemsBookmarked(response.data.itemsBookmarked);

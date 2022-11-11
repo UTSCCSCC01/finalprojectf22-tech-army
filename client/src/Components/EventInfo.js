@@ -21,7 +21,7 @@ function EventInfo(props) {
 
     const deleteEventhandler = () => {
         props.deleteEvent(props.detail._id)
-        navigate("/events/array");
+        navigate("/events/getUserEvents");
     }
 
     const backToEvents = () => {

@@ -30,7 +30,7 @@ function DetailEvent() {
                 },
                 params: {"userIds": response.data[0].usersJoined}
               };
-            Axios.get('http://localhost:8000/api/users/array', axiosConfig2).then(response => {
+            Axios.get('http://localhost:8000/api/users/getUsers', axiosConfig2).then(response => {
                 console.log(response.data);
                 setUsersJoined(response.data);
             });

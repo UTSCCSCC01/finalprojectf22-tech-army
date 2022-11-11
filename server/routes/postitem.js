@@ -50,7 +50,7 @@ const Item = require('../models/item');
 
 
 router.post("/uploadItem", auth, (req, res) => {
-
+    req.body.seller = new mongoose.mongo.ObjectId(req.user.id);
     const item = new Item(req.body)
     item.save((err) => {
         if (err) return res.status(400).json({ success: false, err })
@@ -102,10 +102,10 @@ router.get('/', auth, (req, res) => {
     }
 });
 
-// @route   GET api/items/array
+// @route   GET api/items/getUserItems
 // @desc    Get an array of items that the user has bookmarked
 // @access  Private
-router.get('/array', auth, async (req, res) => {
+router.get('/getUserItems', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password');
         if (!user) {
@@ -164,7 +164,7 @@ router.get('/:id', async (req, res) => {
         if (!items) {
             return res.status(404).json({ msg: 'Item not found' });
         }
-    
+        
         res.json(items);
     } catch (err) {
         console.error(err.message);
