@@ -43,6 +43,24 @@ function DetailItem() {
         });
     }, []);
 
+    const deleteItem = (itemId) => {
+        if (getUser() === Item.writer){
+            const path = '/api/events/' + itemId;
+            Axios.delete(path, axiosConfig).then(response => {
+                const message = response.data.message
+                console.log(message);
+            }).catch((error) => {
+                const errorMsg = error.response.data.message;
+                alert(errorMsg);
+                console.error(errorMsg);
+                console.log(error);
+            })
+        }
+        else{
+            alert("You didn't create this post.")
+        }
+    }
+
     return (
         <div className="postItem" style={{ width: '100%', padding: '3rem 4rem' }}>
 
@@ -60,7 +78,7 @@ function DetailItem() {
 
             <Row gutter={[16, 16]} >
                 <Col lg={12} xs={24}>
-                    <ItemImage detail={Item}/>
+                    <ItemImage detail={Item} deleteItem={deleteItem}/>
                 </Col>
                 <Col lg={12} xs={24}>
                     <ItemInfo detail={Item}/>
