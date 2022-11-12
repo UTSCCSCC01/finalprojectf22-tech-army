@@ -45,7 +45,7 @@ function EditItem() {
             return alert('please enter a positive number for price')
         }
 
-        const variables = {
+        const body = {
             //writer : getUser(),
             title: TitleValue,
             description: DescriptionValue,
@@ -58,10 +58,10 @@ function EditItem() {
                 'x-auth-token' : getToken()
             }
         }
-
-        Axios.put(`/api/postitem/editItem/${itemId}`, config, variables)
+        Axios.put(`/api/postitem/editItem/${itemId}`, body, config)
             .then(response => {
-                if (response.data.success) {
+                console.log(response);
+                if (response.status == 200) {
                     alert('Item Successfully Updated')
                     navigate("/market")
 
