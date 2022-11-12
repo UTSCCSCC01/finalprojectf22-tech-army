@@ -2,6 +2,7 @@ const jsonwebtoken = require('jsonwebtoken');
 const constants = require('../config/constants.json');
 
 module.exports = (request, response, next) => {
+    console.log("running");
     const token = request.header('x-auth-token');
     if(!token){
         return response.status(401).json({message: 'No token, authorization denied'});

@@ -183,6 +183,7 @@ router.get('/:id', async (req, res) => {
 // @access  Private
 router.put('/editItem/:id', auth, async (req, res) => {
     try {
+        console.log("running");
         //find the item by its id
         const itemObj = await item.findById(req.params.id);
         // const users = await user.findById(req.params.id);
@@ -202,7 +203,7 @@ router.put('/editItem/:id', auth, async (req, res) => {
         itemObj.title = req.body.title;
         itemObj.description = req.body.description;
         itemObj.price = req.body.price;
-        itemObj.date_added = req.body.date_added;
+        //itemObj.date_added = req.body.date_added;
         //save the item
         await itemObj.save();
         //send the item back to the client

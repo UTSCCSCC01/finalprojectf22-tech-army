@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Button, Descriptions } from 'antd';
 import { getToken} from '../Utils/Common'
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { unstable_composeClasses } from '@mui/material';
 
 function ItemInfo(props) {
     
     const [Item, setItem] = useState({})
+
+    const navigate = useNavigate();
 
     let axiosConfig = {
         headers: {
@@ -29,6 +32,10 @@ function ItemInfo(props) {
         .then(response =>{
             console.log(response);
         });
+    }
+
+    const editItemhandler = () => {
+        navigate(`/market/edititem/${Item._id}`)
     }
 
 
@@ -55,6 +62,14 @@ function ItemInfo(props) {
                     onClick={saveItemhandler}
                 >
                     Save Item
+                    </Button>
+            </div>
+            <br />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button size="large" shape="round" type="danger"
+                    onClick={editItemhandler}
+                >
+                    Edit Item
                     </Button>
             </div>
         </div>
