@@ -53,7 +53,7 @@ const MyItems = () => {
                                                 <Card.Title>
                                                     {item.title}
                                                 </Card.Title>
-                                                {/* <a href={`/itemsposted/${item._id}`}><ImageSlider images={item.images} /></a> */}
+                                                { <a href={`/market/${item._id}`}><ImageSlider images={item.images} /></a> }
                                                 <Card.Text>
                                                     {item.description}
                                                 </Card.Text>
@@ -77,7 +77,7 @@ const MyItems = () => {
                                                 <Card.Title>
                                                     {item.title}
                                                 </Card.Title>
-                                                {/* <a href={`/itemsposted/${item._id}`}><ImageSlider images={item.images} /></a> */}
+                                                { <a href={`/market/${item._id}`}><ImageSlider images={item.images} /></a> }
                                                 <Card.Text>
                                                     {item.description}
                                                 </Card.Text>
