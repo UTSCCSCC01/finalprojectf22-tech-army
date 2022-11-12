@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import { Typography, Button, Form, Input } from 'antd';
-import FileUpload from '../Utils/FileUpload'
 import Axios from 'axios';
-import { getUser,getToken } from '../Utils/Common';
+import { getToken } from '../Utils/Common';
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom"
 import Navbar from '../Components/Navbar/Navbar';
 
 const { Title } = Typography;
 const { TextArea } = Input;
 
-function PostItem(props) {
+function EditItem() {
     const navigate = useNavigate();
+    const { itemId } = useParams();
     const [TitleValue, setTitleValue] = useState("")
     const [DescriptionValue, setDescriptionValue] = useState("")
     const [PriceValue, setPriceValue] = useState(0)
 
-    const [Images, setImages] = useState([])
+    //const [Images, setImages] = useState([])
 
 
     const onTitleChange = (event) => {
@@ -30,15 +31,14 @@ function PostItem(props) {
         setPriceValue(event.currentTarget.value)
     }
 
-    const updateImages = (newImages) => {
+    /*const updateImages = (newImages) => {
         setImages(newImages)
-    }
+    }*/
     const onSubmit = (event) => {
         event.preventDefault();
 
 
-        if (!TitleValue || !DescriptionValue || !PriceValue ||
-            Images.length === 0) {
+        if (!TitleValue || !DescriptionValue || !PriceValue) {
             return alert('fill all the fields first!')
         }
         if(PriceValue < 0){
@@ -46,11 +46,11 @@ function PostItem(props) {
         }
 
         const variables = {
-            writer : getUser(),
+            //writer : getUser(),
             title: TitleValue,
             description: DescriptionValue,
             price: PriceValue,
-            images: Images,
+            //images: Images,
         }
 
         const config = {
@@ -59,14 +59,14 @@ function PostItem(props) {
             }
         }
 
-        Axios.post('/api/postitem/uploadItem', variables, config)
+        Axios.put(`/api/postitem/editItem/${itemId}`, config, variables)
             .then(response => {
                 if (response.data.success) {
-                    alert('Item Successfully Posted')
+                    alert('Item Successfully Updated')
                     navigate("/market")
 
                 } else {
-                    alert('Failed to upload Product')
+                    alert('Failed to Update Item')
                 }
             })
 
@@ -76,14 +76,13 @@ function PostItem(props) {
         <><Navbar />
             <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <Title level={2}> Post An Item</Title>
+                    <Title level={2}> Edit An Item</Title>
                 </div>
 
 
                 <Form onSubmit = {onSubmit}>
 
                     {/* DropZone */}
-                    <FileUpload refreshFunction={updateImages}/>
 
                     <br />
                     <br />
@@ -113,7 +112,7 @@ function PostItem(props) {
                 <Button
                     onClick={onSubmit}
                 >
-                    Submit
+                    Update Item
                 </Button>
 
                 </Form>
@@ -123,4 +122,4 @@ function PostItem(props) {
     )
 }
 
-export default PostItem;
+export default EditItem;
