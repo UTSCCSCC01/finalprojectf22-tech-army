@@ -60,15 +60,12 @@ function EditItem() {
         }
         Axios.put(`/api/postitem/editItem/${itemId}`, body, config)
             .then(response => {
-                console.log(response);
-                if (response.status == 200) {
-                    alert('Item Successfully Updated')
-                    navigate("/market")
-
-                } else {
-                    alert('Failed to Update Item')
-                }
-            })
+                alert('Item Successfully Updated')
+                navigate("/market")
+            }).catch(error => {
+                console.log(error);
+                alert(error.response.data.msg)
+            });
 
     }
 
