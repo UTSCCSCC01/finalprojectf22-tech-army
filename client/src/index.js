@@ -28,8 +28,8 @@ root.render(
       <Route path="/editProfile" element={<EditProfile/>} />
       <Route path="/signup" exact element={<Signup />}/>
       <Route path="/profile" exact element={<ProfileInfo />}/>
-      <Route path="/events/array" exact element={<MyEvents />}/>
-      <Route path="/postitems/array" exact element={<MyItems />}/>
+      <Route path="/events/getUserEvents" exact element={<MyEvents />}/>
+      <Route path="/postitems/getUserItems" exact element={<MyItems />}/>
       <Route path="/market" exact element={<Market />}/>
       <Route path="/market/postitem" exact element={<PostItem />}/>
       <Route path="/market/:itemId" exact element={<DetailItem />}/>

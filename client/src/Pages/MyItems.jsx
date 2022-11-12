@@ -18,7 +18,7 @@ const MyItems = () => {
     };
     
     useEffect(() => {
-        Axios.get('http://localhost:8000/api/postitem/array', axiosConfig)
+        Axios.get('http://localhost:8000/api/postitem/getUserItems', axiosConfig)
         .then(response =>{
             console.log(response.data.itemsBookmarked);
             setItemsBookmarked(response.data.itemsBookmarked);
@@ -53,7 +53,7 @@ const MyItems = () => {
                                                 <Card.Title>
                                                     {item.title}
                                                 </Card.Title>
-                                                {/* <a href={`/itemsposted/${item._id}`}><ImageSlider images={item.images} /></a> */}
+                                                { <a href={`/market/${item._id}`}><ImageSlider images={item.images} /></a> }
                                                 <Card.Text>
                                                     {item.description}
                                                 </Card.Text>
@@ -77,7 +77,7 @@ const MyItems = () => {
                                                 <Card.Title>
                                                     {item.title}
                                                 </Card.Title>
-                                                {/* <a href={`/itemsposted/${item._id}`}><ImageSlider images={item.images} /></a> */}
+                                                { <a href={`/market/${item._id}`}><ImageSlider images={item.images} /></a> }
                                                 <Card.Text>
                                                     {item.description}
                                                 </Card.Text>

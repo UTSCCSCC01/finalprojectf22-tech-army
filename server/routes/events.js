@@ -37,10 +37,10 @@ router.post("/getEvents", auth, (req, res) => {
 
 });
 
-// @route   GET api/events/array
+// @route   GET api/events/getUserEvents
 // @desc    Get an array of events that a user has posted or joined
 // @access  Private
-router.get('/array', auth, async (req, res) => {
+router.get('/getUserEvents', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password');
         if (!user) {

@@ -9,11 +9,10 @@ const auth = require('../middleware/auth');
 
 
 //http://localhost:8000/api/users
-//???????? why cant u have a body for a get request (braindead design)
-// @route   PUT api/users/array
+// @route   PUT api/users/getUsers
 // @desc    Get an array of users from an array of userIds
 // @access  Private
-router.get('/array', auth, async (req, res) => {
+router.get('/getUsers', auth, async (req, res) => {
     try {
         const userIds = req.query.userIds;
         if (!userIds) {
