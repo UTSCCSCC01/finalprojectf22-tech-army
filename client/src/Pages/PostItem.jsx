@@ -18,23 +18,23 @@ function PostItem(props) {
     const [Images, setImages] = useState([])
 
 
-    const onTitleChange = (event) => {
-        setTitleValue(event.currentTarget.value)
+    const onTitleChange = (item) => {
+        setTitleValue(item.currentTarget.value)
     }
 
-    const onDescriptionChange = (event) => {
-        setDescriptionValue(event.currentTarget.value)
+    const onDescriptionChange = (item) => {
+        setDescriptionValue(item.currentTarget.value)
     }
 
-    const onPriceChange = (event) => {
-        setPriceValue(event.currentTarget.value)
+    const onPriceChange = (item) => {
+        setPriceValue(item.currentTarget.value)
     }
 
     const updateImages = (newImages) => {
         setImages(newImages)
     }
-    const onSubmit = (event) => {
-        event.preventDefault();
+    const onSubmit = (item) => {
+        item.preventDefault();
 
 
         if (!TitleValue || !DescriptionValue || !PriceValue ||

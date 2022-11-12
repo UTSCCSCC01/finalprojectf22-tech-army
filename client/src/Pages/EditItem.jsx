@@ -16,26 +16,21 @@ function EditItem() {
     const [DescriptionValue, setDescriptionValue] = useState("")
     const [PriceValue, setPriceValue] = useState(0)
 
-    //const [Images, setImages] = useState([])
 
-
-    const onTitleChange = (event) => {
-        setTitleValue(event.currentTarget.value)
+    const onTitleChange = (item) => {
+        setTitleValue(item.currentTarget.value)
     }
 
-    const onDescriptionChange = (event) => {
-        setDescriptionValue(event.currentTarget.value)
+    const onDescriptionChange = (item) => {
+        setDescriptionValue(item.currentTarget.value)
     }
 
-    const onPriceChange = (event) => {
-        setPriceValue(event.currentTarget.value)
+    const onPriceChange = (item) => {
+        setPriceValue(item.currentTarget.value)
     }
 
-    /*const updateImages = (newImages) => {
-        setImages(newImages)
-    }*/
-    const onSubmit = (event) => {
-        event.preventDefault();
+    const onSubmit = (item) => {
+        item.preventDefault();
 
 
         if (!TitleValue || !DescriptionValue || !PriceValue) {
@@ -46,11 +41,9 @@ function EditItem() {
         }
 
         const body = {
-            //writer : getUser(),
             title: TitleValue,
             description: DescriptionValue,
             price: PriceValue,
-            //images: Images,
         }
 
         const config = {
