@@ -217,6 +217,37 @@ router.put('/editItem/:id', auth, async (req, res) => {
     }
 });
 
+//delete an item by its id
+// @route   DELETE api/postitem/:id
+// @desc    delete an item by its ID
+// @access  Private
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        //find the item by its id
+        const itemObj = await item.findById(req.params.id);
+        //if there is no item, send a 404 status
+        if (!itemObj) {
+            return res.status(404).json({ msg: 'Item not found' });
+        }
+        //if the user is not the seller, send a 401 status
+        if (itemObj.seller.toString() !== req.user.id) {
+            return res.status(401).json({ msg: 'User not authorized' });
+        }
+        //delete the item
+        await itemObj.remove();
+        //send a success message
+        res.json({ msg: 'Item removed' });
+    } catch (err) {
+        console.error(err.message);
+        //if there is an error, send a 500 status
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Item not found' });
+        }
+        res.status(500).send('Server Error');
+    }
+});
+
+
 
 
 module.exports = router;
