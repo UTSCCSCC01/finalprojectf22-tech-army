@@ -54,21 +54,16 @@ function DetailEvent() {
     }
 
     const deleteEvent = (eventId) => {
-        if (getUser() === Event.writer){
-            const path = '/api/events/' + eventId;
-            Axios.delete(path, axiosConfig).then(response => {
-                const message = response.data.message
-                console.log(message);
-            }).catch((error) => {
-                const errorMsg = error.response.data.message;
-                alert(errorMsg);
-                console.error(errorMsg);
-                console.log(error);
-            })
-        }
-        else{
-            alert("You didn't create this post.")
-        }
+        const path = '/api/events/' + eventId;
+        Axios.delete(path, axiosConfig).then(response => {
+            const message = response.data.message
+            console.log(message);
+        }).catch((error) => {
+            const errorMsg = error.response.data.message;
+            alert(errorMsg);
+            console.error(errorMsg);
+            console.log(error);
+        })
     }
       
     return (
