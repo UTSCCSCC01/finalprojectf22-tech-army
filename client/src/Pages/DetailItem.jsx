@@ -72,7 +72,7 @@ function DetailItem() {
 
             <Row gutter={[16, 16]} >
                 <Col lg={12} xs={24}>
-                    <ItemImage detail={Item}/>
+                    <ItemImage detail={Item} deleteItem={deleteItem}/>
                 </Col>
                 <Col lg={12} xs={24}>
                     <ItemInfo detail={Item} deleteItem={deleteItem}/>
