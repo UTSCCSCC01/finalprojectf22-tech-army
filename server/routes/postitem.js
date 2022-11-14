@@ -58,6 +58,7 @@ router.post("/uploadItem", auth, (req, res) => {
     })
 });
 
+/* should this be a get method? */
 router.post("/getItems", auth, (req, res) => {
 
     Item.find()
