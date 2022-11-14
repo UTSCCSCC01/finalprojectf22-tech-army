@@ -26,7 +26,6 @@ function ItemInfo(props) {
 
     const deleteItemhandler = () => {
         props.deleteItem(props.detail._id)
-        navigate("/events/array");
     }
 
     const saveItemhandler = () => {
