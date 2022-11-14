@@ -3,8 +3,9 @@ import Axios from 'axios'
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import EventImage from '../Components/Image'
 import EventInfo from '../Components/EventInfo'
-import { useParams } from "react-router-dom"
-import { getToken, getUser } from '../Utils/Common'
+import { Navigate, useParams } from "react-router-dom"
+import { getToken } from '../Utils/Common'
+import { useNavigate } from "react-router-dom";
 import '../Styles/eventdetail.css'
 
 
@@ -18,6 +19,8 @@ function DetailEvent() {
             'x-auth-token': getToken(),
         }
     };
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         Axios.get(`/api/events/events_by_id?id=${eventId}&type=single`, axiosConfig)
@@ -58,6 +61,7 @@ function DetailEvent() {
         Axios.delete(path, axiosConfig).then(response => {
             const message = response.data.message
             console.log(message);
+            navigate("/events");
         }).catch((error) => {
             const errorMsg = error.response.data.message;
             alert(errorMsg);
