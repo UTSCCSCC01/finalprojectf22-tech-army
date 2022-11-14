@@ -1,19 +1,22 @@
 import React from 'react';
+import '../Styles/message.css';
 import Navbar from '../Components/Navbar/Navbar';
   
 const Message = () => {
   return (
-    <><Navbar /><div
-      style={{
-        display: 'flex',
-        justifyContent: 'Left',
-        alignItems: 'Left',
-        height: '100vh',
-        paddingLeft: "300px",
-      }}
-    >
-      <h1>Welcome to Message Page!</h1>
-    </div></>
+    <>
+    <Navbar />
+    <div className='message'>
+      <div className="chatMenu">
+         <div className="chatMenuWrapper">
+          <input type="Search for friends" />
+         </div>
+      </div>
+      <div className="chatBox">
+        <div className="chatBoxWrapper">box</div>
+      </div>
+    </div>
+    </>
   );
 };
   
