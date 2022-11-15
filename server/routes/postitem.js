@@ -7,48 +7,6 @@ const mongoose = require('mongoose');
 const { check, validationResult } = require('express-validator');
 const Item = require('../models/item');
 
-//http://localhost:8000/api/postitems
-// Note: uid = user id, iid = item id
-
-/*
-    ROUTE: POST api/postitem/uploadItem
-    DESC: POST items (UTSC marketplace)
-    ACCESS: Private 
-*/
-
-// router.post("/uploadItem", auth, [
-//     check('title', 'Title is required').not().isEmpty(),
-//     check('description', 'Description is required').not().isEmpty(),
-//     check('price', 'Price is required').not().isEmpty(),
-// ], async (req, res) => {
-//     //check for errors in the request
-//     const errors = validationResult(req);
-//     // Finds the validation errors in this request and wraps them in an object with handy functions and returns a 400 status
-//     if (!errors.isEmpty()) {
-//         return res.status(400).json({ errors: errors.array() });
-//     }
-
-//     try {
-//         const user = await User.findById(req.user.id).select('-password');
-//         console.log("waefoijewaiohfaowiehf");
-//         console.log(req.body);
-//         const items = new item({
-//             title: req.body.title,
-//             description: req.body.description,
-//             price: req.body.price,
-//             date_added: req.body.date_added,
-//             seller: user
-//         });
-
-//         items.save();
-//         return res.status(200).json({ success: true })
-        
-//     } catch (error) {
-//         return res.status(400).json({ success: false, err })
-//     }
-// });
-
-
 router.post("/uploadItem", auth, (req, res) => {
     req.body.seller = new mongoose.mongo.ObjectId(req.user.id);
     const item = new Item(req.body)
@@ -103,7 +61,7 @@ router.get('/', auth, (req, res) => {
 });
 
 // @route   GET api/items/getUserItems
-// @desc    Get an array of items that the user has bookmarked
+// @desc    Get an array of items that the user has bookmarked or has added to cart
 // @access  Private
 router.get('/getUserItems', auth, async (req, res) => {
     try {
@@ -112,10 +70,49 @@ router.get('/getUserItems', auth, async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
         const itemsBookmarked = user.itemsBookmarked;
+        const itemsInCart = user.itemsInCart;
         const itemsBookmarkedObjs = await item.find({ '_id': { $in: itemsBookmarked } });
-        res.status(200).json({itemsBookmarked: itemsBookmarkedObjs});
+        const itemsInCartObjs = await item.find({ '_id': { $in: itemsInCart } });
+        res.status(200).json({itemsBookmarked: itemsBookmarkedObjs, itemsInCart: itemsInCartObjs});
     } catch (err) {
         console.log(err);  
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   PUT api/postitem/:id
+// @desc    Add/remove item from cart
+// @access  Private
+router.put('/addToCart/:id', auth, async (req, res) => {
+    try {
+        const itemId = req.params.id;
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+        const item = await Item.findById(itemId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        if (!item) {
+            return res.status(404).json({ message: 'Item not found' });
+        }
+        const newItemId = new mongoose.mongo.ObjectId(itemId);
+        const itemsInCart = user.itemsInCart;
+        let message = "";
+        const index = itemsInCart.findIndex(item => item.toString() == itemId);
+        if(index != -1){
+            itemsBookmarked.splice(index, 1);
+            message = "Item removed from cart";
+            item.hidden = false;
+        }else{
+            itemsBookmarked.push(newItemId);
+            message = "Item has been added to cart";
+            item.hidden = true;
+        }
+        await user.save();
+        await item.save();
+        res.status(200).json({message});
+    } catch (err) {
+        console.error(err.message);
         res.status(500).send('Server Error');
     }
 });
