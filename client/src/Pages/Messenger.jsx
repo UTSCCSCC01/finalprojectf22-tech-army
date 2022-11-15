@@ -1,9 +1,9 @@
 import React from 'react';
 import Navbar from '../Components/Navbar/Navbar';
 import "../Styles/messenger.css";
-import Conversation from "../components/conversations/Conversation";
-import Message from "../components/message/Message";
-import ChatOnline from "../components/chatOnline/ChatOnline";
+import Conversation from "../Components/conversations/Conversation";
+import Message from "../Components/message/Message";
+import ChatOnline from "../Components/chatOnline/ChatOnline";
 import { useContext, useEffect, useRef, useState } from "react";
 import { getUserId } from "../Utils/Common";
 import axios from "axios";
@@ -40,12 +40,10 @@ function Messenger() {
 
   useEffect(() => {
     socket.current.emit("addUser", userId);
-    socket.current.on("getUsers", (users) => {
-      setOnlineUsers(
-        user.followings.filter((f) => users.some((u) => u.userId === f))
-      );
+    socket.current.on("getUsers", users => {
+      console.log(users)
     });
-  }, [user]);
+  }, [userId]);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -150,7 +148,7 @@ function Messenger() {
           <div className="chatOnlineWrapper">
             <ChatOnline
               onlineUsers={onlineUsers}
-              currentId={user._id}
+              currentId={userId}
               setCurrentChat={setCurrentChat}
             />
           </div>
