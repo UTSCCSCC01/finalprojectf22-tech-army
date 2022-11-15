@@ -24,7 +24,7 @@ function ItemInfo(props) {
 
     const carthandler = () => {
 
-        Axios.put(`http://localhost:8000/api/addToCart/${Item._id}`, {}, axiosConfig)
+        Axios.put(`http://localhost:8000/api/postitem/addToCart/${Item._id}`, {}, axiosConfig)
         .then(response =>{
             navigate(`/Cart/`);
             console.log(response);
@@ -32,8 +32,8 @@ function ItemInfo(props) {
             console.log(error);
             alert("cannot save item");
         })
-
     }
+
 
     const deleteItemhandler = () => {
         props.deleteItem(props.detail._id)

@@ -48,7 +48,7 @@ const Cart = () => {
     
       {
        itemsInCart.length === 0 ?
-            <h2>No items bookmarked...</h2>
+            <h2>No items in cart...</h2>
         :
         itemsInCart.map((item, index) => {
             return (
