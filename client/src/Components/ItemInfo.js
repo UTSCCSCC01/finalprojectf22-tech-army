@@ -3,14 +3,11 @@ import { Button, Descriptions } from 'antd';
 import { getToken} from '../Utils/Common'
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { unstable_composeClasses } from '@mui/material';
 
 function ItemInfo(props) {
     
     const [Item, setItem] = useState({});
-    const navigate = useNavigate();
-
     const navigate = useNavigate();
 
     let axiosConfig = {
