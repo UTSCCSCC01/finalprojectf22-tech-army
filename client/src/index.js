@@ -17,7 +17,7 @@ import DetailEvent from './Pages/DetailEvent';
 import PostItem from './Pages/PostItem';
 import DetailItem from './Pages/DetailItem';
 import EditItem from './Pages/EditItem';
-
+import Cart from './Pages/Cart';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -39,6 +39,7 @@ root.render(
       <Route path="/events/postevent" exact element={<PostEvent />}/>
       <Route path="/events/:eventId" exact element={<DetailEvent />}/>
       <Route path="/message" exact element={<Message />}/>
+      <Route path = "/cart" exact element = {<Cart />}/>
     </Routes>
   </BrowserRouter>
 );

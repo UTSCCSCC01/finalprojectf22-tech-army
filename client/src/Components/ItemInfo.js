@@ -22,7 +22,17 @@ function ItemInfo(props) {
 
     }, [props.detail])
 
-    const buyItemhandler = () => {
+    const carthandler = () => {
+
+        Axios.put(`http://localhost:8000/api/addToCart/${Item._id}`, {}, axiosConfig)
+        .then(response =>{
+            navigate(`/Cart/`);
+            console.log(response);
+        }).catch(error => {
+            console.log(error);
+            alert("cannot save item");
+        })
+
     }
 
     const deleteItemhandler = () => {
@@ -58,9 +68,9 @@ function ItemInfo(props) {
             <br />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Button size="large" shape="round" type="danger"
-                    onClick={buyItemhandler}
+                    onClick={carthandler}
                 >
-                    Buy Item
+                    Add to cart
                     </Button>
             </div>
             <br />
