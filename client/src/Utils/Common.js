@@ -12,7 +12,7 @@ export const getUser =() => {
 }
 
 export const getUserId = () => {
-    const userId = sessionStorage.getItem("id");
+    const userId = sessionStorage.getItem("_id");
 
     console.log(JSON.parse(userId));
     if (userId) return JSON.parse(userId);
