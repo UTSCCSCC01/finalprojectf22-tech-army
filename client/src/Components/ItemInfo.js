@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Descriptions } from 'antd';
 import { getToken} from '../Utils/Common'
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { unstable_composeClasses } from '@mui/material';
 
 function ItemInfo(props) {
     
-    const [Item, setItem] = useState({})
+    const [Item, setItem] = useState({});
+    const navigate = useNavigate();
 
     let axiosConfig = {
         headers: {
@@ -21,6 +22,10 @@ function ItemInfo(props) {
     }, [props.detail])
 
     const buyItemhandler = () => {
+    }
+
+    const deleteItemhandler = () => {
+        props.deleteItem(props.detail._id)
     }
 
     const saveItemhandler = () => {
@@ -57,6 +62,13 @@ function ItemInfo(props) {
                     Save Item
                     </Button>
             </div>
+            <div style={{padding: '10px'}} >
+                    <Button size="large" shape="round" type="danger"
+                        onClick={deleteItemhandler}
+                    >
+                        Delete Item
+                    </Button>
+                </div>
         </div>
     )
 }
