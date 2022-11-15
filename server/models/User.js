@@ -34,6 +34,10 @@ const UserSchema = mongoose.Schema({
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'item'}],
         default: [],
     },
+    itemsInCart: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'item'}],
+        default: [],
+    },
 });
 
 module.exports = mongoose.model('user', UserSchema);
