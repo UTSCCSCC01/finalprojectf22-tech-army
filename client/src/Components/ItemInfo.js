@@ -33,8 +33,12 @@ function ItemInfo(props) {
         console.log(Item);
         Axios.put(`http://localhost:8000/api/postitem/${Item._id}`, {}, axiosConfig)
         .then(response =>{
+            navigate(`/Dashboard/`);
             console.log(response);
-        });
+        }).catch(error => {
+            console.log(error);
+            alert("cannot save item");
+        })
     }
 
     const editItemhandler = () => {
