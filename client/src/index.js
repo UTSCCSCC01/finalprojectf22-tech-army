@@ -16,6 +16,7 @@ import PostEvent from './Pages/PostEvent';
 import DetailEvent from './Pages/DetailEvent';
 import PostItem from './Pages/PostItem';
 import DetailItem from './Pages/DetailItem';
+import EditItem from './Pages/EditItem';
 
 
 
@@ -32,6 +33,7 @@ root.render(
       <Route path="/postitems/getUserItems" exact element={<MyItems />}/>
       <Route path="/market" exact element={<Market />}/>
       <Route path="/market/postitem" exact element={<PostItem />}/>
+      <Route path="/market/edititem/:itemId" exact element={<EditItem />}/>
       <Route path="/market/:itemId" exact element={<DetailItem />}/>
       <Route path="/events" exact element={<Events />}/>
       <Route path="/events/postevent" exact element={<PostEvent />}/>
