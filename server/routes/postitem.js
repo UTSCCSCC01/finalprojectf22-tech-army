@@ -100,11 +100,11 @@ router.put('/addToCart/:id', auth, async (req, res) => {
         let message = "";
         const index = itemsInCart.findIndex(item => item.toString() == itemId);
         if(index != -1){
-            itemsBookmarked.splice(index, 1);
+            itemsInCart.splice(index, 1);
             message = "Item removed from cart";
             item.hidden = false;
         }else{
-            itemsBookmarked.push(newItemId);
+            itemsInCart.push(newItemId);
             message = "Item has been added to cart";
             item.hidden = true;
         }
