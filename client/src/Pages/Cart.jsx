@@ -62,7 +62,7 @@ const Cart = () => {
         :
         itemsInCart.map((item, index) => {
             return (
-                <Col lg={6} md={8} xs={24}>
+                <Col lg={6} md={8} xs={24} key={`cart-item-${index}`}>
                     <Card>
                         <Card.Title>
                             {item.title}
