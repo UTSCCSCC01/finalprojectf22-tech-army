@@ -69,7 +69,7 @@ const Cart = () => {
                         </Card.Title>
                         { <a href={`/market/${item._id}`}><ImageSlider images={item.images} /></a> }
                         <Card.Text>
-                            {" Prics:"+item.price}
+                            {" Price: $"+item.price}
                         </Card.Text>
                     </Card>
                 </Col>
