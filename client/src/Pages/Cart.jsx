@@ -9,6 +9,7 @@ import ImageSlider from '../Utils/ImageSlider';
 const Cart = () => {
 
     const [itemsInCart, setItemsInCart] = useState([]);
+    const [totalCost, setTotalCost] = useState("Loading...");
     const userId = getUserId();
 
     let axiosConfig = {
@@ -20,8 +21,16 @@ const Cart = () => {
     useEffect(() => {
         Axios.get('http://localhost:8000/api/postitem/getUserItems', axiosConfig)
         .then(response =>{
-            console.log(response.data.itemsInCart);
-            setItemsInCart(response.data.itemsInCart);
+            const items = response.data.itemsInCart
+            console.log(items);
+            setItemsInCart(items);
+
+            // Handle this once since React rerenders the JSX multiple times, causing too many rerenders even if setTotalCost is called once in the JSX
+            let runningCost = 0;
+            items.forEach((item, index) => {
+                runningCost += item.price ?? 0;
+            });
+            setTotalCost(runningCost);
         });
         
     }, []);
@@ -46,6 +55,7 @@ const Cart = () => {
     >
       <h1> Welcome to cart page !</h1>
     
+      <h3>Total cost: ${totalCost}</h3>
       {
        itemsInCart.length === 0 ?
             <h2>No items in cart...</h2>
