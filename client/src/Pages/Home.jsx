@@ -40,6 +40,10 @@ const Home = () => {
         navigate("/postitems/getUserItems");
     }
 
+    const handleGetOrders = () => {
+        navigate("/postitems/buyItems");
+    }
+
 
     return (
         <><Navbar />
@@ -50,11 +54,15 @@ const Home = () => {
             </div>
             <div className="leftMainBox">
                 <span>
-                    <Button variant="contained" size="large" color="secondary" onClick={handleGetEvents}>My events</Button>
+                    <Button variant="contained" size="large" color="secondary" onClick={handleGetEvents}>My Events</Button>
                 </span>
-                
+                <span>
+                    <span style={{paddingRight: "10px"}}/>
+                    <Button variant="contained" size="large" color="secondary" onClick={handleGetOrders}>My Orders</Button>
+                </span>
+
                 <span style={{paddingLeft:"20px"}}>
-                    <Button variant="contained" size="large" color="secondary" onClick={handleGetItems}>My items</Button>
+                    <Button variant="contained" size="large" color="secondary" onClick={handleGetItems}>My Items</Button>
                 </span>
             </div>
             <div className="rightMainBox">

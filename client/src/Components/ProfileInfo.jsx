@@ -34,7 +34,7 @@ const ProfileInfo = () => {
     return (
         <>
             <div>
-                welcome back {user}<pre></pre> your email: {email}
+                Welcome Back! {user}<pre></pre> Your email: {email}
             </div>
 
             <div>
