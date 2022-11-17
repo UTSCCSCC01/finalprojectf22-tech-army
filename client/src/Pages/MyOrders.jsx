@@ -41,7 +41,7 @@ const MyOrders = () => {
                                 :
                                 orders.map((order, index) => {
                                     return (
-                                        <Col lg={6} md={8} xs={24}>
+                                        <Col lg={6} md={8} xs={24} key={`ordered-item-${index}`}>
                                             <Card>
                                                 <Card.Title>
                                                     {order.title}
