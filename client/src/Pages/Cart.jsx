@@ -31,6 +31,10 @@ const Cart = () => {
                 runningCost += item.price ?? 0;
             });
             setTotalCost(runningCost);
+        }).catch((reason) => {
+            console.error("Error getting user items on Cart page");
+            console.error(reason);
+            setTotalCost(0);
         });
         
     }, []);
