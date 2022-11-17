@@ -9,7 +9,7 @@ import ImageSlider from '../Utils/ImageSlider';
 const Cart = () => {
 
     const [itemsInCart, setItemsInCart] = useState([]);
-    const [totalCost, setTotalCost] = useState("Loading...");
+    const [totalCost, setTotalCost] = useState(" [loading...] ");
     const userId = getUserId();
 
     let axiosConfig = {
