@@ -57,11 +57,11 @@ const Home = () => {
                     <Button variant="contained" size="large" color="secondary" onClick={handleGetEvents}>My Events</Button>
                 </span>
                 <span>
-                    <span style={{paddingRight: "10px"}}/>
+                    <span style={{paddingRight: "220px"}}/>
                     <Button variant="contained" size="large" color="secondary" onClick={handleGetOrders}>My Orders</Button>
                 </span>
 
-                <span style={{paddingLeft:"20px"}}>
+                <span style={{paddingLeft:"220px"}}>
                     <Button variant="contained" size="large" color="secondary" onClick={handleGetItems}>My Items</Button>
                 </span>
             </div>
@@ -70,7 +70,7 @@ const Home = () => {
                     <Button variant="contained" size="large" color="secondary" onClick={handleLogout}> Log out</Button>
                 </span>
                     
-                <span style={{paddingLeft:"20px"}}>
+                <span style={{paddingLeft:"40px"}}>
                     <Button variant="contained" size="large" color="secondary" onClick={handleDeleteAccount}> Delete Account</Button>
                 </span>
             </div>
