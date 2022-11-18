@@ -17,7 +17,7 @@ const MyOrders = () => {
     };
 
     useEffect(() => {
-        Axios.get(`http://localhost:8000/api/postitem/${userId}`, axiosConfig)
+        Axios.get(`http://localhost:8000/api/postitem/buyItems`, axiosConfig)
         .then(response => {
             console.log(response.data);
             setOrders(response.data);
