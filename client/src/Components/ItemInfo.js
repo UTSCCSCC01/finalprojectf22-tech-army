@@ -33,7 +33,7 @@ function ItemInfo(props) {
             alert("cannot save item");
         })
     }
-    const cartButton = Item.hidden == false ? "Add to cart" : "Remove from cart";
+    const cartButton = Item.hidden === false ? "Add to cart" : "Remove from cart";
 
     const deleteItemhandler = () => {
         props.deleteItem(props.detail._id)
