@@ -38,6 +38,14 @@ const UserSchema = mongoose.Schema({
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'item'}],
         default: [],
     },
+    itemsBought: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'item'}],
+        default: [],
+    },
+    itemsSold: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'item'}],
+        default: [],
+    },
 });
 
 module.exports = mongoose.model('user', UserSchema);

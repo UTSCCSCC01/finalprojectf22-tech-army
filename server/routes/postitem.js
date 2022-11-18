@@ -225,12 +225,23 @@ router.delete('/buyItems', auth, async (req, res) => {
         const sellerIds = itemsInCartObjs.map(itemObj => itemObj.seller);
         const itemIds = user.itemsInCart.map(item => item._id);
         user.itemsInCart = [];
-        await Item.deleteMany({ '_id': { $in: itemIds } })
+        // await Item.deleteMany({ '_id': { $in: itemIds } });
+        // add items in cart to user's purchased items
+        user.itemsBought = user.itemsBought.concat(itemIds);
         await user.save();
-        //send a success message
-        res.json({ msg: 'Items have been bought, contact seller for futher details' });
+        // update seller's items sold
+        const sellers = await User.find({ '_id': { $in: sellerIds } });
+        sellers.forEach(seller => {
+            seller.itemsSold = seller.itemsSold.concat(itemIds);
+            seller.save();
+        });
+        res.status(200).json({ message: "Items purchased successfully" });
     } catch (err) {
         console.error(err.message);
+        //if there is an error, send a 500 status
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Item not found' });
+        }
         res.status(500).send('Server Error');
     }
 });
