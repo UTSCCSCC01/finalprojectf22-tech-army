@@ -80,10 +80,13 @@ const Cart = () => {
        itemsInCart.length === 0 ?
             <h2>No items in cart...</h2>
         :
+        <div className="cartPageBox">
+            <Row gutter={[9, 9]}>
+        {
         itemsInCart.map((item, index) => {
             return (
-                <div className="cartPageBox">
-                    <Col lg={6} md={8} xs={24} key={`cart-item-${index}`}>
+                
+                    <Col lg={3} md={4} xs={24} key={`cart-item-${index}`}>
                         <Card>
                             <Card.Title>
                                 {"Item Name: " + item.title}
@@ -95,13 +98,22 @@ const Cart = () => {
                                 {"Price: $"+item.price}
                             </Card.Text>
                         </Card>
-                    </Col>
-                    <h2>Total Cost: {totalCost}</h2>
-                    <Button size="large" shape="round" onClick={placeOrder}>Place Order</Button>
-                </div>
+                    </Col>  
+                   
             )
         })
         }
+         </Row>
+        </div>
+
+    }
+    { <div>
+            <h2>Total Cost: {totalCost}</h2>
+            <Button size="large" shape="round" onClick={placeOrder}>Place Order</Button>
+      </div>
+    }
+
+
     </div>
     </>
     )
