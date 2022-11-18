@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Message = require('../models/Message');
+const User = require('../models/User');
 
 //http://localhost:8000/api/message
 
@@ -10,7 +11,11 @@ const Message = require('../models/Message');
     ACCESS: Private 
 */
 router.post("/", async (req,res) => {
-  const newMessage = new Message(req.body)
+  const newMessage = new Message({
+    conversationId: req.body.conversationId,
+    senderId: req.body.sender,
+    text: req.body.text
+  });
 
   try{
     const savedMessage = await newMessage.save()

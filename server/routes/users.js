@@ -30,10 +30,26 @@ router.get('/getUsers', auth, async (req, res) => {
     }
 });
 
+// @route   Get api/users/:id
+// @desc    Get a specific user
+// @access  Private
+router.get('/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(400).json({ message: 'Please include a property of userIds in the params' });
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        console.log(err);  
+        res.status(500).send('Server Error');
+    }
+});
+
 // @route   GET api/users
 // @desc    Get all users
 // @access  Private
-router.get("/", auth, (req, res) => {
+router.get("/", (req, res) => {
 
     User.find()
     .exec( (err, users) => {
