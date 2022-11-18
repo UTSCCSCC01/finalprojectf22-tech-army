@@ -6,6 +6,7 @@ const { events } = require('../models/Event');
 const mongoose = require('mongoose');
 const Event = require('../models/Event');
 const User = require('../models/User');
+const inAppNotification = require('../models/InAppNotification');
 
 // @route   POST api/events
 // @desc    Create an event for the user that is logged in
@@ -20,6 +21,32 @@ router.post("/uploadEvent", auth, async (req, res) => {
     event.save();
     user.eventsPosted.push(event._id);
     user.save();
+
+    //Create the activity to send the notifications
+    const message = `${user.name} has created a new post`;
+    if (user.followedUsers.length > 0 ) {
+        for (const eachUser of user.followedUsers) {
+            const isExist = await inAppNotification.find({ 'user': { $in: eachUser } });
+            // console.log("Does it already exist", isExist);
+            if (isExist.length === 0) {
+                const parameters = {
+                    user: eachUser,
+                    messages: message,
+                    status: 'unread',
+                }
+                const notification = new inAppNotification(parameters);
+                console.log("What is the new notification", notification);
+                notification.save();
+            }
+            else {
+                console.log("What is the current messages", isExist[0].user);
+                isExist[0].messages.push(message);
+                isExist[0].save();
+                // console.log("What is the notification", isExist);
+            }
+        }
+    }
+
     res.status(200).json({ success: true, message: "Event uploaded" })
 });
 
@@ -93,8 +120,10 @@ router.put('/:id', auth, async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
         const newUserId = new mongoose.mongo.ObjectId(userId);
+        console.log(newUserId)
         const newEventId = new mongoose.mongo.ObjectId(req.params.id);
         const usersJoined = event.usersJoined;
+        console.log(usersJoined);
         if(usersJoined.some((user) => {
             return user.toString() == userId;
         })){
@@ -109,6 +138,32 @@ router.put('/:id', auth, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
+    }
+});
+
+router.put('/follow/:id', auth, async(req, res) => {
+    try {
+        const path = req.params.id.replace("follow", "");
+        const event = await Event.findById(path);
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+        const userId = req.user.id;
+        const currentUser = await User.findById(userId);
+        if (!currentUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const creator = await User.findById(event.creator);
+        console.log(creator.name);
+        const followedUsers = creator.followedUsers;
+        console.log(followedUsers);
+        followedUsers.push(currentUser);
+        await creator.save();
+        res.status(200).json({message: "User has been added to the creator"});
+    }
+    catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
     }
 });
 

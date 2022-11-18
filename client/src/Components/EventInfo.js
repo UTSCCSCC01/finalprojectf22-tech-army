@@ -24,6 +24,10 @@ function EventInfo(props) {
         navigate("/events/getUserEvents");
     }
 
+    const followUserhandler = () => {
+        props.followUser(props.detail._id)
+    }
+
     const backToEvents = () => {
         navigate("/events")
     }
@@ -56,6 +60,13 @@ function EventInfo(props) {
                         onClick={deleteEventhandler}
                     >
                         Delete Event
+                    </Button>
+                </div>
+                <div style={{padding: '10px'}} >
+                    <Button size="large" shape="round" type="danger"
+                        onClick={followUserhandler}
+                    >
+                        Follow this user
                     </Button>
                 </div>
             </div>

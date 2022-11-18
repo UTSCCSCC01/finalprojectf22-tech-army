@@ -33,6 +33,7 @@ app.use('/api/events', require('./routes/events'));
 app.use('/api/comments', require('./routes/comments'));
 app.use('/api/conversation', require('./routes/conversation'));
 app.use('/api/message', require('./routes/messages'));
+app.use('/api/notification', require('./routes/notification'));
 
 app.use("/uploads", express.static("uploads"));
 
