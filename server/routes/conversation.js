@@ -22,7 +22,9 @@ router.post("/", async (req,res) => {
   }
 })
 
-//get conv of user
+// @route   GET api/conversation
+// @desc    Get all conversations for a specific user
+// @access  Private
 router.get("/:userId", async (req,res) => {
   try{
     const conversation = await Conversation.find({
