@@ -213,6 +213,28 @@ router.put('/editItem/:id', auth, async (req, res) => {
     }
 });
 
+router.delete('/buyItems', auth, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+        //if there is no user, send a 404 status
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        const itemsInCartObjs = await item.find({ '_id': { $in: user.itemsInCart } });
+        const sellerIds = itemsInCartObjs.map(itemObj => itemObj.seller);
+        const itemIds = user.itemsInCart.map(item => item._id);
+        user.itemsInCart = [];
+        await Item.deleteMany({ '_id': { $in: itemIds } })
+        await user.save();
+        //send a success message
+        res.json({ msg: 'Items have been bought, contact seller for futher details' });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 //delete an item by its id
 // @route   DELETE api/postitem/:id
 // @desc    delete an item by its ID
