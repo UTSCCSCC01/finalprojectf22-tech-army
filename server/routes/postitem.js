@@ -18,7 +18,7 @@ router.post("/uploadItem", auth, (req, res) => {
 
 router.post("/getItems", auth, (req, res) => {
 
-    Item.find()
+    Item.find({"hidden": false})
     .exec( (err, items) => {
         if (err) return res.status(400).json({success:false,err})
 

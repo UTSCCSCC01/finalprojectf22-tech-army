@@ -33,7 +33,7 @@ function ItemInfo(props) {
             alert("cannot save item");
         })
     }
-
+    const cartButton = Item.hidden == false ? "Add to cart" : "Remove from cart";
 
     const deleteItemhandler = () => {
         props.deleteItem(props.detail._id)
@@ -67,10 +67,11 @@ function ItemInfo(props) {
             <br />
             <br />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
+                
                 <Button size="large" shape="round" type="danger"
                     onClick={carthandler}
                 >
-                    Add to cart
+                    {cartButton}
                     </Button>
             </div>
             <br />
