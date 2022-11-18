@@ -213,6 +213,7 @@ router.put('/editItem/:id', auth, async (req, res) => {
     }
 });
 
+//test route
 router.get('/buyItems', auth, async (req, res) => {
     try {
         const userId = req.user.id;
