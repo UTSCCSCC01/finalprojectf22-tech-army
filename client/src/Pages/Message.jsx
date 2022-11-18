@@ -1,20 +1,82 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getUser, getUserId } from '../Utils/Common';
+import { StreamChat } from 'stream-chat';
+import {
+  Chat,
+  Channel,
+  Window,
+  ChannelHeader,
+  MessageList,
+  MessageInput,
+  Thread,
+  LoadingIndicator,
+  ChannelList
+} from 'stream-chat-react';
+import icon from "../Components/comments/user-icon.png";
+import '@stream-io/stream-chat-css/dist/css/index.css';
+import styled from 'styled-components';
 import Navbar from '../Components/Navbar/Navbar';
+import CustomChannelList from '../Components/CustomChannelList';
+import ChannelBody from '../Components/ChannelBody';
+import AddingChannel from '../Components/AddingChannel';
+
+const Container = styled.div`
+  display: flex;
+  .left-column {
+    width: 300px;
+  }
+
+  .right-colum {
+    flex: 1;
+  }
+`
+
+const apiKey = process.env.REACT_APP_STREAM_API_KEY;
+
+const user = {
+  id: "john",
+  name: getUser(),
+  image: icon,
+}
+
   
-const Message = () => {
+export default function Message() {
+  const [client, setClient] = useState(null);
+
+  const [addingTeamChannel, setAddingTeamChannel] = useState(false);
+
+  useEffect(() => {
+    async function init() {
+      const chatClient = StreamChat.getInstance(apiKey)
+
+      await chatClient.connectUser(user, chatClient.devToken(user.id))
+
+      setClient(chatClient)
+    }
+
+    init()
+
+    if (client) return () => client.disconnectUser();
+  }, [])
+
+  if(!client) return <LoadingIndicator />
+
+
   return (
-    <><Navbar /><div
-      style={{
-        display: 'flex',
-        justifyContent: 'Left',
-        alignItems: 'Left',
-        height: '100vh',
-        paddingLeft: "300px",
-      }}
-    >
-      <h1>Welcome to Message Page!</h1>
-    </div></>
-  );
-};
+    <div>
+      <Chat client={client} theme="messaging light">
+        <Container>
+          <div className="left-column">
+            <CustomChannelList onClickAdd={() => setAddingTeamChannel(true)} />
+          </div>
+          <div className="right-column">
+            <Channel>
+              {addingTeamChannel ? (<AddingChannel onClose={() => setAddingTeamChannel(false)}/>) : (<ChannelBody />)}
+            </Channel>
+          </div>
+        </Container>
+      </Chat>
+    </div>
+  )
+}
   
-export default Message;
