@@ -213,7 +213,7 @@ router.put('/editItem/:id', auth, async (req, res) => {
     }
 });
 
-router.delete('/buyItems', auth, async (req, res) => {
+router.get('/buyItems', auth, async (req, res) => {
     try {
         const userId = req.user.id;
         const user = await User.findById(userId);
