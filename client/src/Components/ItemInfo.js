@@ -34,6 +34,7 @@ function ItemInfo(props) {
         })
     }
     const cartButton = Item.hidden === false ? "Add to cart" : "Remove from cart";
+    const itemBookmark = Item.hidden === false ? "Bookmark Item" : "Remove Bookmark"
 
     const deleteItemhandler = () => {
         props.deleteItem(props.detail._id)
@@ -79,7 +80,7 @@ function ItemInfo(props) {
                 <Button size="large" shape="round" type="danger"
                     onClick={saveItemhandler}
                 >
-                    Save Item
+                    {itemBookmark}
                     </Button>
             </div>
             <br />
