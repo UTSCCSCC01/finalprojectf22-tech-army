@@ -11,7 +11,7 @@ import MyOrders from './Pages/MyOrders';
 import MyItems from './Pages/MyItems';
 import Login from './Pages/Login';
 import Market from './Pages/Market';
-import Message from './Pages/Message';
+import Message from './Pages/Messenger';
 import Signup from './Pages/Signup';
 import PostEvent from './Pages/PostEvent';
 import DetailEvent from './Pages/DetailEvent';

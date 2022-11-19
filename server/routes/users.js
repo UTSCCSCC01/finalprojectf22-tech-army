@@ -30,6 +30,20 @@ router.get('/getUsers', auth, async (req, res) => {
     }
 });
 
+// @route   GET api/users
+// @desc    Get all users
+// @access  Private
+router.get("/", auth, (req, res) => {
+
+    User.find()
+    .exec( (err, users) => {
+        if (err) return res.status(400).json({success:false,err})
+
+        res.status(200).json({success:true , users})
+    } )
+
+});
+
 /*
     ROUTE: POST api/users
     DESC: Register a user

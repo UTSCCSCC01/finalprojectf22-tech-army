@@ -7,12 +7,60 @@ const mongoose = require('mongoose');
 const { check, validationResult } = require('express-validator');
 var nodemailer = require('nodemailer');
 const Item = require('../models/item');
+const createOrAddActivity = require('../service/notification');
 
-router.post("/uploadItem", auth, (req, res) => {
+//http://localhost:8000/api/postitems
+// Note: uid = user id, iid = item id
+
+/*
+    ROUTE: POST api/postitem/uploadItem
+    DESC: POST items (UTSC marketplace)
+    ACCESS: Private 
+*/
+
+// router.post("/uploadItem", auth, [
+//     check('title', 'Title is required').not().isEmpty(),
+//     check('description', 'Description is required').not().isEmpty(),
+//     check('price', 'Price is required').not().isEmpty(),
+// ], async (req, res) => {
+//     //check for errors in the request
+//     const errors = validationResult(req);
+//     // Finds the validation errors in this request and wraps them in an object with handy functions and returns a 400 status
+//     if (!errors.isEmpty()) {
+//         return res.status(400).json({ errors: errors.array() });
+//     }
+
+//     try {
+//         const user = await User.findById(req.user.id).select('-password');
+//         console.log("waefoijewaiohfaowiehf");
+//         console.log(req.body);
+//         const items = new item({
+//             title: req.body.title,
+//             description: req.body.description,
+//             price: req.body.price,
+//             date_added: req.body.date_added,
+//             seller: user
+//         });
+
+//         items.save();
+//         return res.status(200).json({ success: true })
+        
+//     } catch (error) {
+//         return res.status(400).json({ success: false, err })
+//     }
+// });
+
+
+router.post("/uploadItem", auth, async (req, res) => {
     req.body.seller = new mongoose.mongo.ObjectId(req.user.id);
-    const item = new Item(req.body)
+    const item = new Item(req.body);
+    const seller = await User.findById(req.body.seller);
+    const message = `${seller.name} has created a new item`;
+    const endpoint = `/market/${item._id}`;
     item.save((err) => {
         if (err) return res.status(400).json({ success: false, err })
+        //create or add an activity
+        createOrAddActivity(seller, message, endpoint);
         return res.status(200).json({ success: true })
     })
 });
@@ -306,6 +354,11 @@ router.delete('/:id', auth, async (req, res) => {
         }
         //delete the item
         await itemObj.remove();
+
+        //Create or add activity
+        const message = `${itemObj.seller.name} has deleted an item`;
+        const endpoint = "";
+        createOrAddActivity(itemObj.seller, message, endpoint); 
         //send a success message
         res.json({ msg: 'Item removed' });
     } catch (err) {

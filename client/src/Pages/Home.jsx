@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from '../Components/Navbar/Navbar';
 import '../Styles/home.css';
+import { InAppNotificationDropdown } from './InAppNotificationDropdown';
 
 const Home = () => {
 
@@ -63,6 +64,9 @@ const Home = () => {
 
                 <span style={{paddingLeft:"220px"}}>
                     <Button variant="contained" size="large" color="secondary" onClick={handleGetItems}>My Items</Button>
+                </span>
+                <span style={{paddingLeft: "40px"}}>
+                    <InAppNotificationDropdown />
                 </span>
             </div>
             <div className="rightMainBox">

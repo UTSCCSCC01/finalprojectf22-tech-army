@@ -4,7 +4,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import EventImage from '../Components/Image'
 import EventInfo from '../Components/EventInfo'
 import { Navigate, useParams } from "react-router-dom"
-import { getToken } from '../Utils/Common'
+import { getToken, getUser } from '../Utils/Common'
 import { useNavigate } from "react-router-dom";
 import '../Styles/eventdetail.css'
 
@@ -40,8 +40,6 @@ function DetailEvent() {
         })
     }, []);
 
-    console.log('Who are the users\n', usersJoined);
-
     const joinEvent = (eventId) => {
         const path = '/api/events/' + eventId;
         Axios.put(path, {}, axiosConfig).then(response => {
@@ -52,7 +50,6 @@ function DetailEvent() {
             const errorMsg = error.response.data.message;
             alert(errorMsg);
             console.error(errorMsg);
-            console.log(error);
         })
     }
 
@@ -69,6 +66,25 @@ function DetailEvent() {
             console.log(error);
         })
     }
+
+    const followUser = (eventId) => {
+        if(getUser() == Event.writer){
+            alert("This event is created by you.")
+        }
+        else {
+            const path = '/api/events/follow/' + eventId;
+            Axios.put(path, {}, axiosConfig).then(response => {
+                const message = response.data.message;
+                alert(message);
+                console.log(message);
+            }).catch((error) => {
+                const errorMsg = error.response.data.message;
+                alert(errorMsg);
+                console.error(errorMsg);
+                console.log(error);
+            })
+        }
+    }
       
     return (
         <div className="postEvent" style={{ width: '100%', padding: '3rem 4rem' }}>
@@ -84,7 +100,7 @@ function DetailEvent() {
                         <EventImage detail={Event}/>
                     </Col>
                     <Col >
-                        <EventInfo detail={Event} joinEvent = {joinEvent} deleteEvent = {deleteEvent}/>
+                        <EventInfo detail={Event} joinEvent = {joinEvent} deleteEvent = {deleteEvent} followUser = {followUser}/>
                     </Col>
                 </Row>
                 <h2 >See who has joined this event.</h2>
