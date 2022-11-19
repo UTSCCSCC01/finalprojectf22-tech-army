@@ -173,7 +173,6 @@ router.put('/:id', auth, async (req, res) => {
 
 router.get('/buyItems', auth, async (req, res) => {
     try {
-        console.log("wack");
         const userId = req.user.id;
         const user = await User.findById(userId);
         //if there is no user, send a 404 status
@@ -209,7 +208,6 @@ router.get('/buyItems', auth, async (req, res) => {
             
             transporter.sendMail(mailOptions, function(error, info){
                 if (error) {
-                    console.log("wack");
                     console.log(error);
                 } else {
                     console.log('Email sent: ' + info.response);
