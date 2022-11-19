@@ -47,7 +47,7 @@ export default function CreateChannel({onClose}){
     const [image,setImage] = useState('')
     const [desc,setDesc] = useState('')
 
-    const CreateChannel = (e) => {
+    const createChannel = (e) => {
         e.preventDefault();
 
         const channelId = name.replace(/\s/g, "-").toLowerCase();
@@ -64,18 +64,18 @@ export default function CreateChannel({onClose}){
     }
  
     return (
-        <Form>
+        <Form onSubmit={createChannel}>
             <div className = "input-group">
-                <label htmlFon="name">Channel Name</label>
-                <input id="name" onchange={(e) => setName(e.target.value)} />
+                <label htmlFor="name">Channel Name</label>
+                <input id="name" onChange={(e) => setName(e.target.value)} />
             </div>
             <div className="input-group">
-                <label htmlFon="image">Channel Image URL</label>
+                <label htmlFor="image">Channel Image URL</label>
                 <input id="image" onChange = {(e) => setImage(e.target.value)} />
             </div>
             <div className="input-group">
-                <label htmlFon="desc">Channel Description </label>
-                <textarea id="desc" onchange={(e) => setDesc(e.target.value)} />
+                <label htmlFor="desc">Channel Description </label>
+                <textarea id="desc" onChange={(e) => setDesc(e.target.value)} />
             </div>
             <div className="submit">
                 <button type="submit">Create channel</button>

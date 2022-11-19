@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Item = styled.li`
-    border:1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 10px;
     margin-bottom: 20px;
     padding: 20px;

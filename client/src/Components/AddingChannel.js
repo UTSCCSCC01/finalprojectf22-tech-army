@@ -10,7 +10,7 @@ const Container = styled.div`
 
     .tabs{
         padding: 20px 0;
-        bording-bottom: 1px solid #333333;
+        border-bottom: 1px solid #333333;
 
         button{
             margin-right: 20px;

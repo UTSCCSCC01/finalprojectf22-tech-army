@@ -15,7 +15,7 @@ const Container = styled.div`
         
         h2{
             color: white;
-            margin: 00 10px;
+            margin: 0 0 10px;
             font-size: 16px;
         }
         
