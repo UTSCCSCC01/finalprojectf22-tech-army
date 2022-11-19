@@ -33,8 +33,10 @@ export const InAppNotificationDropdown = () => {
 
 
 
-    const onClickNotifHandler = (endpoint) => {
-        navigate(endpoint);
+    const onClickNotifHandler = (message) => {
+        const index = inAppNotificationData.messages.indexOf(message);
+        console.log("What is the index", index);
+        navigate(inAppNotificationData.endpoints[index]);
     }
 
     const markAsAllReadHandler = () => {
@@ -49,7 +51,6 @@ export const InAppNotificationDropdown = () => {
         })
     }
 
-    let i = 0;
     return (
         <div className="dropdown">
             <button className="btn btn-secondary dropdown-toggle" type="button"
@@ -60,10 +61,9 @@ export const InAppNotificationDropdown = () => {
             <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
                 { isFound ?
                     inAppNotificationData.messages.map((message) => {
-                        i += 1;
                         return (
                             <li><button className="dropdown-item" type="button"
-                            onClick={() => onClickNotifHandler(inAppNotificationData.endpoints[i - 1])}>
+                            onClick={() => onClickNotifHandler(message)}>
                                 {message}</button></li>
                         )
                     })

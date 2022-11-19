@@ -55,10 +55,11 @@ router.post("/uploadItem", auth, async (req, res) => {
     const item = new Item(req.body);
     const seller = await User.findById(req.body.seller);
     const message = `${seller.name} has created a new item`;
+    const endpoint = `/market/${item._id}`;
     item.save((err) => {
         if (err) return res.status(400).json({ success: false, err })
         //create or add an activity
-        createOrAddActivity(seller, message);
+        createOrAddActivity(seller, message, endpoint);
         return res.status(200).json({ success: true })
     })
 });
@@ -243,7 +244,8 @@ router.delete('/:id', auth, async (req, res) => {
 
         //Create or add activity
         const message = `${itemObj.seller.name} has deleted an item`;
-        createOrAddActivity(itemObj.seller, message); 
+        const endpoint = "";
+        createOrAddActivity(itemObj.seller, message, endpoint); 
         //send a success message
         res.json({ msg: 'Item removed' });
     } catch (err) {
