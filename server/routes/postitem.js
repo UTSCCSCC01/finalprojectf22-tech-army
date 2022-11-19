@@ -174,8 +174,8 @@ router.get('/buyItems', auth, async (req, res) => {
                 }
             });
 
-            const message = `<h1>Hello ${seller.name}, ${user.name} has agreed to purchase your item ${obj.title}</h1><p>You should coordinate a meetup, the users
-            email is ${user.email}</p>`;
+            const message = `<h1>Hello ${seller.name},</h1> <p>A user named ${user.name} has agreed to purchase your item called ${obj.title}, You should coordinate a meetup
+            in order to sell your item, the user's email is ${user.email}</p>`;
             
             var mailOptions = {
                 from: 'utschub@gmail.com',
