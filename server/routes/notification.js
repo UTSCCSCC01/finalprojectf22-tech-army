@@ -23,6 +23,10 @@ router.get("/", auth, async(req, res) => {
     }
 });
 
+// @route PUT api/notification
+// @desc Reset the messages inside the notification of a certain user.
+// @access Private
+
 router.put("/", auth, async(req, res) => {
     try {
         const user = await User.findById(req.user.id);
@@ -34,6 +38,7 @@ router.put("/", auth, async(req, res) => {
             return res.status(404).json({ message: 'Notification not found' });
         }
         notification.messages.splice(0);
+        notification.endpoints.splice(0);
         notification.save();
         res.status(200).json(notification);
     }

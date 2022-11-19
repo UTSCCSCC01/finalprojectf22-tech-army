@@ -6,6 +6,7 @@ const User = require('../models/User');
 const mongoose = require('mongoose');
 const { check, validationResult } = require('express-validator');
 const Item = require('../models/item');
+const createOrAddActivity = require('../service/notification');
 
 //http://localhost:8000/api/postitems
 // Note: uid = user id, iid = item id
@@ -49,11 +50,15 @@ const Item = require('../models/item');
 // });
 
 
-router.post("/uploadItem", auth, (req, res) => {
+router.post("/uploadItem", auth, async (req, res) => {
     req.body.seller = new mongoose.mongo.ObjectId(req.user.id);
-    const item = new Item(req.body)
+    const item = new Item(req.body);
+    const seller = await User.findById(req.body.seller);
+    const message = `${seller.name} has created a new item`;
     item.save((err) => {
         if (err) return res.status(400).json({ success: false, err })
+        //create or add an activity
+        createOrAddActivity(seller, message);
         return res.status(200).json({ success: true })
     })
 });
@@ -235,6 +240,10 @@ router.delete('/:id', auth, async (req, res) => {
         }
         //delete the item
         await itemObj.remove();
+
+        //Create or add activity
+        const message = `${itemObj.seller.name} has deleted an item`;
+        createOrAddActivity(itemObj.seller, message); 
         //send a success message
         res.json({ msg: 'Item removed' });
     } catch (err) {

@@ -10,8 +10,9 @@ const inAppNotificationSchema = mongoose.Schema(
             type: [String],
             default: [],
         },
-        status: {
-            type: String
+        endpoints: {
+            type: [String],
+            default: [],
         },
     },
     {

@@ -6,7 +6,7 @@ const { events } = require('../models/Event');
 const mongoose = require('mongoose');
 const Event = require('../models/Event');
 const User = require('../models/User');
-const inAppNotification = require('../models/InAppNotification');
+const createOrAddActivity = require('../service/notification');
 
 // @route   POST api/events
 // @desc    Create an event for the user that is logged in
@@ -24,28 +24,8 @@ router.post("/uploadEvent", auth, async (req, res) => {
 
     //Create the activity to send the notifications
     const message = `${user.name} has created a new post`;
-    if (user.followedUsers.length > 0 ) {
-        for (const eachUser of user.followedUsers) {
-            const isExist = await inAppNotification.find({ 'user': { $in: eachUser } });
-            // console.log("Does it already exist", isExist);
-            if (isExist.length === 0) {
-                const parameters = {
-                    user: eachUser,
-                    messages: message,
-                    status: 'unread',
-                }
-                const notification = new inAppNotification(parameters);
-                console.log("What is the new notification", notification);
-                notification.save();
-            }
-            else {
-                console.log("What is the current messages", isExist[0].user);
-                isExist[0].messages.push(message);
-                isExist[0].save();
-                // console.log("What is the notification", isExist);
-            }
-        }
-    }
+    const endpoint = `/events/${event._id}`;
+    createOrAddActivity(user, message, endpoint);
 
     res.status(200).json({ success: true, message: "Event uploaded" })
 });
@@ -154,9 +134,7 @@ router.put('/follow/:id', auth, async(req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
         const creator = await User.findById(event.creator);
-        console.log(creator.name);
         const followedUsers = creator.followedUsers;
-        console.log(followedUsers);
         followedUsers.push(currentUser);
         await creator.save();
         res.status(200).json({message: "User has been added to the creator"});
@@ -172,15 +150,17 @@ router.put('/follow/:id', auth, async(req, res) => {
 // @route   DELETE api/events/:id
 // @desc    Delete an event
 // @access  Private
-router.delete("/:id", auth, (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
     const userId = req.user.id;
-    const user = User.findById(userId);
+    const user = await User.findById(userId);
     if(!user) res.status(404).json({message: "Cannot get user"});
     const eventId = req.params.id;
     Event.findByIdAndDelete(eventId, (err, event) => {
         if (err) return res.status(400).send(err)
         return res.status(200).json({ success: true, message: "Event deleted" })
-    })
+    });
+    const message = `${user.name} has deleted a post`;
+    createOrAddActivity(user, message);
 });
 
 
