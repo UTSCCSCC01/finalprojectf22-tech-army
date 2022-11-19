@@ -15,14 +15,23 @@ const MyOrders = () => {
     let axiosConfig = {
         headers: {
             'x-auth-token': getToken(),
+        },
+        query: {
+            'userIds': userId,
         }
     };
 
     useEffect(() => {
-        Axios.get(`http://localhost:8000/api/postitem/buyItems`, axiosConfig)
+        const userIds = [userId];
+        Axios.get(`http://localhost:8000/api/users/getUsers?userIds=${userId}`, axiosConfig)
         .then(response => {
             console.log(response.data);
-            setOrders(response.data);
+            const user = response.data[0];
+            const orderIds = user.itemsInCart;
+            Axios.get(`/api/postitem/items_by_id?id=${orderIds}&type=array`, axiosConfig)
+                .then(response => {
+                    setOrders(response.data);
+                })
         });
     }, []);
 
