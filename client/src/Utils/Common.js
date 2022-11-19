@@ -1,6 +1,5 @@
 import defaultProfilePic from'../assets/profilepic1.png'
 import defaultCoverImg from '../assets/profileBackground.png'
-import { json } from 'react-router-dom';
 
 export const getUser =() => {
     const userStr = sessionStorage.getItem("name");
