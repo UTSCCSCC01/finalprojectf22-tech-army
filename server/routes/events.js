@@ -170,7 +170,8 @@ router.delete('/:id', auth, async (req, res) => {
         }
         await event.remove();
         const message = `${user.name} has deleted an event`;
-        createOrAddActivity(user, message);
+        const endpoint = "";
+        createOrAddActivity(user, message, endpoint);
         res.status(200).json({message: "Event has been deleted"});
     } catch (err) {
         console.error(err.message);
