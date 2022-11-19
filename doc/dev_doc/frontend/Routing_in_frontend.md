@@ -26,4 +26,4 @@ The user can go to the market page by clicking on the market button in the navig
 The user can click on bookmarked items in their "My Items" page or items listed in the Market to open a page giving details on the item. Here they can add the item to cart, and will be brought to their Cart page. When they click "Place Order", the seller gets an email saying someone wishes to buy their item. The item is moved from their cart, to the list of items they bought, in their "My Items" page.
 
 ## Messaging Flow:
-The user can click on the "Message" link on the navbar, leading them to the messaging interface. They can send chat messages in the channel, and other users will see the message and can reply to it.
+The user can click on the "Message" link on the navbar, leading them to the messaging interface. They can send chat messages in the channel, and other users will see the message and can reply to it. The user can also create a new channel allowing other users to join the chat room.
