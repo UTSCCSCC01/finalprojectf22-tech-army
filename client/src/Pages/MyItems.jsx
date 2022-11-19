@@ -48,7 +48,7 @@ const MyItems = () => {
                                 :
                                 itemsPosted.map((item, index) => {
                                     return (
-                                        <Col lg={6} md={8} xs={24}>
+                                        <Col lg={6} md={8} xs={24} key={`itemsPosted-${index}`}>
                                             <Card>
                                                 <Card.Title>
                                                     {item.title}
@@ -72,7 +72,7 @@ const MyItems = () => {
                                 :
                                 itemsBookmarked.map((item, index) => {
                                     return (
-                                        <Col lg={6} md={8} xs={24}>
+                                        <Col lg={6} md={8} xs={24} key={`itemsBookmarked-${index}`}>
                                             <Card>
                                                 <Card.Title>
                                                     {item.title}
