@@ -47,6 +47,7 @@ const Cart = () => {
     const placeOrder = () => {
         Axios.get('http://localhost:8000/api/postitem/buyItems', axiosConfig)
         .then(response => {
+            alert("You have successfully bought the items from your cart! The sellers of the items will be notified");
             navigate(`/Dashboard/`);
             console.log(response.data);
             setItemsInCart([]);
