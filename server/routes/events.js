@@ -150,17 +150,32 @@ router.put('/follow/:id', auth, async(req, res) => {
 // @route   DELETE api/events/:id
 // @desc    Delete an event
 // @access  Private
-router.delete("/:id", auth, async (req, res) => {
-    const userId = req.user.id;
-    const user = await User.findById(userId);
-    if(!user) res.status(404).json({message: "Cannot get user"});
-    const eventId = req.params.id;
-    Event.findByIdAndDelete(eventId, (err, event) => {
-        if (err) return res.status(400).send(err)
-        return res.status(200).json({ success: true, message: "Event deleted" })
-    });
-    const message = `${user.name} has deleted a post`;
-    createOrAddActivity(user, message);
+
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id);
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        console.log(userId);
+        console.log(event.creator.toString());
+        //check if user is the creator of the event
+        if(event.creator.toString() !== userId){
+            return res.status(401).json({ message: 'User is not authorized to delete this event' });
+        }
+        await event.remove();
+        const message = `${user.name} has deleted an event`;
+        createOrAddActivity(user, message);
+        res.status(200).json({message: "Event has been deleted"});
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
 });
 
 

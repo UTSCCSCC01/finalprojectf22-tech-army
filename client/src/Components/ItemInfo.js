@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Descriptions } from 'antd';
 import { getToken} from '../Utils/Common'
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { unstable_composeClasses } from '@mui/material';
 
 function ItemInfo(props) {
     
-    const [Item, setItem] = useState({})
+    const [Item, setItem] = useState({});
+    const navigate = useNavigate();
 
     let axiosConfig = {
         headers: {
@@ -23,12 +25,20 @@ function ItemInfo(props) {
     const buyItemhandler = () => {
     }
 
+    const deleteItemhandler = () => {
+        props.deleteItem(props.detail._id)
+    }
+
     const saveItemhandler = () => {
         console.log(Item);
         Axios.put(`http://localhost:8000/api/postitem/${Item._id}`, {}, axiosConfig)
         .then(response =>{
             console.log(response);
         });
+    }
+
+    const editItemhandler = () => {
+        navigate(`/market/edititem/${Item._id}`)
     }
 
 
@@ -56,6 +66,22 @@ function ItemInfo(props) {
                 >
                     Save Item
                     </Button>
+            </div>
+            <br />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button size="large" shape="round" type="danger"
+                    onClick={editItemhandler}
+                >
+                    Edit Item
+                    </Button>
+            </div>
+            <br />
+            <div style={{padding: '10px'}} >
+                 <Button size="large" shape="round" type="danger"
+                     onClick={deleteItemhandler}
+                 >
+                     Delete Item
+                 </Button>
             </div>
         </div>
     )
