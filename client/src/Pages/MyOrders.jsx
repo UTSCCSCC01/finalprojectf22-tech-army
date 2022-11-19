@@ -27,11 +27,13 @@ const MyOrders = () => {
         .then(response => {
             console.log(response.data);
             const user = response.data[0];
-            const orderIds = user.itemsInCart;
-            Axios.get(`/api/postitem/items_by_id?id=${orderIds}&type=array`, axiosConfig)
-                .then(response => {
-                    setOrders(response.data);
-                })
+            const itemIds = user.itemsBought;
+            if (itemIds && itemIds.length > 0) {
+                Axios.get(`/api/postitem/items_by_id?id=${itemIds}&type=array`, axiosConfig)
+                    .then(response => {
+                        setOrders(response.data);
+                    });
+            }
         });
     }, []);
 
