@@ -29,7 +29,6 @@ const createOrAddActivity = require('../service/notification');
 //     if (!errors.isEmpty()) {
 //         return res.status(400).json({ errors: errors.array() });
 //     }
-
 //     try {
 //         const user = await User.findById(req.user.id).select('-password');
 //         console.log("waefoijewaiohfaowiehf");
@@ -105,7 +104,7 @@ router.get("/items_by_id", auth, (req, res) => {
                 });
         });
     }
-    
+
     //we need to find the product information that belong to product Id 
     Item.find({ '_id': { $in: itemIds } })
         .populate('writer')
