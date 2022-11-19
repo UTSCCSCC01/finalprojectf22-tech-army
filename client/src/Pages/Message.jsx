@@ -4,18 +4,11 @@ import { StreamChat } from 'stream-chat';
 import {
   Chat,
   Channel,
-  Window,
-  ChannelHeader,
-  MessageList,
-  MessageInput,
-  Thread,
   LoadingIndicator,
-  ChannelList
 } from 'stream-chat-react';
 import icon from "../Components/comments/user-icon.png";
 import '@stream-io/stream-chat-css/dist/css/index.css';
 import styled from 'styled-components';
-import Navbar from '../Components/Navbar/Navbar';
 import CustomChannelList from '../Components/CustomChannelList';
 import ChannelBody from '../Components/ChannelBody';
 import AddingChannel from '../Components/AddingChannel';
@@ -26,7 +19,7 @@ const Container = styled.div`
     width: 300px;
   }
 
-  .right-colum {
+  .right-column {
     flex: 1;
   }
 `
