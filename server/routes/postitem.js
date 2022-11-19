@@ -5,6 +5,7 @@ const item = require('../models/item');
 const User = require('../models/User');
 const mongoose = require('mongoose');
 const { check, validationResult } = require('express-validator');
+var nodemailer = require('nodemailer');
 const Item = require('../models/item');
 
 router.post("/uploadItem", auth, (req, res) => {
@@ -164,7 +165,33 @@ router.get('/buyItems', auth, async (req, res) => {
         itemsInCartObjs.forEach(async obj => {
             const sellerId = obj.seller;
             const seller = await User.findById(sellerId);
-            seller.itemsSold.push(obj._id)
+            seller.itemsSold.push(obj._id);
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'utschub@gmail.com',
+                    pass: 'tuib krtk dvhu svqq'
+                }
+            });
+
+            const message = `<h1>Hello ${seller.name}, ${user.name} has agreed to purchase your item ${obj.title}</h1><p>You should coordinate a meetup, the users
+            email is ${user.email}</p>`;
+            
+            var mailOptions = {
+                from: 'utschub@gmail.com',
+                to: seller.email,
+                subject: 'A user has purchased one of your items!',
+                html: message
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                    console.log("wack");
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
         });
         
         res.status(200).json({ message: "Items purchased successfully" });
