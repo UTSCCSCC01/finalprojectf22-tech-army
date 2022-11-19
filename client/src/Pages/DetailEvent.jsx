@@ -4,7 +4,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import EventImage from '../Components/Image'
 import EventInfo from '../Components/EventInfo'
 import { Navigate, useParams } from "react-router-dom"
-import { getToken } from '../Utils/Common'
+import { getToken, getUser } from '../Utils/Common'
 import { useNavigate } from "react-router-dom";
 import '../Styles/eventdetail.css'
 
