@@ -16,13 +16,9 @@ const MyOrders = () => {
         headers: {
             'x-auth-token': getToken(),
         },
-        query: {
-            'userIds': userId,
-        }
     };
 
     useEffect(() => {
-        const userIds = [userId];
         Axios.get(`http://localhost:8000/api/users/getUsers?userIds=${userId}`, axiosConfig)
         .then(response => {
             console.log(response.data);
