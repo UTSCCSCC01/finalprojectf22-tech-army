@@ -32,9 +32,32 @@ router.get("/items_by_id", auth, (req, res) => {
     let type = req.query.type
     let itemIds = req.query.id
 
-    if (type === "array") {
-
+    if (!itemIds) {
+        const err = `itemIds is isn't object or an array. Aborting. itemIds: ${itemIds}`;
+        console.warn(err);
+        return res.status(400).send(err);
     }
+
+    if (type === "array") {
+        if (typeof itemIds === 'string') {
+            itemIds = itemIds.split(',');
+        }
+        const items = [];
+        itemIds.forEach(async (id, index) => {
+            Item.findById(id)
+                .exec((err, item) => {
+                    if (err) {
+                        console.warn(`Error in items_by_id array mode while finding item with id:\n ${id}`);
+                        return;
+                    }
+                    items.push(item);
+                    if (index == itemIds.length) {
+                        return res.status(200).send(items);
+                    }
+                });
+        });
+    }
+    
     //we need to find the product information that belong to product Id 
     Item.find({ '_id': { $in: itemIds } })
         .populate('writer')
