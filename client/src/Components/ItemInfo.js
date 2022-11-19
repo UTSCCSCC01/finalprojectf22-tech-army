@@ -22,8 +22,19 @@ function ItemInfo(props) {
 
     }, [props.detail])
 
-    const buyItemhandler = () => {
+    const carthandler = () => {
+
+        Axios.put(`http://localhost:8000/api/postitem/addToCart/${Item._id}`, {}, axiosConfig)
+        .then(response =>{
+            navigate(`/Cart/`);
+            console.log(response);
+        }).catch(error => {
+            console.log(error);
+            alert("cannot save item");
+        })
     }
+    const cartButton = Item.hidden === false ? "Add to cart" : "Remove from cart";
+    const itemBookmark = Item.hidden === false ? "Bookmark Item" : "Remove Bookmark"
 
     const deleteItemhandler = () => {
         props.deleteItem(props.detail._id)
@@ -33,8 +44,12 @@ function ItemInfo(props) {
         console.log(Item);
         Axios.put(`http://localhost:8000/api/postitem/${Item._id}`, {}, axiosConfig)
         .then(response =>{
+            navigate(`/Dashboard/`);
             console.log(response);
-        });
+        }).catch(error => {
+            console.log(error);
+            alert("cannot save item");
+        })
     }
 
     const editItemhandler = () => {
@@ -53,10 +68,11 @@ function ItemInfo(props) {
             <br />
             <br />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
+                
                 <Button size="large" shape="round" type="danger"
-                    onClick={buyItemhandler}
+                    onClick={carthandler}
                 >
-                    Buy Item
+                    {cartButton}
                     </Button>
             </div>
             <br />
@@ -64,7 +80,7 @@ function ItemInfo(props) {
                 <Button size="large" shape="round" type="danger"
                     onClick={saveItemhandler}
                 >
-                    Save Item
+                    {itemBookmark}
                     </Button>
             </div>
             <br />
