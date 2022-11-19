@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { ChannelList, useChatContext } from "stream-chat-react";
 import ChannelListContainer from "./ChannelListContainer";
 import { useEffect, useState } from "react";
+import { getUserId } from "../Utils/Common";
 
 const Container = styled.div`
     height: 100vh;
@@ -47,8 +48,10 @@ const randomStr = () => Math.random().toString(36).substring(7);
 
 export default function CustomChannelList({onClickAdd}) {
 
+    const userId = getUserId();
+
     const [channelListKey, setChannelListKey] = useState(randomStr());
-    const filters = { members: { $in: ["john"] } }
+    const filters = { members: { $in: [userId] } }
     const sort = { last_message_at: -1 }
     const {client} = useChatContext()
 

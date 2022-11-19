@@ -26,8 +26,10 @@ const Container = styled.div`
 
 const apiKey = process.env.REACT_APP_STREAM_API_KEY;
 
+const userId = getUserId();
+
 const user = {
-  id: "john",
+  id: userId,
   name: getUser(),
   image: icon,
 }
