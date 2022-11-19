@@ -147,7 +147,33 @@ router.put('/:id', auth, async (req, res) => {
     }
 });
 
-
+router.get('/buyItems', auth, async (req, res) => {
+    try {
+        console.log("wack");
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+        //if there is no user, send a 404 status
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        const itemsInCartObjs = await item.find({ '_id': { $in: user.itemsInCart } });
+        const itemIds = user.itemsInCart.map(item => item._id);
+        user.itemsInCart = [];
+        user.itemsBought = user.itemsBought.concat(itemIds);
+        await user.save();
+        itemsInCartObjs.forEach(async obj => {
+            const sellerId = obj.seller;
+            const seller = await User.findById(sellerId);
+            seller.itemsSold.push(obj._id)
+        });
+        
+        res.status(200).json({ message: "Items purchased successfully" });
+    } catch (err) {
+        console.error(err);
+        //if there is an error, send a 500 status
+        res.status(500).send('Server Error');
+    }
+});
 
 //get all items for a specific user by their id
 // @route   GET api/postitems/:id
@@ -213,39 +239,6 @@ router.put('/editItem/:id', auth, async (req, res) => {
     }
 });
 
-//test route
-router.get('/buyItems', auth, async (req, res) => {
-    try {
-        const userId = req.user.id;
-        const user = await User.findById(userId);
-        //if there is no user, send a 404 status
-        if (!user) {
-            return res.status(404).json({ msg: 'User not found' });
-        }
-        const itemsInCartObjs = await item.find({ '_id': { $in: user.itemsInCart } });
-        const sellerIds = itemsInCartObjs.map(itemObj => itemObj.seller);
-        const itemIds = user.itemsInCart.map(item => item._id);
-        user.itemsInCart = [];
-        // await Item.deleteMany({ '_id': { $in: itemIds } });
-        // add items in cart to user's purchased items
-        user.itemsBought = user.itemsBought.concat(itemIds);
-        await user.save();
-        // update seller's items sold
-        const sellers = await User.find({ '_id': { $in: sellerIds } });
-        sellers.forEach(seller => {
-            seller.itemsSold = seller.itemsSold.concat(itemIds);
-            seller.save();
-        });
-        res.status(200).json({ message: "Items purchased successfully" });
-    } catch (err) {
-        console.error(err.message);
-        //if there is an error, send a 500 status
-        if (err.kind === 'ObjectId') {
-            return res.status(404).json({ msg: 'Item not found' });
-        }
-        res.status(500).send('Server Error');
-    }
-});
 
 //delete an item by its id
 // @route   DELETE api/postitem/:id

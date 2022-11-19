@@ -45,7 +45,7 @@ const Cart = () => {
     }, []);
 
     const placeOrder = () => {
-        Axios.get('http://localhost:8000/api/postitem/buyItems', {itemsInCart}, axiosConfig)
+        Axios.get('http://localhost:8000/api/postitem/buyItems', axiosConfig)
         .then(response => {
             navigate(`/Dashboard/`);
             console.log(response.data);
