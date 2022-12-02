@@ -4,14 +4,6 @@ import { SidebarData } from "./NavbarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
 import Logo from '../../assets/logo.png';
-
-const Nav = styled.div`
-  background: #697BFF;
-  height: 80px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
   
 const SidebarNav = styled.nav`
   
@@ -38,9 +30,6 @@ const Navbar = () => {
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
-        <Nav style={{ textAlign: "center", paddingTop: "30px", paddingLeft: "60px", paddingBottom:"20px" }}>
-          
-        </Nav>
         
         <SidebarNav sidebar={sidebar}>
           
